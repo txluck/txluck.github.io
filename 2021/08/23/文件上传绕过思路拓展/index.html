@@ -1,0 +1,502 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/logo.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="TTT">
+  <meta name="keywords" content="">
+  
+  <title>文件上传绕过思路拓展 - Victory</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.6.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"txluck.github.io","root":"/","version":"1.8.10","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Victory's Note</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="文件上传绕过思路拓展">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-08-23 22:34" pubdate>
+        2021年8月23日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.2k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      22
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">文件上传绕过思路拓展</h1>
+            
+            <div class="markdown-body">
+              <h1 id="案例一"><a href="#案例一" class="headerlink" title="案例一"></a>案例一</h1><p>一次项目渗透时，通过往png后缀随便加个字符可知该上传点为白名单上传，正常情况下无法绕过</p>
+<p><a target="_blank" rel="noopener" href="https://blog.m1kh.com/usr/uploads/2021/06/1671284727.png"><img src="/2021/08/23/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E7%BB%95%E8%BF%87%E6%80%9D%E8%B7%AF%E6%8B%93%E5%B1%95/blog\victoryBlog\source_posts\文件上传绕过思路拓展\1.png" srcset="/img/loading.gif" lazyload alt="img"></a></p>
+<p>通过观察接口信息，发现接口名字为UploadImg，猜测该接口用于图片上传，按照开发的习惯，保不准会存在temp、test，这类的接口，随后通过fuzz找到存在的上传接口（file），但此时的接口（file）上传文件仍旧存在限制，需要绕过。</p>
+<p><a target="_blank" rel="noopener" href="https://blog.m1kh.com/usr/uploads/2021/06/3472946638.png"><img src="/2021/08/23/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E7%BB%95%E8%BF%87%E6%80%9D%E8%B7%AF%E6%8B%93%E5%B1%95/blog\victoryBlog\source_posts\文件上传绕过思路拓展\2.png" srcset="/img/loading.gif" lazyload alt="img"></a></p>
+<p>由于黑名单限制不够严谨，经过多个伪后缀尝试，发现.cer后缀可绕过限制并被解析</p>
+<p><a target="_blank" rel="noopener" href="https://blog.m1kh.com/usr/uploads/2021/06/1665683640.png"><img src="/2021/08/23/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E7%BB%95%E8%BF%87%E6%80%9D%E8%B7%AF%E6%8B%93%E5%B1%95/blog\victoryBlog\source_posts\文件上传绕过思路拓展\3.png" srcset="/img/loading.gif" lazyload alt="img"></a></p>
+<p>然后就getshell进内网，后面的操作就不多说了。</p>
+<p><a target="_blank" rel="noopener" href="https://blog.m1kh.com/usr/uploads/2021/06/2197535020.png"><img src="/2021/08/23/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E7%BB%95%E8%BF%87%E6%80%9D%E8%B7%AF%E6%8B%93%E5%B1%95/blog\victoryBlog\source_posts\文件上传绕过思路拓展\4.png" srcset="/img/loading.gif" lazyload alt="img"></a></p>
+<p>但并非往png后加个特殊字符能认为它是白名单不能进行绕过了，下面举个例子：</p>
+<p>看到这种情况估计不少师傅都会认为后端做了白名单限制上传了吧，接着往下看，怎么去绕过它。</p>
+<p><a target="_blank" rel="noopener" href="https://blog.m1kh.com/usr/uploads/2021/06/926208312.png"><img src="/2021/08/23/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E7%BB%95%E8%BF%87%E6%80%9D%E8%B7%AF%E6%8B%93%E5%B1%95/blog\victoryBlog\source_posts\文件上传绕过思路拓展\5.png" srcset="/img/loading.gif" lazyload alt="img"></a></p>
+<p>错误回显提示了只能上传ppt/pptx/doc/docx/xls/xlsx/rar/jpg/png类型，但在后续的测试中，发现了types类型可控，且在存在多个后缀的情况下，后端只保留最后一个后缀，并重命名文件，所以只要上传后缀包含了白名单限制内的类型即可绕过，如（test.png.jsp），只会保留.jsp后缀，如下：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.m1kh.com/usr/uploads/2021/06/1433005059.png"><img src="/2021/08/23/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E7%BB%95%E8%BF%87%E6%80%9D%E8%B7%AF%E6%8B%93%E5%B1%95/blog\victoryBlog\source_posts\文件上传绕过思路拓展\6.png" srcset="/img/loading.gif" lazyload alt="img"></a></p>
+<p>很多师傅看到白名单上传就会认为这个上传点足够安全，无法绕过，但其实不然，在存在多个上传接口的情况下，或许会存在没做限制，或者限制不严格的上传点也不一定，关键的是我们要如何发现这些接口，在此类接口存在限制时，如何去进行绕过，下面再举一个和接口绕过相关的例子。</p>
+<h1 id="案例二"><a href="#案例二" class="headerlink" title="案例二"></a>案例二</h1><p>upload_2018.php接口白名单上传，在正常情况下，改变后缀会导致上传失败，如下</p>
+<p><a target="_blank" rel="noopener" href="https://blog.m1kh.com/usr/uploads/2021/06/3368800734.png"><img src="/2021/08/23/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E7%BB%95%E8%BF%87%E6%80%9D%E8%B7%AF%E6%8B%93%E5%B1%95/blog\victoryBlog\source_posts\文件上传绕过思路拓展\7.png" srcset="/img/loading.gif" lazyload alt="img"></a></p>
+<p>再进一步测试时发现存在多个上传接口，删除_2018使用upload接口进行文件上传，可导致任意文件上传</p>
+<p><a target="_blank" rel="noopener" href="https://blog.m1kh.com/usr/uploads/2021/06/1423244665.png"><img src="/2021/08/23/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E7%BB%95%E8%BF%87%E6%80%9D%E8%B7%AF%E6%8B%93%E5%B1%95/blog\victoryBlog\source_posts\文件上传绕过思路拓展\8.png" srcset="/img/loading.gif" lazyload alt="img"></a></p>
+<p>进一步传shell时发现存在waf（某讯云)，需进一步绕过。</p>
+<p><a target="_blank" rel="noopener" href="https://blog.m1kh.com/usr/uploads/2021/06/2367732524.png"><img src="/2021/08/23/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E7%BB%95%E8%BF%87%E6%80%9D%E8%B7%AF%E6%8B%93%E5%B1%95/blog\victoryBlog\source_posts\文件上传绕过思路拓展\9.png" srcset="/img/loading.gif" lazyload alt="img"></a></p>
+<p>通过寻找域名真实IP，使用真实IP进行文件上传，绕过waf限制，为防止有心人，这里直接把IP给打码盖住了，以防万一。</p>
+<p><a target="_blank" rel="noopener" href="https://blog.m1kh.com/usr/uploads/2021/06/217557312.png"><img src="/2021/08/23/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E7%BB%95%E8%BF%87%E6%80%9D%E8%B7%AF%E6%8B%93%E5%B1%95/blog\victoryBlog\source_posts\文件上传绕过思路拓展\10.png" srcset="/img/loading.gif" lazyload alt="img"></a></p>
+<p>很多时候有一些开发为了便捷性，在部署上传接口时限制不够严谨或压根没做限制，这导致一旦被绕过限制传shell，都会导致非常严重的后果，当然，我们可以找一些temp、test这类上传接口，因为此类接口多数是开发过程中用作测试的，这种接口几乎都是无限上传文件类型的，同样的我们也可以找一些api文档进行上传接口的发现，这或许会有惊喜也说不定，之前写过关于接口测试类的安全文章，可参考<a target="_blank" rel="noopener" href="https://blog.m1kh.com/index.php/archives/403/">关于Swagger-UI下的渗透实战</a></p>
+<h1 id="案例三"><a href="#案例三" class="headerlink" title="案例三"></a>案例三</h1><p>这是一个把图片转base64的文件上传类型，具体绕过如下：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.m1kh.com/usr/uploads/2021/06/3774740521.png"><img src="/2021/08/23/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E7%BB%95%E8%BF%87%E6%80%9D%E8%B7%AF%E6%8B%93%E5%B1%95/blog\victoryBlog\source_posts\文件上传绕过思路拓展\11.png" srcset="/img/loading.gif" lazyload alt="img"></a></p>
+<p>通过抓包发现图片是以base64进行上传的，观察了下数据包，发现可通过更改upload_0字段内容上传任意文件</p>
+<p><a target="_blank" rel="noopener" href="https://blog.m1kh.com/usr/uploads/2021/06/2617396617.png"><img src="/2021/08/23/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E7%BB%95%E8%BF%87%E6%80%9D%E8%B7%AF%E6%8B%93%E5%B1%95/blog\victoryBlog\source_posts\文件上传绕过思路拓展\12.png" srcset="/img/loading.gif" lazyload alt="img"></a></p>
+<p>访问HTML页面，成功被解析，可进一步上传shell获取权限。</p>
+<p><a target="_blank" rel="noopener" href="https://blog.m1kh.com/usr/uploads/2021/06/2627957224.png"><img src="/2021/08/23/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E7%BB%95%E8%BF%87%E6%80%9D%E8%B7%AF%E6%8B%93%E5%B1%95/blog\victoryBlog\source_posts\文件上传绕过思路拓展\13.png" srcset="/img/loading.gif" lazyload alt="img"></a></p>
+<p>一句话shell上传后发现无法执行命令，之后通过上传PHPinfo发现其存在disable_functions，利用某斯拉绕过限制，getshell</p>
+<p><a target="_blank" rel="noopener" href="https://blog.m1kh.com/usr/uploads/2021/06/1873642010.png"><img src="/2021/08/23/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E7%BB%95%E8%BF%87%E6%80%9D%E8%B7%AF%E6%8B%93%E5%B1%95/blog\victoryBlog\source_posts\文件上传绕过思路拓展\14.png" srcset="/img/loading.gif" lazyload alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.m1kh.com/usr/uploads/2021/06/3820787191.png"><img src="/2021/08/23/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E7%BB%95%E8%BF%87%E6%80%9D%E8%B7%AF%E6%8B%93%E5%B1%95/blog\victoryBlog\source_posts\文件上传绕过思路拓展\15.png" srcset="/img/loading.gif" lazyload alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.m1kh.com/usr/uploads/2021/06/2700789588.png"><img src="/2021/08/23/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E7%BB%95%E8%BF%87%E6%80%9D%E8%B7%AF%E6%8B%93%E5%B1%95/blog\victoryBlog\source_posts\文件上传绕过思路拓展\16.png" srcset="/img/loading.gif" lazyload alt="img"></a></p>
+<h1 id="案例四"><a href="#案例四" class="headerlink" title="案例四"></a>案例四</h1><p>一个关于nginx解析漏洞的利用，这个漏洞是很久之前挖到的，这种漏洞现在应该不会存在了，单单是waf都能栏掉，这个就作为思路开拓说一下：</p>
+<p>一次外网打点时发现了目标的一个核心系统，通过踩点发现了某上传功能，但上传接口存在白名单限制，且无其它的上传接口，由于这个站的shell比较重要，必须拿到，之后通过漏洞挖掘，发现目标存在nginx解析漏洞，结合图片上传点成功获取到了内网据点。</p>
+<p><a target="_blank" rel="noopener" href="https://blog.m1kh.com/usr/uploads/2021/06/3593419550.png"><img src="/2021/08/23/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E7%BB%95%E8%BF%87%E6%80%9D%E8%B7%AF%E6%8B%93%E5%B1%95/blog\victoryBlog\source_posts\文件上传绕过思路拓展\17.png" srcset="/img/loading.gif" lazyload alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.m1kh.com/usr/uploads/2021/06/1979989394.png"><img src="/2021/08/23/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E7%BB%95%E8%BF%87%E6%80%9D%E8%B7%AF%E6%8B%93%E5%B1%95/blog\victoryBlog\source_posts\文件上传绕过思路拓展\18.png" srcset="/img/loading.gif" lazyload alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.m1kh.com/usr/uploads/2021/06/3605815075.png"><img src="/2021/08/23/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E7%BB%95%E8%BF%87%E6%80%9D%E8%B7%AF%E6%8B%93%E5%B1%95/blog\victoryBlog\source_posts\文件上传绕过思路拓展\19.png" srcset="/img/loading.gif" lazyload alt="img"></a></p>
+<h1 id="案例五"><a href="#案例五" class="headerlink" title="案例五"></a>案例五</h1><p>某次攻防踩点目标时发现了一个上传点，且在信息收集时发现了该目标存在内网环境，进一步想利用该功能点上传shell时却发现存在阻碍，通过fuzz后，发现可用空格绕过限制，最终利用该功能缺陷get shell进内网。</p>
+<p><a target="_blank" rel="noopener" href="https://blog.m1kh.com/usr/uploads/2021/06/3988320782.png"><img src="/2021/08/23/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E7%BB%95%E8%BF%87%E6%80%9D%E8%B7%AF%E6%8B%93%E5%B1%95/blog\victoryBlog\source_posts\文件上传绕过思路拓展\20.png" srcset="/img/loading.gif" lazyload alt="img"></a></p>
+<p>正常上传.jsp后缀失败，尝试大小写、脏数据填充等也均失败。<br><a target="_blank" rel="noopener" href="https://blog.m1kh.com/usr/uploads/2021/06/1628136031.png"><img src="/2021/08/23/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E7%BB%95%E8%BF%87%E6%80%9D%E8%B7%AF%E6%8B%93%E5%B1%95/blog\victoryBlog\source_posts\文件上传绕过思路拓展\21.png" srcset="/img/loading.gif" lazyload alt="img"></a></p>
+<p>之后留着shell内容不动，更改.jsp后缀为.png，发现可上传成功，由此判断后端不对上传内容做检测，再进一步测试时，发现可利用空格绕过限制上传shell，然后通过读取MSSQL密码，发现内网密码存在规律，最终通过该密码规律内网横向获取到了大量内网机器权限。<br><a target="_blank" rel="noopener" href="https://blog.m1kh.com/usr/uploads/2021/06/2309134994.png"><img src="/2021/08/23/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E7%BB%95%E8%BF%87%E6%80%9D%E8%B7%AF%E6%8B%93%E5%B1%95/blog\victoryBlog\source_posts\文件上传绕过思路拓展\22.png" srcset="/img/loading.gif" lazyload alt="img"></a><br><a target="_blank" rel="noopener" href="https://blog.m1kh.com/usr/uploads/2021/06/4116338990.png"><img src="/2021/08/23/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E7%BB%95%E8%BF%87%E6%80%9D%E8%B7%AF%E6%8B%93%E5%B1%95/blog\victoryBlog\source_posts\文件上传绕过思路拓展\23.png" srcset="/img/loading.gif" lazyload alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.m1kh.com/usr/uploads/2021/06/3890187884.png"><img src="/2021/08/23/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E7%BB%95%E8%BF%87%E6%80%9D%E8%B7%AF%E6%8B%93%E5%B1%95/blog\victoryBlog\source_posts\文件上传绕过思路拓展\24.png" srcset="/img/loading.gif" lazyload alt="img"></a></p>
+<h1 id="案例六"><a href="#案例六" class="headerlink" title="案例六"></a>案例六</h1><p>一次项目测试中发现了一个上传点，但waf拦截jsp、html等后缀，更改后缀重放数据包会导致reset，如下：<br><a target="_blank" rel="noopener" href="https://blog.m1kh.com/usr/uploads/2021/07/3831654627.png"><img src="/2021/08/23/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E7%BB%95%E8%BF%87%E6%80%9D%E8%B7%AF%E6%8B%93%E5%B1%95/blog\victoryBlog\source_posts\文件上传绕过思路拓展\25.png" srcset="/img/loading.gif" lazyload alt="img"></a></p>
+<p>进一步测试发现fileName和fileType参数可控，且当存在两个不同的后缀时，最上层的filename参数优先级为最高，可导致任意文件上传<br><a target="_blank" rel="noopener" href="https://blog.m1kh.com/usr/uploads/2021/07/2073748874.png"><img src="/2021/08/23/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E7%BB%95%E8%BF%87%E6%80%9D%E8%B7%AF%E6%8B%93%E5%B1%95/blog\victoryBlog\source_posts\文件上传绕过思路拓展\26.png" srcset="/img/loading.gif" lazyload alt="img"></a></p>
+<p>发现上传成功的jsp文件其回显的type类型为image/png类型<br><a target="_blank" rel="noopener" href="https://blog.m1kh.com/usr/uploads/2021/07/2634279959.png"><img src="/2021/08/23/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E7%BB%95%E8%BF%87%E6%80%9D%E8%B7%AF%E6%8B%93%E5%B1%95/blog\victoryBlog\source_posts\文件上传绕过思路拓展\27.png" srcset="/img/loading.gif" lazyload alt="img"></a></p>
+<p>删除最下层filename的Content-Type: image/png，文件上传类型即可被绕过<br><a target="_blank" rel="noopener" href="https://blog.m1kh.com/usr/uploads/2021/07/3945470191.png"><img src="/2021/08/23/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E7%BB%95%E8%BF%87%E6%80%9D%E8%B7%AF%E6%8B%93%E5%B1%95/blog\victoryBlog\source_posts\文件上传绕过思路拓展\28.png" srcset="/img/loading.gif" lazyload alt="img"></a></p>
+<h1 id="其它场景-amp-总结"><a href="#其它场景-amp-总结" class="headerlink" title="其它场景&amp;总结"></a>其它场景&amp;总结</h1><p>有些时候文件上传成功后端没有返回路径，只回显了一个id号，这时候如果目标存在注入的话，我们可尝试用sqlmap的–search参数或者SQLshell对返回的ID号进行搜索，这样说不定就能找到shell地址了，之前在<a target="_blank" rel="noopener" href="https://blog.m1kh.com/index.php/archives/403/">关于Swagger-UI下的渗透实战</a>也说过，感兴趣的可以去看看；也有文件上传成功却只回显一个文件名的，在前不久的一次攻防就遇到这种情况，后来是用了fuzz找到了完整的shell路径，另外在某些时候，上传文件可以跨目录，那么我们可以通过../进行跨目录上传，运气好的话，或许会在几个../后把shell传到域名的根目录下，如果当前上传文件夹无执行权限，那么跨目录上传shell也是个不错的思路；另外，如果上传目录可控，可上传文件到任意目录的话，在linux场景我们可上传一个ssh秘钥用于远程登录，极端一点的话，可考虑上传passwd、shadow文件覆盖系统用户，但前提是权限要足够大。</p>
+<p>如果不能跨目录，站点又没有注入的话，那么我们可以尝试寻找网站日志文件，例如泛微E-COLOGY日志的日志，像这种日志文件是有规律可循的，可以用burp进行日志爆破，或许在日志文件中能找到shell路径也说不定，如果在日志中没有发现shell地址，那么可进一步观察日志里的文件路径，诸如upload，filepath这类路径，举一反三，可对这些路径fuzz shell地址。</p>
+<p><a target="_blank" rel="noopener" href="https://blog.m1kh.com/usr/uploads/2021/06/1978765052.png"><img src="/2021/08/23/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E7%BB%95%E8%BF%87%E6%80%9D%E8%B7%AF%E6%8B%93%E5%B1%95/blog\victoryBlog\source_posts\文件上传绕过思路拓展\29.png" srcset="/img/loading.gif" lazyload alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.m1kh.com/usr/uploads/2021/06/1078504168.png"><img src="/2021/08/23/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E7%BB%95%E8%BF%87%E6%80%9D%E8%B7%AF%E6%8B%93%E5%B1%95/blog\victoryBlog\source_posts\文件上传绕过思路拓展\30.png" srcset="/img/loading.gif" lazyload alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.m1kh.com/usr/uploads/2021/06/2406307994.png"><img src="/2021/08/23/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E7%BB%95%E8%BF%87%E6%80%9D%E8%B7%AF%E6%8B%93%E5%B1%95/blog\victoryBlog\source_posts\文件上传绕过思路拓展\31.png" srcset="/img/loading.gif" lazyload alt="img"></a></p>
+<p>再者就是文件包含和文件读取了，文件读取的话可以通过读取日志和配置文件来发现shell地址，但是成功率太低了，至于文件包含，除了靶场和ctf，实战还没碰过。</p>
+<p>还有一个关于burp的使用技巧，这是真实遇到的，上传shell后没有回显路径，但是通过http history搜索shell的名字发现了完整的shell路径，因为传上去的文件，如图片这类的总归是显示出来的，这时候可以先在web应用到处点点，多加载一些数据包，然后再到http history搜索shell的名字，或许会有惊喜也说不定。</p>
+<p>另外要细心点观察上传数据包，或许改一下字段就可以绕过了，例如crc32这类校验。<br><a target="_blank" rel="noopener" href="https://blog.m1kh.com/usr/uploads/2021/06/3815842614.png"><img src="/2021/08/23/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E7%BB%95%E8%BF%87%E6%80%9D%E8%B7%AF%E6%8B%93%E5%B1%95/blog\victoryBlog\source_posts\文件上传绕过思路拓展\32.png" srcset="/img/loading.gif" lazyload alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.m1kh.com/usr/uploads/2021/06/43265324.png"><img src="/2021/08/23/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E7%BB%95%E8%BF%87%E6%80%9D%E8%B7%AF%E6%8B%93%E5%B1%95/blog\victoryBlog\source_posts\文件上传绕过思路拓展\33.png" srcset="/img/loading.gif" lazyload alt="img"></a></p>
+<p>某些时候上传黑名单不严谨，那么我们可用伪后缀进行绕过，其它多的就不说了，大概思路就这样，当绕过限制拿到shell时，总会给我带来乐趣，或许这就是我喜欢渗透的原因。</p>
+<p><a target="_blank" rel="noopener" href="https://blog.m1kh.com/usr/uploads/2021/06/3011390688.png"><img src="/2021/08/23/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E7%BB%95%E8%BF%87%E6%80%9D%E8%B7%AF%E6%8B%93%E5%B1%95/blog\victoryBlog\source_posts\文件上传绕过思路拓展\34.png" srcset="/img/loading.gif" lazyload alt="img"></a></p>
+<p>文章来自：m1kh师傅 <a target="_blank" rel="noopener" href="https://blog.m1kh.com/">https://blog.m1kh.com/</a> </p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/">文件上传</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/web/">web</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/08/21/Windows%E7%BC%96%E7%A8%8B1/">
+                        <span class="hidden-mobile">从控制台到窗口程序</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.2/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
