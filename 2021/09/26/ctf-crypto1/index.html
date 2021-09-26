@@ -18,7 +18,7 @@
   <meta name="author" content="永安寺">
   <meta name="keywords" content="">
   
-  <title>yccms审计 - Victory</title>
+  <title>ctf-crypto1 - Victory</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -163,7 +163,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="yccms审计">
+            <span class="h2" id="subtitle" title="ctf-crypto1">
               
             </span>
 
@@ -173,8 +173,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-09-11 13:52" pubdate>
-        2021年9月11日 下午
+      <time datetime="2021-09-26 23:15" pubdate>
+        2021年9月26日 晚上
       </time>
     </span>
   
@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      0 字
+      507 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      1
+      6
        分钟
     </span>
   
@@ -225,15 +225,69 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">yccms审计</h1>
+            <h1 style="display: none">ctf-crypto1</h1>
             
             <div class="markdown-body">
-              
+              <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>一次巧合的情况下点开了一个ctf比赛 一直没玩过ctf 第一次  0基础分析 签到题<br>crypto的</p>
+<h3 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#!/usr/bin/env python</span><br><span class="hljs-comment"># -*- coding: utf-8 -*-</span><br><span class="hljs-keyword">from</span> Crypto.Util.number <span class="hljs-keyword">import</span> *<br><span class="hljs-keyword">import</span> random<br>flag=<span class="hljs-string">b&#x27;flag&#123;******************&#125;&#x27;</span><br>n = <span class="hljs-number">2</span> ** <span class="hljs-number">256</span><br>flaglong=bytes_to_long(flag)<br>m = random.randint(<span class="hljs-number">2</span>, n-<span class="hljs-number">1</span>) | <span class="hljs-number">1</span><br>c = <span class="hljs-built_in">pow</span>(m, flaglong, n)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;m = &#x27;</span> + <span class="hljs-built_in">str</span>(m))<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;c = &#x27;</span> + <span class="hljs-built_in">str</span>(c))<br><br><span class="hljs-comment"># m = 73964803637492582853353338913523546944627084372081477892312545091623069227301</span><br><span class="hljs-comment"># c = 21572244511100216966799370397791432119463715616349800194229377843045443048821</span><br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>开始啥都不会<br>先通过找师傅帮忙 给出了 解密的脚本</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python">m = <span class="hljs-number">73964803637492582853353338913523546944627084372081477892312545091623069227301</span><br>c = <span class="hljs-number">21572244511100216966799370397791432119463715616349800194229377843045443048821</span><br>n = <span class="hljs-number">2</span> ** <span class="hljs-number">256</span><br><span class="hljs-keyword">import</span> sympy<br>flag=sympy.discrete_log(n,c,m)<br><span class="hljs-built_in">print</span>(flag)<br><span class="hljs-keyword">import</span> binascii<br><span class="hljs-built_in">print</span>(<span class="hljs-built_in">hex</span>(flag))<br><span class="hljs-built_in">print</span>(<span class="hljs-built_in">hex</span>(flag)[<span class="hljs-number">2</span>:])<br><span class="hljs-built_in">print</span>(binascii.unhexlify(<span class="hljs-built_in">hex</span>(flag)[<span class="hljs-number">2</span>:]))<span class="hljs-comment">#将答案的十六进制转出来就行</span><br><span class="hljs-built_in">print</span>(binascii.hexlify(<span class="hljs-string">b&#x27;flag&#123;DASCTF_zjut&#125;&#x27;</span>))<br></code></pre></td></tr></table></figure>
+<p><strong>运行结果</strong><br><img src="https://img-blog.csdnimg.cn/7b575ce40d2f4078b67d85f21c9d917b.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA6Zu26Zu25p-SYw==,size_20,color_FFFFFF,t_70,g_se,x_16" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"></p>
+<blockquote>
+<p>先分析题目</p>
+</blockquote>
+<blockquote>
+<p>主要的地方在</p>
+</blockquote>
+<blockquote>
+<p>c = pow(m, flaglong, n) 这一段代码<br>这段代码可以看出只有flaglong是我们不知道的<br>所以就需要反解出flaglong<br>c = pow(x,y,z)：这个是表示x的y次幂后除以z的余数。<br>所以要求y  就相当于求flaglong<br>根据师傅的帮助  这道题就可以转化为</p>
+</blockquote>
+<p><img src="https://img-blog.csdnimg.cn/620b24eab6f1472585520d8e04193dfc.png" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"></p>
+<blockquote>
+<p>求满足m的flag次方等于c对模n取同余<br>“≡”是数论中表示同余的符号<br><strong>discrete_log</strong>这个函数就是用来求这种类型的<br>discrete_log(x,y,z),x是模数，y是余数，z是底数<br>sympy.discrete_log(n,c,m) 就相对于上面的c = pow(m, flaglong, n)<br>c是余数 m是底数 n是模数</p>
+</blockquote>
+<blockquote>
+<p>**flag=sympy.discrete_log(n,c,m)**这样解出来的flag就是flaglong 是十进制数 因为开始是通过bytes_to_long函数转化的  所以要转化为字符</p>
+</blockquote>
+<blockquote>
+<p>十进制转化为字符  要先转化为16进制  然后转化为字符<br>所以用hex先转化为16进制   然后截取掉 进制标志位<br>然后在通过binascii.unhexlify()函数转化为字符  </p>
+</blockquote>
+<blockquote>
+<p>也可通过在线的进制转化</p>
+<p><img src="https://img-blog.csdnimg.cn/3d0971c9e4f84f2b8560270026f42021.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA6Zu26Zu25p-SYw==,size_20,color_FFFFFF,t_70,g_se,x_16" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"></p>
+</blockquote>
+<p><img src="https://img-blog.csdnimg.cn/662ce69503f54e25b8c6dbf5918872cf.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA6Zu26Zu25p-SYw==,size_20,color_FFFFFF,t_70,g_se,x_16" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"></p>
+<blockquote>
+<p>最后也可以通过Crypto 库的另一个函数直接转化flag字符</p>
+</blockquote>
+<p><img src="https://img-blog.csdnimg.cn/be66a0bf3bbb4eee8c7a7c3c162e2f3f.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA6Zu26Zu25p-SYw==,size_20,color_FFFFFF,t_70,g_se,x_16" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"></p>
+<blockquote>
+<p>但是这里我本地不知道什么原因用不起Crypto  就没有在本地复现了</p>
+</blockquote>
+<p>成功解出flag</p>
+
             </div>
             <hr>
             <div>
               <div class="post-metas mb-3">
                 
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/CTF/">CTF</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/CTF/">CTF</a>
+                    
+                  </div>
                 
               </div>
               
@@ -248,18 +302,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/09/26/ctf-crypto1/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">ctf-crypto1</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">
-                        <span class="hidden-mobile">某商城代码审计</span>
+                      <a href="/2021/09/11/yccms%E5%AE%A1%E8%AE%A1/">
+                        <span class="hidden-mobile">yccms审计</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
