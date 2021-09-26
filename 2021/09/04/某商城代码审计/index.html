@@ -231,145 +231,145 @@
               <h2 id="审计开始"><a href="#审计开始" class="headerlink" title="审计开始"></a>审计开始</h2><h3 id="第一处"><a href="#第一处" class="headerlink" title="第一处"></a>第一处</h3><blockquote>
 <p>先来到admin.php页面 先不登录</p>
 </blockquote>
-<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\某商城代码审计\1.png" srcset="/img/loading.gif" lazyload alt="1"></p>
+<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/1.png" srcset="/img/loading.gif" lazyload alt="1"></p>
 <blockquote>
 <p>查看源码</p>
 </blockquote>
-<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\某商城代码审计\2.png" srcset="/img/loading.gif" lazyload alt="2"></p>
+<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/2.png" srcset="/img/loading.gif" lazyload alt="2"></p>
 <blockquote>
 <p>admin.php 页面require()引入了一个common.php页面<br>require()是php的内置函数，作用是引入或者包含外部php文件。<br>工作原理：当本身php文件被执行时，则外部文件的内容就将被包含进该自身php文件中；当包含的外部文件发生错误时，系统将抛出错误提示，并且停止php文件的执行。<br>注意：使用require时，一个文件存在错误的话，那么程序就会中断执行了，并显示致命错误 。<br>然后接着往后面看</p>
 </blockquote>
-<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\某商城代码审计\3.png" srcset="/img/loading.gif" lazyload alt="3"></p>
+<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/3.png" srcset="/img/loading.gif" lazyload alt="3"></p>
 <blockquote>
 <p>这里发现一个sql语句 看起来是没有什么防护的 可能有突破 忘前面看 寻找$m</p>
 </blockquote>
-<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\某商城代码审计\4.png" srcset="/img/loading.gif" lazyload alt="4"></p>
+<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/4.png" srcset="/img/loading.gif" lazyload alt="4"></p>
 <blockquote>
 <p>在28行和29行发现$m 有两种发送赋值 一种是通过file_get_contents函数 另一种是 如果$m是空的话 就自动赋默认值 默认值没什么看的 我们不能控制 我们看看这个file_get_contents函数<br>file_get_contents() 函数把整个文件读入一个字符串中。<br>然后在file_get_contents函数内部发现了php://input 输入流<br>php://input可以读取没有处理过的POST数据<br>所以这里就导致了 post数据可控<br>然后继续往下看</p>
 </blockquote>
-<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\某商城代码审计\5.png" srcset="/img/loading.gif" lazyload alt="5"></p>
+<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/5.png" srcset="/img/loading.gif" lazyload alt="5"></p>
 <blockquote>
 <p>$m会调用一个Dec函数 我们跟进这个函数</p>
 </blockquote>
-<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\某商城代码审计\6.png" srcset="/img/loading.gif" lazyload alt="6"></p>
+<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/6.png" srcset="/img/loading.gif" lazyload alt="6"></p>
 <blockquote>
 <p>这个函数使用了json_decode函数 json_decode — 对 JSON 格式的字符串进行编码</p>
 </blockquote>
-<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\某商城代码审计\7.png" srcset="/img/loading.gif" lazyload alt="7"></p>
+<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/7.png" srcset="/img/loading.gif" lazyload alt="7"></p>
 <blockquote>
 <p>说明 输入流传入的数据需要json格式 然后继续往后看 return会判断$c的值 false的话 就直接把解码后的json数据返回出去 但是前面代码调用的时候传入的true 所以会返回一个函数Rpl 继续跟进这个函数</p>
 </blockquote>
-<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\某商城代码审计\8.png" srcset="/img/loading.gif" lazyload alt="8"></p>
+<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/8.png" srcset="/img/loading.gif" lazyload alt="8"></p>
 <blockquote>
 <p>这个函数用到了foreach is_array is_string 等函数<br>Foreach函数是用来遍历数组的</p>
 </blockquote>
-<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\某商城代码审计\9.png" srcset="/img/loading.gif" lazyload alt="9"></p>
+<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/9.png" srcset="/img/loading.gif" lazyload alt="9"></p>
 <blockquote>
 <p>Is_array函数是判断变量是否为数组<br>Is_string 同理 判断是否为字符串</p>
 </blockquote>
 <blockquote>
-<p>所以这个函数的大概意思就是 将解码后的json数据 通过foreach遍历为键值的形式 值为数组的话则递归调用 判断是否为数组 直到为字符串 才进入下一个判断 在下一个elseif里面 这通过str_replace 进行过滤 经过ascii码值 过滤掉 \ * ‘ “ % 空格 然后返回过滤后的数据</p>
+<p>所以这个函数的大概意思就是 将解码后的json数据 通过foreach遍历为键值的形式 值为数组的话则递归调用 判断是否为数组 直到为字符串 才进入下一个判断 在下一个elseif里面 这通过str_replace 进行过滤 经过ascii码值 过滤掉 / * ‘ “ % 空格 然后返回过滤后的数据</p>
 </blockquote>
-<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\某商城代码审计\10.png" srcset="/img/loading.gif" lazyload alt="10"></p>
+<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/10.png" srcset="/img/loading.gif" lazyload alt="10"></p>
 <blockquote>
 <p>然后回到admin.php页面 32行 判断$m[‘act’]的值是否为idx和lgn 因为用的&amp;&amp; 所以只要同时不等于两个 就会进入if 执行sql 又因为前面过滤掉的字符对sql语句影响不大 直接构造语句</p>
 </blockquote>
-<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\某商城代码审计\11.png" srcset="/img/loading.gif" lazyload alt="11"></p>
+<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/11.png" srcset="/img/loading.gif" lazyload alt="11"></p>
 <blockquote>
 <p>来到admin.php页面然后刷新抓包</p>
 </blockquote>
-<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\某商城代码审计\12.png" srcset="/img/loading.gif" lazyload alt="12"></p>
+<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/12.png" srcset="/img/loading.gif" lazyload alt="12"></p>
 <blockquote>
 <p>然后改变请求方式</p>
 </blockquote>
-<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\某商城代码审计\13.png" srcset="/img/loading.gif" lazyload alt="13"></p>
+<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/13.png" srcset="/img/loading.gif" lazyload alt="13"></p>
 <blockquote>
 <p>构造</p>
 <p><em>payload: {“act”:”ttt”,”uid”:”123||sleep(5)”} 延时5秒</em><br><em>因为没有回显位 尝试盲注</em></p>
 </blockquote>
-<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\某商城代码审计\14.png" srcset="/img/loading.gif" lazyload alt="14"></p>
+<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/14.png" srcset="/img/loading.gif" lazyload alt="14"></p>
 <blockquote>
 <p>也是可以的 后面盲注就不继续测试了</p>
 </blockquote>
 <h3 id="第二处"><a href="#第二处" class="headerlink" title="第二处"></a>第二处</h3><blockquote>
 <p>通过审计工具发现一处可能存在注入的地方</p>
 </blockquote>
-<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\某商城代码审计\15.png" srcset="/img/loading.gif" lazyload alt="15"></p>
+<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/15.png" srcset="/img/loading.gif" lazyload alt="15"></p>
 <blockquote>
 <p>然后跟进</p>
 </blockquote>
-<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\某商城代码审计\16.png" srcset="/img/loading.gif" lazyload alt="16"></p>
+<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/16.png" srcset="/img/loading.gif" lazyload alt="16"></p>
 <blockquote>
 <p>发现是在会员保存的地方 属于需要进入后台<br>我们先登入后台 来到会员保存的地方</p>
 </blockquote>
-<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\某商城代码审计\17.png" srcset="/img/loading.gif" lazyload alt="17"></p>
+<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/17.png" srcset="/img/loading.gif" lazyload alt="17"></p>
 <blockquote>
 <p>然后点击保存抓包</p>
 </blockquote>
-<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\某商城代码审计\18.png" srcset="/img/loading.gif" lazyload alt="18"></p>
+<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/18.png" srcset="/img/loading.gif" lazyload alt="18"></p>
 <blockquote>
 <p>然后通过代码分析</p>
 </blockquote>
-<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\某商城代码审计\19.png" srcset="/img/loading.gif" lazyload alt="19"></p>
+<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/19.png" srcset="/img/loading.gif" lazyload alt="19"></p>
 <blockquote>
 <p>要$m[‘ID’]的值乘1不为0 才会进入else 所以进行改包</p>
 </blockquote>
-<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\某商城代码审计\20.png" srcset="/img/loading.gif" lazyload alt="20"></p>
+<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/20.png" srcset="/img/loading.gif" lazyload alt="20"></p>
 <blockquote>
 <p>下面这个if是通过$m[‘Nm’]判断名字是否重复 如果重复的话就终止后续执行了 所以名字随便也改一下<br>然后来到第二个if 里面有sql语句</p>
 </blockquote>
-<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\某商城代码审计\21.png" srcset="/img/loading.gif" lazyload alt="21"></p>
+<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/21.png" srcset="/img/loading.gif" lazyload alt="21"></p>
 <blockquote>
 <p>只看到这个ID这个位置 后面先不看 这里没有过滤 等操作 也没有单引号 直接构造</p>
 <p><em>payload：{“act”:”suv”,”uid”:”1”,”sid”:”zC1fEUcZ0CZAHAde”,”ID”:”1||sleep(5)”,”Nm”:”12653”,”Nc”:”123”,”Np”:”123”,”Ne”:0,”Nv”:0}</em></p>
 </blockquote>
-<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\某商城代码审计\22.png" srcset="/img/loading.gif" lazyload alt="22"></p>
+<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/22.png" srcset="/img/loading.gif" lazyload alt="22"></p>
 <blockquote>
 <p>延时注入一枚</p>
 </blockquote>
 <h3 id="第三处"><a href="#第三处" class="headerlink" title="第三处"></a>第三处</h3><blockquote>
 <p>通过审计工具找到员工删除这里</p>
 </blockquote>
-<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\某商城代码审计\23.png" srcset="/img/loading.gif" lazyload alt="23"></p>
+<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/23.png" srcset="/img/loading.gif" lazyload alt="23"></p>
 <blockquote>
 <p>员工删除的地方 没有单引号等保护或者过滤<br>直接先来到员工管理页面</p>
 </blockquote>
-<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\某商城代码审计\24.png" srcset="/img/loading.gif" lazyload alt="24"></p>
+<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/24.png" srcset="/img/loading.gif" lazyload alt="24"></p>
 <blockquote>
 <p>因为是本地搭建的原因 有些无法显示 但不影响 我们操作 因为删除 和添加 也只是参数不一样嘛 直接先添加员工 然后抓包</p>
 </blockquote>
-<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\某商城代码审计\25.png" srcset="/img/loading.gif" lazyload alt="25"></p>
+<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/25.png" srcset="/img/loading.gif" lazyload alt="25"></p>
 <blockquote>
 <p>Sav是员工保存的包 我们把它改为sad</p>
 </blockquote>
-<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\某商城代码审计\26.png" srcset="/img/loading.gif" lazyload alt="26"></p>
+<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/26.png" srcset="/img/loading.gif" lazyload alt="26"></p>
 <blockquote>
 <p>然后因为这里没有防护 直接构造</p>
 <p><em>payload：{“act”:”sad”,”uid”:”1”,”sid”:”zC1fEUcZ0CZAHAde”,”ID”:0||sleep(5),”Nm”:”123”,”Np”:”123”,”Nr”:””}</em></p>
 </blockquote>
-<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\某商城代码审计\27.png" srcset="/img/loading.gif" lazyload alt="27"></p>
+<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/27.png" srcset="/img/loading.gif" lazyload alt="27"></p>
 <blockquote>
 <p>放包 但是发现报错了 不要紧 我们全局搜索下这个报错</p>
 </blockquote>
-<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\某商城代码审计\28.png" srcset="/img/loading.gif" lazyload alt="28"></p>
+<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/28.png" srcset="/img/loading.gif" lazyload alt="28"></p>
 <blockquote>
 <p>发现是在json解码的时候报错了 回来在看数据包 发现没有添加引号 所以报错了 我们加上在试试</p>
 </blockquote>
 <blockquote>
 <p>Payload：{“act”:”sad”,”uid”:”1”,”sid”:”zC1fEUcZ0CZAHAde”,”ID”:”0||sleep(5)”,”Nm”:”123”,”Np”:”123”,”Nr”:””}</p>
 </blockquote>
-<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\某商城代码审计\29.png" srcset="/img/loading.gif" lazyload alt="29"></p>
+<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/29.png" srcset="/img/loading.gif" lazyload alt="29"></p>
 <blockquote>
 <p>成功延时</p>
 </blockquote>
 <h3 id="第四处"><a href="#第四处" class="headerlink" title="第四处"></a>第四处</h3><blockquote>
 <p>找到一个运费删除的地方  和上面的差不多 都是通过case 判断进入</p>
 </blockquote>
-<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\某商城代码审计\30.png" srcset="/img/loading.gif" lazyload alt="30"></p>
+<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/30.png" srcset="/img/loading.gif" lazyload alt="30"></p>
 <blockquote>
 <p>这里和上面同理 直接改掉act的值为syd<br>然后放包</p>
 </blockquote>
-<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\某商城代码审计\31.png" srcset="/img/loading.gif" lazyload alt="31"></p>
+<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/31.png" srcset="/img/loading.gif" lazyload alt="31"></p>
 <blockquote>
 <p>延时成功<br>后续还有优惠删除等 删除的操作 都有这个问题 没有给单引号保护以及过滤 都可以延时注入</p>
 </blockquote>
