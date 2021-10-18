@@ -1,0 +1,684 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/logo.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="永安寺">
+  <meta name="keywords" content="">
+  
+  <title>semcms审计 - Victory</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.6.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"txluck.github.io","root":"/","version":"1.8.10","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"NnQfFjLx8ctoF1RbDVgWqADt-gzGzoHsz","app_key":"0Lsfi2upctErQTQC8xHAMnIs","server_url":"https://nnqffjlx.lc-cn-n1-shared.com"}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Victory's Note</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="semcms审计">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      永安寺
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-10-19 01:12" pubdate>
+        2021年10月19日 凌晨
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.8k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      19
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">semcms审计</h1>
+            
+            <div class="markdown-body">
+              <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+<p>刚开始学审计 也是看了社区们师傅的文章<a target="_blank" rel="noopener" href="https://forum.butian.net/share/387">https://forum.butian.net/share/387</a><br>可能是自己太菜了 感觉不太详细 就自己审了一下</p>
+</blockquote>
+<h3 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h3><blockquote>
+<p>先打开cms 简单浏览一下</p>
+</blockquote>
+<h2 id><a href="#" class="headerlink" title></a><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\semcms审计\0.png" srcset="/img/loading.gif" lazyload alt="0"></h2><blockquote>
+<p><em>看起来视乎是个商城一样的网站 不管随便点点 然后来到代码</em></p>
+</blockquote>
+<h3 id="第一处"><a href="#第一处" class="headerlink" title="第一处"></a>第一处</h3><blockquote>
+<p>然后看到index.php文件，发现里面用include_once 包含了3个文件</p>
+</blockquote>
+<blockquote>
+<p><em>include_once() 语句是指在脚本执行期间包含并运行指定文件。</em><br><em>此行为和 include() 语句类似，唯一区别是如果该文件中的代码已经被包含了，则不会再次包含。如同此语句名字暗示的那样，只会包含一次</em></p>
+</blockquote>
+<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\semcms审计\1.png" srcset="/img/loading.gif" lazyload alt="1"></p>
+<blockquote>
+<p><strong>然后打开web_inc.php 看看这个文件里面有什么</strong></p>
+</blockquote>
+<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\semcms审计\2.png" srcset="/img/loading.gif" lazyload alt="2"></p>
+<blockquote>
+<p>这个文件开始是一个ob_start() 函数<br>因为第一次审 所以不懂什么意思 百度了一下发现是打开缓冲区<br>但这里暂时不管它 这个文件里面也用到了include_once 函数包含了2个文件 但暂时都不管<br>继续往下看<br>在53行的时候发现了一串代码</p>
+</blockquote>
+<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\semcms审计\3.png" srcset="/img/loading.gif" lazyload alt="3"></p>
+<blockquote>
+<p><em>$web_urls接收了$_SERVER[“REQUEST_URI”]值然后通过explode函数分割后传入web_language_ml函数中</em><br><em>$_SERVER[“REQUEST_URI”]函数是返回当前的url路径 我们通过</em><br><em>var_dump来查看返回值</em></p>
+</blockquote>
+<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\semcms审计\4.png" srcset="/img/loading.gif" lazyload alt="4"></p>
+<blockquote>
+<p>保存之后来到index.php文件下查看</p>
+</blockquote>
+<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\semcms审计\5.png" srcset="/img/loading.gif" lazyload alt="5"></p>
+<blockquote>
+<p>explode(separator,string,limit)函数是把获取到的url路径通过 / 分割为数组，第一个参数是根据什么进行分割，第二个参数是需要分割的字符串</p>
+</blockquote>
+<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\semcms审计\6.png" srcset="/img/loading.gif" lazyload alt="6"></p>
+<blockquote>
+<p>然后看下面的web_language_ml函数 通过将$web_urls中的[1]<a target="_blank" rel="noopener" href="https://forum.butian.net/share/%E5%9B%A0%E4%B8%BA%E8%BF%99%E4%B8%AA%E6%97%B6%E5%80%99web_urls%E4%BB%A5%E5%8F%8A%E8%A2%AB%E5%88%86%E5%89%B2%E4%B8%BA%E6%95%B0%E7%BB%84%E4%BA%86">2</a> 传到了函数中 以及$db-conn<br>$db-conn则是最开是include_once 包含进来的数据库连接对象</p>
+</blockquote>
+<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\semcms审计\7.png" srcset="/img/loading.gif" lazyload alt="7"></p>
+<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\semcms审计\8.png" srcset="/img/loading.gif" lazyload alt="8"></p>
+<blockquote>
+<p>继续跟进web_language_ml函数</p>
+</blockquote>
+<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\semcms审计\9.png" srcset="/img/loading.gif" lazyload alt="9"></p>
+<blockquote>
+<p>发现该函数没有任何的过滤操作 直接就把传过来的值 进行了数据库查询操作 很明显存在sql注入 根据代码发现是单引号闭合 直接注就行了</p>
+</blockquote>
+<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\semcms审计\10.png" srcset="/img/loading.gif" lazyload alt="10"></p>
+<blockquote>
+<p>这个洞有个前提 就是文件必须解压在根目录下才行 如果套了一层目录的话 就不能成功</p>
+</blockquote>
+<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\semcms审计\11.png" srcset="/img/loading.gif" lazyload alt="11"></p>
+<blockquote>
+<p>因为分割后的数组内容就变了 添加其他的内容就没用了</p>
+</blockquote>
+<h3 id="第二处"><a href="#第二处" class="headerlink" title="第二处"></a>第二处</h3><blockquote>
+<p>后面发现在后台登录的时候会经过SEMCMS_Top_include.php 判断<br>然后跟进文件</p>
+</blockquote>
+<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\semcms审计\12.png" srcset="/img/loading.gif" lazyload alt="12"></p>
+<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\semcms审计\13.png" srcset="/img/loading.gif" lazyload alt="13"></p>
+<blockquote>
+<p>发现有一个checkuser函数 从函数的命名上就可以看出 肯定和登录相关 然后跟进checkuser()函数</p>
+</blockquote>
+<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\semcms审计\14.png" srcset="/img/loading.gif" lazyload alt="14"></p>
+<blockquote>
+<p>发现是通过cookie传值的方法 然后进行数据库查询 判断用户是否登录<br>这里还有两个函数test_input(),和verify_str()函数<br>不知道这两函数的作用 大概猜测是过滤<br>然后跟进函数</p>
+</blockquote>
+<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\semcms审计\15.png" srcset="/img/loading.gif" lazyload alt="15"></p>
+<blockquote>
+<p>Test_input函数接收数据，然后通过str_replace函数将结束数据中的% 替换为percent<br>然后通过trim函数去掉首位的空格，stripslashes函数删去数据中的反斜杠(只去掉一个反斜杠)，htmlspecialchars() 函数把双引号和单引号转为 HTML 实体。 然后返回过滤之后的数据<br>跟进verify_str函数</p>
+</blockquote>
+<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\semcms审计\16.png" srcset="/img/loading.gif" lazyload alt="16"></p>
+<blockquote>
+<p>verify_str()函数接受参数然后利用if判断 将参数传给inject_check_sql函数<br>继续跟进inject_check_sql函数</p>
+</blockquote>
+<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\semcms审计\17.png" srcset="/img/loading.gif" lazyload alt="17"></p>
+<blockquote>
+<p>inject_check_sql函数接受参数 然后通过 正则匹配 ，返回 pattern 的匹配次数。 它的值将是 0 次（不匹配）或 1 次，<br>如果匹配到了就会返回1就会进去前面的if判断 执行报错<br>所以还是过滤了很多相关的关键词 这里没有规定大小写 所以可以用大小写绕过<br>然后尝试绕过payload：</p>
+<p>*scuseradmin:aaa*<br><em>scuserpass:or 1#</em></p>
+</blockquote>
+<blockquote>
+<p>然后放到sql执行的语句就是</p>
+</blockquote>
+<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\semcms审计\18.png" srcset="/img/loading.gif" lazyload alt="18"></p>
+<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\semcms审计\19.png" srcset="/img/loading.gif" lazyload alt="19"></p>
+<blockquote>
+<p>能查出数据 所以函数执行返回的行数是大于0的，所以就会进去if判断</p>
+</blockquote>
+<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\semcms审计\20.png" srcset="/img/loading.gif" lazyload alt="20"></p>
+<blockquote>
+<p>然后利用mysqli_fetch_assoc函数接收结果 并把user_qx返回<br>然后验证 但是发现了bug 不知道是本地环境还是怎么回事 就是进不去页面 但是没报错</p>
+</blockquote>
+<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\semcms审计\21.png" srcset="/img/loading.gif" lazyload alt="21"></p>
+<blockquote>
+<p>然后我换成延时试试</p>
+</blockquote>
+<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\semcms审计\22.png" srcset="/img/loading.gif" lazyload alt="22"></p>
+<blockquote>
+<p>延时sql是成功执行的 上面第一次没进去 就很奇怪 讲道理这里应该是能绕过登录直接进去才对 我就是进不去</p>
+</blockquote>
+<h3 id="第三处"><a href="#第三处" class="headerlink" title="第三处"></a>第三处</h3><blockquote>
+<p>在web_inc.php的91行发现了一个sql查询语句 发现了一个language参数 是传过来的<br>跟进看看 怎么来的</p>
+</blockquote>
+<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\semcms审计\23.png" srcset="/img/loading.gif" lazyload alt="23"></p>
+<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\semcms审计\24.png" srcset="/img/loading.gif" lazyload alt="24"></p>
+<blockquote>
+<p>前面太多花里胡哨的 就先不看 直接看if if里面的意思是 如果存在post的传参languageID的话 就进去if判断 然后进行过滤返回 过滤函数和前面一样 那就看前面就好了<br>然后写上echo 进行调试看看 因为很多页面都引用了web_inc.php这个文件 就不一一查找了 直接先访问首页看看 好家伙 直接打印了</p>
+</blockquote>
+<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\semcms审计\25.png" srcset="/img/loading.gif" lazyload alt="25"></p>
+<blockquote>
+<p>好 接下来试试post 用bp抓包 这里有个小问题 因为搭建在本地的 如果url是127.0.0.1会抓不到包 我的解决方式是把127.0.0.1 换成ipv4的值 然后就可以抓包了<br>然后来到主页 刷新抓包 然后用bp改包</p>
+</blockquote>
+<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\semcms审计\26.png" srcset="/img/loading.gif" lazyload alt="26"></p>
+<blockquote>
+<p>点击就改成post包，然后在下面加上languageID 然后放包</p>
+</blockquote>
+<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\semcms审计\27.png" srcset="/img/loading.gif" lazyload alt="27"></p>
+<blockquote>
+<p>开始注入</p>
+</blockquote>
+<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\semcms审计\28.png" srcset="/img/loading.gif" lazyload alt="28"></p>
+<blockquote>
+<p>成功延时<br>继续看其他的</p>
+</blockquote>
+<h3 id="第四处"><a href="#第四处" class="headerlink" title="第四处"></a>第四处</h3><blockquote>
+<p>在SEMCMS_Banner.php发现了sql语句<br>在SEMCMS_Banner.php的74行 这行sql语句没用任何参数过滤</p>
+</blockquote>
+<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\semcms审计\29.png" srcset="/img/loading.gif" lazyload alt="29"></p>
+<blockquote>
+<p>然后上面的代码逻辑是判断type</p>
+</blockquote>
+<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\semcms审计\30.png" srcset="/img/loading.gif" lazyload alt="30"></p>
+<blockquote>
+<p>先判断add和edit 然后才else进到下面</p>
+</blockquote>
+<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\semcms审计\31.png" srcset="/img/loading.gif" lazyload alt="31"></p>
+<blockquote>
+<p>因为这里没看见上面过滤 就直接构造payload：</p>
+<p><em>/SEMCMS_PHP_3.9/vyT4nP_Admin/SEMCMS_Banner.php?lgid=1+and+sleep(5)#</em></p>
+</blockquote>
+<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\semcms审计\32.png" srcset="/img/loading.gif" lazyload alt="32"></p>
+<blockquote>
+<p>延时成功<br>但是在尝试select的时候却出现了问题</p>
+</blockquote>
+<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\semcms审计\33.png" srcset="/img/loading.gif" lazyload alt="33"></p>
+<blockquote>
+<p>直接报错了 这个报错信息是前面解释过的过滤函数中的一个 但是这里没有看见使用该函数进行过滤呀 这里有点懵 这个文件虽然包含了</p>
+</blockquote>
+<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\semcms审计\34.png" srcset="/img/loading.gif" lazyload alt="34"></p>
+<blockquote>
+<p>这个php文件是用来判断是否登录的 因为前面发现可以通过sql 绕过登录 使用banner.php也是直接进来了 但是过滤我真没找到 应该是我太菜了 毕竟都报错了<br>那就只能通过大小写登方式来绕过过滤 但是当我尝试的时候 发现不行 windows不区分大小写 难道是因为这样嘛 有点小懵 看来还是只能通过其他的方式注入 用其他的替换过滤掉的关键词<br>这处注入是简历在第二处注入绕过登录的前提下 因为这个页面相当于是后台的页面</p>
+</blockquote>
+<h3 id="第五处"><a href="#第五处" class="headerlink" title="第五处"></a>第五处</h3><blockquote>
+<p>其实这处也不算啥 登录出可以爆破 因为没有验证码的限制 可以直接跑字典<br>直接来到后台页面</p>
+</blockquote>
+<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\semcms审计\35.png" srcset="/img/loading.gif" lazyload alt="35"></p>
+<blockquote>
+<p>然后抓到包直接丢爆破模块里面</p>
+</blockquote>
+<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\semcms审计\36.png" srcset="/img/loading.gif" lazyload alt="36"></p>
+<blockquote>
+<p>就可以开始爆破了</p>
+</blockquote>
+<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\semcms审计\37.png" srcset="/img/loading.gif" lazyload alt="37"></p>
+<h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><blockquote>
+<p>小白第一次审计 还有很多不会 也看了很多文章 查了很多函数 师傅们轻点喷 有什么不足的地方提个建议 我学习学习 这cms还在看 感觉应该还有洞 虽然没能找到直接拿shell的洞 通过这些 也学到了不少审计的思路</p>
+</blockquote>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">代码审计</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/web/">web</a>
+                    
+                      <a class="hover-with-bg" href="/tags/PHP/">PHP</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/10/19/zzcms%E7%9A%84%E5%86%8D%E4%B8%80%E6%AC%A1%E5%AE%A1%E8%AE%A1/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">zzcms的再一次审计</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/09/26/ctf-crypto1/">
+                        <span class="hidden-mobile">ctf-crypto1</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.2/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

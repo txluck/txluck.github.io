@@ -1,0 +1,775 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/logo.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="永安寺">
+  <meta name="keywords" content="">
+  
+  <title>zzcms的再一次审计 - Victory</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.6.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"txluck.github.io","root":"/","version":"1.8.10","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"NnQfFjLx8ctoF1RbDVgWqADt-gzGzoHsz","app_key":"0Lsfi2upctErQTQC8xHAMnIs","server_url":"https://nnqffjlx.lc-cn-n1-shared.com"}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Victory's Note</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="zzcms的再一次审计">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      永安寺
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-10-19 01:14" pubdate>
+        2021年10月19日 凌晨
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.9k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      20
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">zzcms的再一次审计</h1>
+            
+            <div class="markdown-body">
+              <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+<p>首发 奇安信攻防社区<a target="_blank" rel="noopener" href="https://forum.butian.net/share/640">https://forum.butian.net/share/640</a></p>
+<p>在看了社区<a target="_blank" rel="noopener" href="https://forum.butian.net/share/460%E5%B8%88%E5%82%85%E7%9A%84%E6%96%87%E7%AB%A0%E5%90%8E">https://forum.butian.net/share/460师傅的文章后</a> 找师傅要到源码 然后在次对zzcms发起了审计</p>
+</blockquote>
+<h3 id="审计开始"><a href="#审计开始" class="headerlink" title="审计开始"></a>审计开始</h3><blockquote>
+<p>首先打开页面</p>
+</blockquote>
+<p><img src="/2021/10/19/zzcms%E7%9A%84%E5%86%8D%E4%B8%80%E6%AC%A1%E5%AE%A1%E8%AE%A1/blog/victoryBlog/source/_posts/zzcms的在一次审计/1.png" srcset="/img/loading.gif" lazyload alt="1"></p>
+<h3 id="第一处sql"><a href="#第一处sql" class="headerlink" title="第一处sql"></a>第一处sql</h3><p><img src="/2021/10/19/zzcms%E7%9A%84%E5%86%8D%E4%B8%80%E6%AC%A1%E5%AE%A1%E8%AE%A1/blog/victoryBlog/source/_posts/zzcms的在一次审计/2.png" srcset="/img/loading.gif" lazyload alt="2"></p>
+<blockquote>
+<p>来到ask/search.php 页面 这里定义了一个$fp 引入了一个模板 然后通过$f用fopen函数用只读的方式打开ask_search.htm</p>
+</blockquote>
+<p><img src="/2021/10/19/zzcms%E7%9A%84%E5%86%8D%E4%B8%80%E6%AC%A1%E5%AE%A1%E8%AE%A1/blog/victoryBlog/source/_posts/zzcms的在一次审计/3.png" srcset="/img/loading.gif" lazyload alt="3"></p>
+<blockquote>
+<p>然后通过fread函数来读取<br>fread() 函数读取文件（可安全用于二进制文件）。</p>
+</blockquote>
+<p><img src="/2021/10/19/zzcms%E7%9A%84%E5%86%8D%E4%B8%80%E6%AC%A1%E5%AE%A1%E8%AE%A1/blog/victoryBlog/source/_posts/zzcms的在一次审计/4.png" srcset="/img/loading.gif" lazyload alt="4"></p>
+<blockquote>
+<p>然后期间经过了一些str_replace函数的过滤 在232行 调用的showlabel函数<br>我们跟进这个函数</p>
+</blockquote>
+<p><img src="/2021/10/19/zzcms%E7%9A%84%E5%86%8D%E4%B8%80%E6%AC%A1%E5%AE%A1%E8%AE%A1/blog/victoryBlog/source/_posts/zzcms的在一次审计/5.png" srcset="/img/loading.gif" lazyload alt="5"></p>
+<blockquote>
+<p>通过foreach函数遍历channels数组 经过测试 最后都会进入到if里面</p>
+</blockquote>
+<p><img src="/2021/10/19/zzcms%E7%9A%84%E5%86%8D%E4%B8%80%E6%AC%A1%E5%AE%A1%E8%AE%A1/blog/victoryBlog/source/_posts/zzcms的在一次审计/6.png" srcset="/img/loading.gif" lazyload alt="6"></p>
+<blockquote>
+<p>在if函数中又调用了fixed函数 我们继续跟进</p>
+</blockquote>
+<p><img src="/2021/10/19/zzcms%E7%9A%84%E5%86%8D%E4%B8%80%E6%AC%A1%E5%AE%A1%E8%AE%A1/blog/victoryBlog/source/_posts/zzcms的在一次审计/7.png" srcset="/img/loading.gif" lazyload alt="7"></p>
+<blockquote>
+<p>Fixed函数通过switch 根据传进来的channels值 分别调用函数 通过前面知道channels数组的第一个的ad 所以会进入ad 调用 showed函数 继续跟进showad</p>
+</blockquote>
+<p><img src="/2021/10/19/zzcms%E7%9A%84%E5%86%8D%E4%B8%80%E6%AC%A1%E5%AE%A1%E8%AE%A1/blog/victoryBlog/source/_posts/zzcms的在一次审计/8.png" srcset="/img/loading.gif" lazyload alt="8"></p>
+<blockquote>
+<p>Showad函数 会将传进去的内容先用explode函数进行分割 如果匹配不到分割的参数 则会返回整个$cs 是一个数组<br>所以后面$b就有值了 $s就为空<br>继续看后面</p>
+</blockquote>
+<p><img src="/2021/10/19/zzcms%E7%9A%84%E5%86%8D%E4%B8%80%E6%AC%A1%E5%AE%A1%E8%AE%A1/blog/victoryBlog/source/_posts/zzcms的在一次审计/9.png" srcset="/img/loading.gif" lazyload alt="9"></p>
+<blockquote>
+<p>这里发现sql语句 肯定想到的是sql注入 所以我们要想办法让代码进入这里面执行 sql语句在else里面 我们看看if</p>
+</blockquote>
+<p><img src="/2021/10/19/zzcms%E7%9A%84%E5%86%8D%E4%B8%80%E6%AC%A1%E5%AE%A1%E8%AE%A1/blog/victoryBlog/source/_posts/zzcms的在一次审计/10.png" srcset="/img/loading.gif" lazyload alt="10"></p>
+<blockquote>
+<p>If里面的条件都是通过&amp;&amp; 拼接 所以我们只需要让一个不为true 就进入else<br>继续看 发现里面有一个filesize($fp)&gt;10的判断 然后我们往上看$fp<br>$Fp是通过一系列的拼接 其中就有$b 最后拼接成htm<br>这个$b从前面可知是我们可以控制的 所以最后拼接出来的htm只要不存在 if的条件就不成立 就进入了else 执行sql</p>
+</blockquote>
+<p><img src="/2021/10/19/zzcms%E7%9A%84%E5%86%8D%E4%B8%80%E6%AC%A1%E5%AE%A1%E8%AE%A1/blog/victoryBlog/source/_posts/zzcms的在一次审计/11.png" srcset="/img/loading.gif" lazyload alt="11"></p>
+<blockquote>
+<p>后面调用了query函数 我们跟进query函数</p>
+</blockquote>
+<p><img src="/2021/10/19/zzcms%E7%9A%84%E5%86%8D%E4%B8%80%E6%AC%A1%E5%AE%A1%E8%AE%A1/blog/victoryBlog/source/_posts/zzcms的在一次审计/12.png" srcset="/img/loading.gif" lazyload alt="12"></p>
+<blockquote>
+<p>是没有任何防护的（这里说错了 其实是有sql注入防护的  因为这里的数据是通过文件读取的 所以过滤函数没有起作用   后面会有介绍）<br>Sql测试</p>
+</blockquote>
+<p><img src="/2021/10/19/zzcms%E7%9A%84%E5%86%8D%E4%B8%80%E6%AC%A1%E5%AE%A1%E8%AE%A1/blog/victoryBlog/source/_posts/zzcms的在一次审计/13.png" srcset="/img/loading.gif" lazyload alt="13"></p>
+<blockquote>
+<p>来到后台 添加一个模板ask_search.htm<br>内容 <br>然后保存 然后访问 ask/search.php</p>
+</blockquote>
+<p><img src="/2021/10/19/zzcms%E7%9A%84%E5%86%8D%E4%B8%80%E6%AC%A1%E5%AE%A1%E8%AE%A1/blog/victoryBlog/source/_posts/zzcms的在一次审计/14.png" srcset="/img/loading.gif" lazyload alt="14"></p>
+<blockquote>
+<p>延时成功<br>我在测试这里的时候当时遇到了一个小问题 开始一直不能延时 后来才发现是zzcms_ad<br>这个表的原因</p>
+</blockquote>
+<p><img src="/2021/10/19/zzcms%E7%9A%84%E5%86%8D%E4%B8%80%E6%AC%A1%E5%AE%A1%E8%AE%A1/blog/victoryBlog/source/_posts/zzcms的在一次审计/15.png" srcset="/img/loading.gif" lazyload alt="15"></p>
+<blockquote>
+<p>Zzcms_ad 这个表不能为空 空的话 就无法延时</p>
+</blockquote>
+<h3 id="第二处代码执行："><a href="#第二处代码执行：" class="headerlink" title="第二处代码执行："></a>第二处代码执行：</h3><blockquote>
+<p>在install/index.php的114行</p>
+</blockquote>
+<p><img src="/2021/10/19/zzcms%E7%9A%84%E5%86%8D%E4%B8%80%E6%AC%A1%E5%AE%A1%E8%AE%A1/blog/victoryBlog/source/_posts/zzcms的在一次审计/16.png" srcset="/img/loading.gif" lazyload alt="16"></p>
+<blockquote>
+<p>用fopen函数 写入的方式打开了文件<br>用fputs函数写入文件<br>fputs() 函数写入文件（可安全用于二进制文件）</p>
+</blockquote>
+<p><img src="/2021/10/19/zzcms%E7%9A%84%E5%86%8D%E4%B8%80%E6%AC%A1%E5%AE%A1%E8%AE%A1/blog/victoryBlog/source/_posts/zzcms的在一次审计/17.png" srcset="/img/loading.gif" lazyload alt="17"></p>
+<blockquote>
+<p>然后在step_2.php 以及 345文件中都没有发现判断是否又install.lock这个文件</p>
+</blockquote>
+<p><img src="/2021/10/19/zzcms%E7%9A%84%E5%86%8D%E4%B8%80%E6%AC%A1%E5%AE%A1%E8%AE%A1/blog/victoryBlog/source/_posts/zzcms的在一次审计/18.png" srcset="/img/loading.gif" lazyload alt="18"></p>
+<blockquote>
+<p>在install/index.php页面又是通过$step来包含这些页面的 然后我们看看这个$step是怎么传入的</p>
+</blockquote>
+<p><img src="/2021/10/19/zzcms%E7%9A%84%E5%86%8D%E4%B8%80%E6%AC%A1%E5%AE%A1%E8%AE%A1/blog/victoryBlog/source/_posts/zzcms的在一次审计/19.png" srcset="/img/loading.gif" lazyload alt="19"></p>
+<blockquote>
+<p>自己通过post的方式传入 也没有任何防护 所以我们可以直接通过post的方式构造step=2 直接来到安装步骤的第二步<br>测试<br>现进入install/index.php页面</p>
+</blockquote>
+<p><img src="/2021/10/19/zzcms%E7%9A%84%E5%86%8D%E4%B8%80%E6%AC%A1%E5%AE%A1%E8%AE%A1/blog/victoryBlog/source/_posts/zzcms的在一次审计/20.png" srcset="/img/loading.gif" lazyload alt="20"></p>
+<blockquote>
+<p>然后打开hackbar</p>
+</blockquote>
+<p><img src="/2021/10/19/zzcms%E7%9A%84%E5%86%8D%E4%B8%80%E6%AC%A1%E5%AE%A1%E8%AE%A1/blog/victoryBlog/source/_posts/zzcms的在一次审计/21.png" srcset="/img/loading.gif" lazyload alt="21"></p>
+<blockquote>
+<p>这里有个疑惑 不知道为什么抓包改请求方式的办法 一直用不起 页面一直显示空白</p>
+</blockquote>
+<p><img src="/2021/10/19/zzcms%E7%9A%84%E5%86%8D%E4%B8%80%E6%AC%A1%E5%AE%A1%E8%AE%A1/blog/victoryBlog/source/_posts/zzcms的在一次审计/22.png" srcset="/img/loading.gif" lazyload alt="22"></p>
+<blockquote>
+<p>一直下一步 来到这里</p>
+</blockquote>
+<p><img src="/2021/10/19/zzcms%E7%9A%84%E5%86%8D%E4%B8%80%E6%AC%A1%E5%AE%A1%E8%AE%A1/blog/victoryBlog/source/_posts/zzcms的在一次审计/23.png" srcset="/img/loading.gif" lazyload alt="23"></p>
+<blockquote>
+<p>通过这里可以知道 创建数据库这一步的这些数据 会写入到另一个文件config.php</p>
+</blockquote>
+<p><img src="/2021/10/19/zzcms%E7%9A%84%E5%86%8D%E4%B8%80%E6%AC%A1%E5%AE%A1%E8%AE%A1/blog/victoryBlog/source/_posts/zzcms的在一次审计/24.png" srcset="/img/loading.gif" lazyload alt="24"></p>
+<blockquote>
+<p>并且写入的时候 没有什么过滤 说明 写入的参数是可控的 在这里可以直接尝试写入一句话<br>在端口的位置输入3306’);eval($_POST[‘a’]);(‘</p>
+</blockquote>
+<p><img src="/2021/10/19/zzcms%E7%9A%84%E5%86%8D%E4%B8%80%E6%AC%A1%E5%AE%A1%E8%AE%A1/blog/victoryBlog/source/_posts/zzcms的在一次审计/25.png" srcset="/img/loading.gif" lazyload alt="25"></p>
+<blockquote>
+<p>然后下一步</p>
+</blockquote>
+<p><img src="/2021/10/19/zzcms%E7%9A%84%E5%86%8D%E4%B8%80%E6%AC%A1%E5%AE%A1%E8%AE%A1/blog/victoryBlog/source/_posts/zzcms的在一次审计/26.png" srcset="/img/loading.gif" lazyload alt="26"></p>
+<blockquote>
+<p>然后查看config.php</p>
+</blockquote>
+<p><img src="/2021/10/19/zzcms%E7%9A%84%E5%86%8D%E4%B8%80%E6%AC%A1%E5%AE%A1%E8%AE%A1/blog/victoryBlog/source/_posts/zzcms的在一次审计/27.png" srcset="/img/loading.gif" lazyload alt="27"></p>
+<blockquote>
+<p>成功写入</p>
+</blockquote>
+<p><img src="/2021/10/19/zzcms%E7%9A%84%E5%86%8D%E4%B8%80%E6%AC%A1%E5%AE%A1%E8%AE%A1/blog/victoryBlog/source/_posts/zzcms的在一次审计/28.png" srcset="/img/loading.gif" lazyload alt="28"></p>
+<blockquote>
+<p>可getshell</p>
+</blockquote>
+<h3 id="第三处越权"><a href="#第三处越权" class="headerlink" title="第三处越权"></a>第三处越权</h3><blockquote>
+<p>来到tag.php页面</p>
+</blockquote>
+<p><img src="/2021/10/19/zzcms%E7%9A%84%E5%86%8D%E4%B8%80%E6%AC%A1%E5%AE%A1%E8%AE%A1/blog/victoryBlog/source/_posts/zzcms的在一次审计/29.png" srcset="/img/loading.gif" lazyload alt="29"></p>
+<p><img src="/2021/10/19/zzcms%E7%9A%84%E5%86%8D%E4%B8%80%E6%AC%A1%E5%AE%A1%E8%AE%A1/blog/victoryBlog/source/_posts/zzcms的在一次审计/30.png" srcset="/img/loading.gif" lazyload alt="30"></p>
+<blockquote>
+<p>现查出所有的表 然后和 cookie中的tablename的值进行比对<br>str_is_inarr跟进这个函数</p>
+</blockquote>
+<p><img src="/2021/10/19/zzcms%E7%9A%84%E5%86%8D%E4%B8%80%E6%AC%A1%E5%AE%A1%E8%AE%A1/blog/victoryBlog/source/_posts/zzcms的在一次审计/31.png" srcset="/img/loading.gif" lazyload alt="31"></p>
+<blockquote>
+<p>然后通过in_arr函数进行比对<br>in_array() 函数搜索数组中是否存在指定的值。<br>通过前面可知$tablenames 后面拼接了# 所以能够进入到if被然后被explode函数拆分 然后进入if 返回yes</p>
+</blockquote>
+<p><img src="/2021/10/19/zzcms%E7%9A%84%E5%86%8D%E4%B8%80%E6%AC%A1%E5%AE%A1%E8%AE%A1/blog/victoryBlog/source/_posts/zzcms的在一次审计/32.png" srcset="/img/loading.gif" lazyload alt="32"></p>
+<blockquote>
+<p>返回yes之后 就会执行下面的代码 然后根据dowhat 的值执行switch<br>前面两个看参数就知道 一个是增加 一个是修改 我们看第三个函数showtag()<br>跟进函数</p>
+</blockquote>
+<p><img src="/2021/10/19/zzcms%E7%9A%84%E5%86%8D%E4%B8%80%E6%AC%A1%E5%AE%A1%E8%AE%A1/blog/victoryBlog/source/_posts/zzcms的在一次审计/33.png" srcset="/img/loading.gif" lazyload alt="33"></p>
+<blockquote>
+<p>上面根据action参数 获取判断是px 或者是del<br>通过代码分析px 没有没什么可利用的 下面的del 有可控制的点</p>
+</blockquote>
+<blockquote>
+<p>我们可以控制tablename和id 来控制删除数据<br>相当于这里就是通过cookie里面传的表 以及post传的id值 进行查询表的数据和id进行匹配 匹配到了 就直接删除 没有其他的限制<br>测试</p>
+</blockquote>
+<p><img src="/2021/10/19/zzcms%E7%9A%84%E5%86%8D%E4%B8%80%E6%AC%A1%E5%AE%A1%E8%AE%A1/blog/victoryBlog/source/_posts/zzcms的在一次审计/34.png" srcset="/img/loading.gif" lazyload alt="34"></p>
+<blockquote>
+<p>现在后台添加一个普通管理员ttt和一个超级管理员asd</p>
+</blockquote>
+<p><img src="/2021/10/19/zzcms%E7%9A%84%E5%86%8D%E4%B8%80%E6%AC%A1%E5%AE%A1%E8%AE%A1/blog/victoryBlog/source/_posts/zzcms的在一次审计/35.png" srcset="/img/loading.gif" lazyload alt="35"></p>
+<blockquote>
+<p>然后登录普通管理员</p>
+</blockquote>
+<p><img src="/2021/10/19/zzcms%E7%9A%84%E5%86%8D%E4%B8%80%E6%AC%A1%E5%AE%A1%E8%AE%A1/blog/victoryBlog/source/_posts/zzcms的在一次审计/36.png" srcset="/img/loading.gif" lazyload alt="36"></p>
+<blockquote>
+<p>然后访问tag.php  进行抓包</p>
+</blockquote>
+<p><img src="/2021/10/19/zzcms%E7%9A%84%E5%86%8D%E4%B8%80%E6%AC%A1%E5%AE%A1%E8%AE%A1/blog/victoryBlog/source/_posts/zzcms的在一次审计/37.png" srcset="/img/loading.gif" lazyload alt="37"></p>
+<blockquote>
+<p>改包之后进行放包</p>
+</blockquote>
+<p><img src="/2021/10/19/zzcms%E7%9A%84%E5%86%8D%E4%B8%80%E6%AC%A1%E5%AE%A1%E8%AE%A1/blog/victoryBlog/source/_posts/zzcms的在一次审计/38.png" srcset="/img/loading.gif" lazyload alt="38"></p>
+<blockquote>
+<p>asd超级管理员成功被ttt普通管理员删除</p>
+</blockquote>
+<blockquote>
+<p>同理 也可以删除其他表的数据 只要表明 和id能匹配上</p>
+</blockquote>
+<h3 id="第四处sql"><a href="#第四处sql" class="headerlink" title="第四处sql"></a>第四处sql</h3><p><img src="/2021/10/19/zzcms%E7%9A%84%E5%86%8D%E4%B8%80%E6%AC%A1%E5%AE%A1%E8%AE%A1/blog/victoryBlog/source/_posts/zzcms的在一次审计/39.png" srcset="/img/loading.gif" lazyload alt="39"></p>
+<blockquote>
+<p>来到bad.php页面</p>
+</blockquote>
+<p><img src="/2021/10/19/zzcms%E7%9A%84%E5%86%8D%E4%B8%80%E6%AC%A1%E5%AE%A1%E8%AE%A1/blog/victoryBlog/source/_posts/zzcms的在一次审计/40.png" srcset="/img/loading.gif" lazyload alt="40"></p>
+<blockquote>
+<p>下面有sql语句<br>在in 后面的 $id 没有引号保护 可能被利用</p>
+</blockquote>
+<p><img src="/2021/10/19/zzcms%E7%9A%84%E5%86%8D%E4%B8%80%E6%AC%A1%E5%AE%A1%E8%AE%A1/blog/victoryBlog/source/_posts/zzcms的在一次审计/41.png" srcset="/img/loading.gif" lazyload alt="41"></p>
+<blockquote>
+<p>先来到bad.php页面 在数据库随便添加的数据<br>然后分析代码</p>
+</blockquote>
+<p><img src="/2021/10/19/zzcms%E7%9A%84%E5%86%8D%E4%B8%80%E6%AC%A1%E5%AE%A1%E8%AE%A1/blog/victoryBlog/source/_posts/zzcms的在一次审计/42.png" srcset="/img/loading.gif" lazyload alt="42"></p>
+<blockquote>
+<p>通过post传入id 然后action=del 进入到sql执行里面 如果id后面有逗号 则执行if<br>有则else 看看下面</p>
+</blockquote>
+<p><img src="/2021/10/19/zzcms%E7%9A%84%E5%86%8D%E4%B8%80%E6%AC%A1%E5%AE%A1%E8%AE%A1/blog/victoryBlog/source/_posts/zzcms的在一次审计/43.png" srcset="/img/loading.gif" lazyload alt="43"></p>
+<blockquote>
+<p>执行sql的函数 我们跟进这个函数</p>
+</blockquote>
+<p><img src="/2021/10/19/zzcms%E7%9A%84%E5%86%8D%E4%B8%80%E6%AC%A1%E5%AE%A1%E8%AE%A1/blog/victoryBlog/source/_posts/zzcms的在一次审计/44.png" srcset="/img/loading.gif" lazyload alt="44"></p>
+<blockquote>
+<p>这个函数在conn.php里面 而conn.php还包含了其他文件</p>
+</blockquote>
+<p><img src="/2021/10/19/zzcms%E7%9A%84%E5%86%8D%E4%B8%80%E6%AC%A1%E5%AE%A1%E8%AE%A1/blog/victoryBlog/source/_posts/zzcms的在一次审计/45.png" srcset="/img/loading.gif" lazyload alt="45"></p>
+<blockquote>
+<p>注意到stopsqlin.php 打开这个文件看看</p>
+</blockquote>
+<p><img src="/2021/10/19/zzcms%E7%9A%84%E5%86%8D%E4%B8%80%E6%AC%A1%E5%AE%A1%E8%AE%A1/blog/victoryBlog/source/_posts/zzcms的在一次审计/46.png" srcset="/img/loading.gif" lazyload alt="46"></p>
+<blockquote>
+<p>这个文件主要是过滤的<br>addslashes() 函数返回在预定义字符之前添加反斜杠的字符串。<br>htmlspecialchars() 函数把预定义的字符转换为 HTML 实体。<br>相当于这里单引号双引号都过滤了<br>但是 有个地方没有引号保护 直接尝试payload：</p>
+</blockquote>
+<p><img src="/2021/10/19/zzcms%E7%9A%84%E5%86%8D%E4%B8%80%E6%AC%A1%E5%AE%A1%E8%AE%A1/blog/victoryBlog/source/_posts/zzcms的在一次审计/47.png" srcset="/img/loading.gif" lazyload alt="47"></p>
+<blockquote>
+<p>点击删除 然后抓包</p>
+</blockquote>
+<p><img src="/2021/10/19/zzcms%E7%9A%84%E5%86%8D%E4%B8%80%E6%AC%A1%E5%AE%A1%E8%AE%A1/blog/victoryBlog/source/_posts/zzcms的在一次审计/48.png" srcset="/img/loading.gif" lazyload alt="48"></p>
+<blockquote>
+<p>构造payload：id[]=1,1)+or sleep(5)#&amp;del=%E5%88%A0%E9%99%A4%E9%80%89%E4%B8%AD%E7%9A%84%E4%BF%A1%E6%81%AF&amp;pagename=showbad.php%3Fpage%3D&amp;tablename=zzcms_bad</p>
+</blockquote>
+<p><img src="/2021/10/19/zzcms%E7%9A%84%E5%86%8D%E4%B8%80%E6%AC%A1%E5%AE%A1%E8%AE%A1/blog/victoryBlog/source/_posts/zzcms的在一次审计/49.png" srcset="/img/loading.gif" lazyload alt="49"></p>
+<blockquote>
+<p>成功延时</p>
+</blockquote>
+<blockquote>
+<p>但是这个sql也是要登录后台的</p>
+</blockquote>
+<h3 id="第五处sql"><a href="#第五处sql" class="headerlink" title="第五处sql"></a>第五处sql</h3><blockquote>
+<p>因为前面的sql需要登录后台 所以想找个不需要登录的<br>前面找到没有引号保护的sql 这个cms肯定不止一个地方 全局搜索</p>
+</blockquote>
+<p><img src="/2021/10/19/zzcms%E7%9A%84%E5%86%8D%E4%B8%80%E6%AC%A1%E5%AE%A1%E8%AE%A1/blog/victoryBlog/source/_posts/zzcms的在一次审计/50.png" srcset="/img/loading.gif" lazyload alt="50"></p>
+<blockquote>
+<p>在dl/dl_print.php 文件下找到</p>
+</blockquote>
+<p><img src="/2021/10/19/zzcms%E7%9A%84%E5%86%8D%E4%B8%80%E6%AC%A1%E5%AE%A1%E8%AE%A1/blog/victoryBlog/source/_posts/zzcms的在一次审计/51.png" srcset="/img/loading.gif" lazyload alt="51"></p>
+<blockquote>
+<p>这个文件在开始也没有检验是否登录 所以有戏 接着分析源码</p>
+</blockquote>
+<p><img src="/2021/10/19/zzcms%E7%9A%84%E5%86%8D%E4%B8%80%E6%AC%A1%E5%AE%A1%E8%AE%A1/blog/victoryBlog/source/_posts/zzcms的在一次审计/52.png" srcset="/img/loading.gif" lazyload alt="52"></p>
+<blockquote>
+<p>通过cookie是否有username 来判断是否执行OpenAndDataFunc这个函数 这个函数是弹出登录框的</p>
+</blockquote>
+<blockquote>
+<p>往后看</p>
+</blockquote>
+<p><img src="/2021/10/19/zzcms%E7%9A%84%E5%86%8D%E4%B8%80%E6%AC%A1%E5%AE%A1%E8%AE%A1/blog/victoryBlog/source/_posts/zzcms的在一次审计/53.png" srcset="/img/loading.gif" lazyload alt="53"></p>
+<blockquote>
+<p>id还是通过post传入</p>
+</blockquote>
+<p><img src="/2021/10/19/zzcms%E7%9A%84%E5%86%8D%E4%B8%80%E6%AC%A1%E5%AE%A1%E8%AE%A1/blog/victoryBlog/source/_posts/zzcms的在一次审计/54.png" srcset="/img/loading.gif" lazyload alt="54"></p>
+<blockquote>
+<p>这里有个权限的判断 我们跟进这个函数</p>
+</blockquote>
+<p><img src="/2021/10/19/zzcms%E7%9A%84%E5%86%8D%E4%B8%80%E6%AC%A1%E5%AE%A1%E8%AE%A1/blog/victoryBlog/source/_posts/zzcms的在一次审计/55.png" srcset="/img/loading.gif" lazyload alt="55"></p>
+<blockquote>
+<p>这个函数是判断cookie中的uesname是否在zzcms_user表中 有则返回yes<br>这里这个username 是可以通过枚举来判断这个表里有哪一些</p>
+</blockquote>
+<p><img src="/2021/10/19/zzcms%E7%9A%84%E5%86%8D%E4%B8%80%E6%AC%A1%E5%AE%A1%E8%AE%A1/blog/victoryBlog/source/_posts/zzcms的在一次审计/56.png" srcset="/img/loading.gif" lazyload alt="56"></p>
+<blockquote>
+<p>然后就看到这里 和前面的差不多 但这里两个sql语句都没有引号保护 说明 都可以达到注入<br>尝试测试</p>
+</blockquote>
+<blockquote>
+<p>先打开dl/dl_print.php 页面</p>
+</blockquote>
+<p><img src="/2021/10/19/zzcms%E7%9A%84%E5%86%8D%E4%B8%80%E6%AC%A1%E5%AE%A1%E8%AE%A1/blog/victoryBlog/source/_posts/zzcms的在一次审计/57.png" srcset="/img/loading.gif" lazyload alt="57"></p>
+<blockquote>
+<p>然后刷新抓包</p>
+</blockquote>
+<p><img src="/2021/10/19/zzcms%E7%9A%84%E5%86%8D%E4%B8%80%E6%AC%A1%E5%AE%A1%E8%AE%A1/blog/victoryBlog/source/_posts/zzcms的在一次审计/58.png" srcset="/img/loading.gif" lazyload alt="58"></p>
+<blockquote>
+<p>然后右键改包 构造payload：id[]=2+or sleep(5)#</p>
+</blockquote>
+<p><img src="/2021/10/19/zzcms%E7%9A%84%E5%86%8D%E4%B8%80%E6%AC%A1%E5%AE%A1%E8%AE%A1/blog/victoryBlog/source/_posts/zzcms的在一次审计/59.png" srcset="/img/loading.gif" lazyload alt="59"></p>
+<blockquote>
+<p>还有一种</p>
+</blockquote>
+<p><img src="/2021/10/19/zzcms%E7%9A%84%E5%86%8D%E4%B8%80%E6%AC%A1%E5%AE%A1%E8%AE%A1/blog/victoryBlog/source/_posts/zzcms的在一次审计/60.png" srcset="/img/loading.gif" lazyload alt="60"></p>
+<blockquote>
+<p>都可以延时</p>
+</blockquote>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">代码审计</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/web/">web</a>
+                    
+                      <a class="hover-with-bg" href="/tags/PHP/">PHP</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/">
+                        <span class="hidden-mobile">semcms审计</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.2/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
