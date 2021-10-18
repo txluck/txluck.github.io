@@ -259,7 +259,7 @@
 <h3 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h3><blockquote>
 <p>先打开cms 简单浏览一下</p>
 </blockquote>
-<h2 id><a href="#" class="headerlink" title></a><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\semcms审计\0.png" srcset="/img/loading.gif" lazyload alt="0"></h2><blockquote>
+<h2 id><a href="#" class="headerlink" title></a><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/0.png" srcset="/img/loading.gif" lazyload alt="0"></h2><blockquote>
 <p><em>看起来视乎是个商城一样的网站 不管随便点点 然后来到代码</em></p>
 </blockquote>
 <h3 id="第一处"><a href="#第一处" class="headerlink" title="第一处"></a>第一处</h3><blockquote>
@@ -268,156 +268,156 @@
 <blockquote>
 <p><em>include_once() 语句是指在脚本执行期间包含并运行指定文件。</em><br><em>此行为和 include() 语句类似，唯一区别是如果该文件中的代码已经被包含了，则不会再次包含。如同此语句名字暗示的那样，只会包含一次</em></p>
 </blockquote>
-<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\semcms审计\1.png" srcset="/img/loading.gif" lazyload alt="1"></p>
+<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/1.png" srcset="/img/loading.gif" lazyload alt="1"></p>
 <blockquote>
 <p><strong>然后打开web_inc.php 看看这个文件里面有什么</strong></p>
 </blockquote>
-<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\semcms审计\2.png" srcset="/img/loading.gif" lazyload alt="2"></p>
+<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/2.png" srcset="/img/loading.gif" lazyload alt="2"></p>
 <blockquote>
 <p>这个文件开始是一个ob_start() 函数<br>因为第一次审 所以不懂什么意思 百度了一下发现是打开缓冲区<br>但这里暂时不管它 这个文件里面也用到了include_once 函数包含了2个文件 但暂时都不管<br>继续往下看<br>在53行的时候发现了一串代码</p>
 </blockquote>
-<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\semcms审计\3.png" srcset="/img/loading.gif" lazyload alt="3"></p>
+<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/3.png" srcset="/img/loading.gif" lazyload alt="3"></p>
 <blockquote>
 <p><em>$web_urls接收了$_SERVER[“REQUEST_URI”]值然后通过explode函数分割后传入web_language_ml函数中</em><br><em>$_SERVER[“REQUEST_URI”]函数是返回当前的url路径 我们通过</em><br><em>var_dump来查看返回值</em></p>
 </blockquote>
-<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\semcms审计\4.png" srcset="/img/loading.gif" lazyload alt="4"></p>
+<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/4.png" srcset="/img/loading.gif" lazyload alt="4"></p>
 <blockquote>
 <p>保存之后来到index.php文件下查看</p>
 </blockquote>
-<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\semcms审计\5.png" srcset="/img/loading.gif" lazyload alt="5"></p>
+<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/5.png" srcset="/img/loading.gif" lazyload alt="5"></p>
 <blockquote>
 <p>explode(separator,string,limit)函数是把获取到的url路径通过 / 分割为数组，第一个参数是根据什么进行分割，第二个参数是需要分割的字符串</p>
 </blockquote>
-<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\semcms审计\6.png" srcset="/img/loading.gif" lazyload alt="6"></p>
+<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/6.png" srcset="/img/loading.gif" lazyload alt="6"></p>
 <blockquote>
 <p>然后看下面的web_language_ml函数 通过将$web_urls中的[1]<a target="_blank" rel="noopener" href="https://forum.butian.net/share/%E5%9B%A0%E4%B8%BA%E8%BF%99%E4%B8%AA%E6%97%B6%E5%80%99web_urls%E4%BB%A5%E5%8F%8A%E8%A2%AB%E5%88%86%E5%89%B2%E4%B8%BA%E6%95%B0%E7%BB%84%E4%BA%86">2</a> 传到了函数中 以及$db-conn<br>$db-conn则是最开是include_once 包含进来的数据库连接对象</p>
 </blockquote>
-<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\semcms审计\7.png" srcset="/img/loading.gif" lazyload alt="7"></p>
-<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\semcms审计\8.png" srcset="/img/loading.gif" lazyload alt="8"></p>
+<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/7.png" srcset="/img/loading.gif" lazyload alt="7"></p>
+<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/8.png" srcset="/img/loading.gif" lazyload alt="8"></p>
 <blockquote>
 <p>继续跟进web_language_ml函数</p>
 </blockquote>
-<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\semcms审计\9.png" srcset="/img/loading.gif" lazyload alt="9"></p>
+<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/9.png" srcset="/img/loading.gif" lazyload alt="9"></p>
 <blockquote>
 <p>发现该函数没有任何的过滤操作 直接就把传过来的值 进行了数据库查询操作 很明显存在sql注入 根据代码发现是单引号闭合 直接注就行了</p>
 </blockquote>
-<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\semcms审计\10.png" srcset="/img/loading.gif" lazyload alt="10"></p>
+<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/10.png" srcset="/img/loading.gif" lazyload alt="10"></p>
 <blockquote>
 <p>这个洞有个前提 就是文件必须解压在根目录下才行 如果套了一层目录的话 就不能成功</p>
 </blockquote>
-<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\semcms审计\11.png" srcset="/img/loading.gif" lazyload alt="11"></p>
+<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/11.png" srcset="/img/loading.gif" lazyload alt="11"></p>
 <blockquote>
 <p>因为分割后的数组内容就变了 添加其他的内容就没用了</p>
 </blockquote>
 <h3 id="第二处"><a href="#第二处" class="headerlink" title="第二处"></a>第二处</h3><blockquote>
 <p>后面发现在后台登录的时候会经过SEMCMS_Top_include.php 判断<br>然后跟进文件</p>
 </blockquote>
-<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\semcms审计\12.png" srcset="/img/loading.gif" lazyload alt="12"></p>
-<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\semcms审计\13.png" srcset="/img/loading.gif" lazyload alt="13"></p>
+<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/12.png" srcset="/img/loading.gif" lazyload alt="12"></p>
+<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/13.png" srcset="/img/loading.gif" lazyload alt="13"></p>
 <blockquote>
 <p>发现有一个checkuser函数 从函数的命名上就可以看出 肯定和登录相关 然后跟进checkuser()函数</p>
 </blockquote>
-<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\semcms审计\14.png" srcset="/img/loading.gif" lazyload alt="14"></p>
+<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/14.png" srcset="/img/loading.gif" lazyload alt="14"></p>
 <blockquote>
 <p>发现是通过cookie传值的方法 然后进行数据库查询 判断用户是否登录<br>这里还有两个函数test_input(),和verify_str()函数<br>不知道这两函数的作用 大概猜测是过滤<br>然后跟进函数</p>
 </blockquote>
-<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\semcms审计\15.png" srcset="/img/loading.gif" lazyload alt="15"></p>
+<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/15.png" srcset="/img/loading.gif" lazyload alt="15"></p>
 <blockquote>
 <p>Test_input函数接收数据，然后通过str_replace函数将结束数据中的% 替换为percent<br>然后通过trim函数去掉首位的空格，stripslashes函数删去数据中的反斜杠(只去掉一个反斜杠)，htmlspecialchars() 函数把双引号和单引号转为 HTML 实体。 然后返回过滤之后的数据<br>跟进verify_str函数</p>
 </blockquote>
-<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\semcms审计\16.png" srcset="/img/loading.gif" lazyload alt="16"></p>
+<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/16.png" srcset="/img/loading.gif" lazyload alt="16"></p>
 <blockquote>
 <p>verify_str()函数接受参数然后利用if判断 将参数传给inject_check_sql函数<br>继续跟进inject_check_sql函数</p>
 </blockquote>
-<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\semcms审计\17.png" srcset="/img/loading.gif" lazyload alt="17"></p>
+<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/17.png" srcset="/img/loading.gif" lazyload alt="17"></p>
 <blockquote>
 <p>inject_check_sql函数接受参数 然后通过 正则匹配 ，返回 pattern 的匹配次数。 它的值将是 0 次（不匹配）或 1 次，<br>如果匹配到了就会返回1就会进去前面的if判断 执行报错<br>所以还是过滤了很多相关的关键词 这里没有规定大小写 所以可以用大小写绕过<br>然后尝试绕过payload：</p>
-<p>*scuseradmin:aaa*<br><em>scuserpass:or 1#</em></p>
+<p><em>scuseradmin:aaa/</em><br><em>scuserpass:or 1#</em></p>
 </blockquote>
 <blockquote>
 <p>然后放到sql执行的语句就是</p>
 </blockquote>
-<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\semcms审计\18.png" srcset="/img/loading.gif" lazyload alt="18"></p>
-<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\semcms审计\19.png" srcset="/img/loading.gif" lazyload alt="19"></p>
+<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/18.png" srcset="/img/loading.gif" lazyload alt="18"></p>
+<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/19.png" srcset="/img/loading.gif" lazyload alt="19"></p>
 <blockquote>
 <p>能查出数据 所以函数执行返回的行数是大于0的，所以就会进去if判断</p>
 </blockquote>
-<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\semcms审计\20.png" srcset="/img/loading.gif" lazyload alt="20"></p>
+<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/20.png" srcset="/img/loading.gif" lazyload alt="20"></p>
 <blockquote>
 <p>然后利用mysqli_fetch_assoc函数接收结果 并把user_qx返回<br>然后验证 但是发现了bug 不知道是本地环境还是怎么回事 就是进不去页面 但是没报错</p>
 </blockquote>
-<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\semcms审计\21.png" srcset="/img/loading.gif" lazyload alt="21"></p>
+<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/21.png" srcset="/img/loading.gif" lazyload alt="21"></p>
 <blockquote>
 <p>然后我换成延时试试</p>
 </blockquote>
-<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\semcms审计\22.png" srcset="/img/loading.gif" lazyload alt="22"></p>
+<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/22.png" srcset="/img/loading.gif" lazyload alt="22"></p>
 <blockquote>
 <p>延时sql是成功执行的 上面第一次没进去 就很奇怪 讲道理这里应该是能绕过登录直接进去才对 我就是进不去</p>
 </blockquote>
 <h3 id="第三处"><a href="#第三处" class="headerlink" title="第三处"></a>第三处</h3><blockquote>
 <p>在web_inc.php的91行发现了一个sql查询语句 发现了一个language参数 是传过来的<br>跟进看看 怎么来的</p>
 </blockquote>
-<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\semcms审计\23.png" srcset="/img/loading.gif" lazyload alt="23"></p>
-<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\semcms审计\24.png" srcset="/img/loading.gif" lazyload alt="24"></p>
+<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/23.png" srcset="/img/loading.gif" lazyload alt="23"></p>
+<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/24.png" srcset="/img/loading.gif" lazyload alt="24"></p>
 <blockquote>
 <p>前面太多花里胡哨的 就先不看 直接看if if里面的意思是 如果存在post的传参languageID的话 就进去if判断 然后进行过滤返回 过滤函数和前面一样 那就看前面就好了<br>然后写上echo 进行调试看看 因为很多页面都引用了web_inc.php这个文件 就不一一查找了 直接先访问首页看看 好家伙 直接打印了</p>
 </blockquote>
-<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\semcms审计\25.png" srcset="/img/loading.gif" lazyload alt="25"></p>
+<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/25.png" srcset="/img/loading.gif" lazyload alt="25"></p>
 <blockquote>
 <p>好 接下来试试post 用bp抓包 这里有个小问题 因为搭建在本地的 如果url是127.0.0.1会抓不到包 我的解决方式是把127.0.0.1 换成ipv4的值 然后就可以抓包了<br>然后来到主页 刷新抓包 然后用bp改包</p>
 </blockquote>
-<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\semcms审计\26.png" srcset="/img/loading.gif" lazyload alt="26"></p>
+<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/26.png" srcset="/img/loading.gif" lazyload alt="26"></p>
 <blockquote>
 <p>点击就改成post包，然后在下面加上languageID 然后放包</p>
 </blockquote>
-<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\semcms审计\27.png" srcset="/img/loading.gif" lazyload alt="27"></p>
+<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/27.png" srcset="/img/loading.gif" lazyload alt="27"></p>
 <blockquote>
 <p>开始注入</p>
 </blockquote>
-<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\semcms审计\28.png" srcset="/img/loading.gif" lazyload alt="28"></p>
+<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/28.png" srcset="/img/loading.gif" lazyload alt="28"></p>
 <blockquote>
 <p>成功延时<br>继续看其他的</p>
 </blockquote>
 <h3 id="第四处"><a href="#第四处" class="headerlink" title="第四处"></a>第四处</h3><blockquote>
 <p>在SEMCMS_Banner.php发现了sql语句<br>在SEMCMS_Banner.php的74行 这行sql语句没用任何参数过滤</p>
 </blockquote>
-<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\semcms审计\29.png" srcset="/img/loading.gif" lazyload alt="29"></p>
+<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/29.png" srcset="/img/loading.gif" lazyload alt="29"></p>
 <blockquote>
 <p>然后上面的代码逻辑是判断type</p>
 </blockquote>
-<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\semcms审计\30.png" srcset="/img/loading.gif" lazyload alt="30"></p>
+<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/30.png" srcset="/img/loading.gif" lazyload alt="30"></p>
 <blockquote>
 <p>先判断add和edit 然后才else进到下面</p>
 </blockquote>
-<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\semcms审计\31.png" srcset="/img/loading.gif" lazyload alt="31"></p>
+<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/31.png" srcset="/img/loading.gif" lazyload alt="31"></p>
 <blockquote>
 <p>因为这里没看见上面过滤 就直接构造payload：</p>
 <p><em>/SEMCMS_PHP_3.9/vyT4nP_Admin/SEMCMS_Banner.php?lgid=1+and+sleep(5)#</em></p>
 </blockquote>
-<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\semcms审计\32.png" srcset="/img/loading.gif" lazyload alt="32"></p>
+<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/32.png" srcset="/img/loading.gif" lazyload alt="32"></p>
 <blockquote>
 <p>延时成功<br>但是在尝试select的时候却出现了问题</p>
 </blockquote>
-<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\semcms审计\33.png" srcset="/img/loading.gif" lazyload alt="33"></p>
+<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/33.png" srcset="/img/loading.gif" lazyload alt="33"></p>
 <blockquote>
 <p>直接报错了 这个报错信息是前面解释过的过滤函数中的一个 但是这里没有看见使用该函数进行过滤呀 这里有点懵 这个文件虽然包含了</p>
 </blockquote>
-<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\semcms审计\34.png" srcset="/img/loading.gif" lazyload alt="34"></p>
+<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/34.png" srcset="/img/loading.gif" lazyload alt="34"></p>
 <blockquote>
 <p>这个php文件是用来判断是否登录的 因为前面发现可以通过sql 绕过登录 使用banner.php也是直接进来了 但是过滤我真没找到 应该是我太菜了 毕竟都报错了<br>那就只能通过大小写登方式来绕过过滤 但是当我尝试的时候 发现不行 windows不区分大小写 难道是因为这样嘛 有点小懵 看来还是只能通过其他的方式注入 用其他的替换过滤掉的关键词<br>这处注入是简历在第二处注入绕过登录的前提下 因为这个页面相当于是后台的页面</p>
 </blockquote>
 <h3 id="第五处"><a href="#第五处" class="headerlink" title="第五处"></a>第五处</h3><blockquote>
 <p>其实这处也不算啥 登录出可以爆破 因为没有验证码的限制 可以直接跑字典<br>直接来到后台页面</p>
 </blockquote>
-<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\semcms审计\35.png" srcset="/img/loading.gif" lazyload alt="35"></p>
+<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/35.png" srcset="/img/loading.gif" lazyload alt="35"></p>
 <blockquote>
 <p>然后抓到包直接丢爆破模块里面</p>
 </blockquote>
-<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\semcms审计\36.png" srcset="/img/loading.gif" lazyload alt="36"></p>
+<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/36.png" srcset="/img/loading.gif" lazyload alt="36"></p>
 <blockquote>
 <p>就可以开始爆破了</p>
 </blockquote>
-<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/blog\victoryBlog\source_posts\semcms审计\37.png" srcset="/img/loading.gif" lazyload alt="37"></p>
+<p><img src="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/37.png" srcset="/img/loading.gif" lazyload alt="37"></p>
 <h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><blockquote>
 <p>小白第一次审计 还有很多不会 也看了很多文章 查了很多函数 师傅们轻点喷 有什么不足的地方提个建议 我学习学习 这cms还在看 感觉应该还有洞 虽然没能找到直接拿shell的洞 通过这些 也学到了不少审计的思路</p>
 </blockquote>
