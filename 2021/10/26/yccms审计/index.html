@@ -18,7 +18,7 @@
   <meta name="author" content="永安寺">
   <meta name="keywords" content="">
   
-  <title>某商城代码审计 - Victory</title>
+  <title>yccms审计 - Victory</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -175,7 +175,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="某商城代码审计">
+            <span class="h2" id="subtitle" title="yccms审计">
               
             </span>
 
@@ -190,8 +190,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-09-04 08:26" pubdate>
-        2021年9月4日 早上
+      <time datetime="2021-10-26 13:10" pubdate>
+        2021年10月26日 下午
       </time>
     </span>
   
@@ -202,7 +202,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.3k 字
+      1.7k 字
     </span>
   
 
@@ -212,7 +212,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      13
+      18
        分钟
     </span>
   
@@ -250,154 +250,269 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">某商城代码审计</h1>
+            <h1 style="display: none">yccms审计</h1>
             
             <div class="markdown-body">
-              <h2 id="审计开始"><a href="#审计开始" class="headerlink" title="审计开始"></a>审计开始</h2><h3 id="第一处"><a href="#第一处" class="headerlink" title="第一处"></a>第一处</h3><blockquote>
-<p>先来到admin.php页面 先不登录</p>
-</blockquote>
-<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/1.png" srcset="/img/loading.gif" lazyload alt="1"></p>
+              <p>##Yccms审计</p>
+<p>下载源码<a target="_blank" rel="noopener" href="http://ahdx.down.chinaz.com/202003/yccms_v3.4.rar">http://ahdx.down.chinaz.com/202003/yccms_v3.4.rar</a></p>
 <blockquote>
-<p>查看源码</p>
+<p>目录整体结构</p>
 </blockquote>
-<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/2.png" srcset="/img/loading.gif" lazyload alt="2"></p>
+<p><img src="/2021/10/26/yccms%E5%AE%A1%E8%AE%A1/1.png" srcset="/img/loading.gif" lazyload alt="1"></p>
 <blockquote>
-<p>admin.php 页面require()引入了一个common.php页面<br>require()是php的内置函数，作用是引入或者包含外部php文件。<br>工作原理：当本身php文件被执行时，则外部文件的内容就将被包含进该自身php文件中；当包含的外部文件发生错误时，系统将抛出错误提示，并且停止php文件的执行。<br>注意：使用require时，一个文件存在错误的话，那么程序就会中断执行了，并显示致命错误 。<br>然后接着往后面看</p>
+<p>先打开首页</p>
 </blockquote>
-<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/3.png" srcset="/img/loading.gif" lazyload alt="3"></p>
+<p><img src="/2021/10/26/yccms%E5%AE%A1%E8%AE%A1/2.png" srcset="/img/loading.gif" lazyload alt="2"></p>
 <blockquote>
-<p>这里发现一个sql语句 看起来是没有什么防护的 可能有突破 忘前面看 寻找$m</p>
-</blockquote>
-<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/4.png" srcset="/img/loading.gif" lazyload alt="4"></p>
-<blockquote>
-<p>在28行和29行发现$m 有两种发送赋值 一种是通过file_get_contents函数 另一种是 如果$m是空的话 就自动赋默认值 默认值没什么看的 我们不能控制 我们看看这个file_get_contents函数<br>file_get_contents() 函数把整个文件读入一个字符串中。<br>然后在file_get_contents函数内部发现了php://input 输入流<br>php://input可以读取没有处理过的POST数据<br>所以这里就导致了 post数据可控<br>然后继续往下看</p>
-</blockquote>
-<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/5.png" srcset="/img/loading.gif" lazyload alt="5"></p>
-<blockquote>
-<p>$m会调用一个Dec函数 我们跟进这个函数</p>
-</blockquote>
-<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/6.png" srcset="/img/loading.gif" lazyload alt="6"></p>
-<blockquote>
-<p>这个函数使用了json_decode函数 json_decode — 对 JSON 格式的字符串进行编码</p>
-</blockquote>
-<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/7.png" srcset="/img/loading.gif" lazyload alt="7"></p>
-<blockquote>
-<p>说明 输入流传入的数据需要json格式 然后继续往后看 return会判断$c的值 false的话 就直接把解码后的json数据返回出去 但是前面代码调用的时候传入的true 所以会返回一个函数Rpl 继续跟进这个函数</p>
-</blockquote>
-<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/8.png" srcset="/img/loading.gif" lazyload alt="8"></p>
-<blockquote>
-<p>这个函数用到了foreach is_array is_string 等函数<br>Foreach函数是用来遍历数组的</p>
-</blockquote>
-<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/9.png" srcset="/img/loading.gif" lazyload alt="9"></p>
-<blockquote>
-<p>Is_array函数是判断变量是否为数组<br>Is_string 同理 判断是否为字符串</p>
+<p>很显然 首页没有什么内容</p>
 </blockquote>
 <blockquote>
-<p>所以这个函数的大概意思就是 将解码后的json数据 通过foreach遍历为键值的形式 值为数组的话则递归调用 判断是否为数组 直到为字符串 才进入下一个判断 在下一个elseif里面 这通过str_replace 进行过滤 经过ascii码值 过滤掉 / * ‘ “ % 空格 然后返回过滤后的数据</p>
+<p>然后打开审计工具</p>
 </blockquote>
-<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/10.png" srcset="/img/loading.gif" lazyload alt="10"></p>
+<h3 id="第一处xss"><a href="#第一处xss" class="headerlink" title="第一处xss"></a>第一处xss</h3><p><img src="/2021/10/26/yccms%E5%AE%A1%E8%AE%A1/3.png" srcset="/img/loading.gif" lazyload alt="3"></p>
 <blockquote>
-<p>然后回到admin.php页面 32行 判断$m[‘act’]的值是否为idx和lgn 因为用的&amp;&amp; 所以只要同时不等于两个 就会进入if 执行sql 又因为前面过滤掉的字符对sql语句影响不大 直接构造语句</p>
+<p>在第一行发现了一个xss漏洞 跟进看看</p>
 </blockquote>
-<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/11.png" srcset="/img/loading.gif" lazyload alt="11"></p>
+<p><img src="/2021/10/26/yccms%E5%AE%A1%E8%AE%A1/4.png" srcset="/img/loading.gif" lazyload alt="4"></p>
 <blockquote>
-<p>来到admin.php页面然后刷新抓包</p>
-</blockquote>
-<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/12.png" srcset="/img/loading.gif" lazyload alt="12"></p>
-<blockquote>
-<p>然后改变请求方式</p>
-</blockquote>
-<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/13.png" srcset="/img/loading.gif" lazyload alt="13"></p>
-<blockquote>
-<p>构造</p>
-<p><em>payload: {“act”:”ttt”,”uid”:”123||sleep(5)”} 延时5秒</em><br><em>因为没有回显位 尝试盲注</em></p>
-</blockquote>
-<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/14.png" srcset="/img/loading.gif" lazyload alt="14"></p>
-<blockquote>
-<p>也是可以的 后面盲注就不继续测试了</p>
-</blockquote>
-<h3 id="第二处"><a href="#第二处" class="headerlink" title="第二处"></a>第二处</h3><blockquote>
-<p>通过审计工具发现一处可能存在注入的地方</p>
-</blockquote>
-<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/15.png" srcset="/img/loading.gif" lazyload alt="15"></p>
-<blockquote>
-<p>然后跟进</p>
-</blockquote>
-<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/16.png" srcset="/img/loading.gif" lazyload alt="16"></p>
-<blockquote>
-<p>发现是在会员保存的地方 属于需要进入后台<br>我们先登入后台 来到会员保存的地方</p>
-</blockquote>
-<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/17.png" srcset="/img/loading.gif" lazyload alt="17"></p>
-<blockquote>
-<p>然后点击保存抓包</p>
-</blockquote>
-<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/18.png" srcset="/img/loading.gif" lazyload alt="18"></p>
-<blockquote>
-<p>然后通过代码分析</p>
-</blockquote>
-<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/19.png" srcset="/img/loading.gif" lazyload alt="19"></p>
-<blockquote>
-<p>要$m[‘ID’]的值乘1不为0 才会进入else 所以进行改包</p>
-</blockquote>
-<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/20.png" srcset="/img/loading.gif" lazyload alt="20"></p>
-<blockquote>
-<p>下面这个if是通过$m[‘Nm’]判断名字是否重复 如果重复的话就终止后续执行了 所以名字随便也改一下<br>然后来到第二个if 里面有sql语句</p>
-</blockquote>
-<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/21.png" srcset="/img/loading.gif" lazyload alt="21"></p>
-<blockquote>
-<p>只看到这个ID这个位置 后面先不看 这里没有过滤 等操作 也没有单引号 直接构造</p>
-<p><em>payload：{“act”:”suv”,”uid”:”1”,”sid”:”zC1fEUcZ0CZAHAde”,”ID”:”1||sleep(5)”,”Nm”:”12653”,”Nc”:”123”,”Np”:”123”,”Ne”:0,”Nv”:0}</em></p>
-</blockquote>
-<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/22.png" srcset="/img/loading.gif" lazyload alt="22"></p>
-<blockquote>
-<p>延时注入一枚</p>
-</blockquote>
-<h3 id="第三处"><a href="#第三处" class="headerlink" title="第三处"></a>第三处</h3><blockquote>
-<p>通过审计工具找到员工删除这里</p>
-</blockquote>
-<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/23.png" srcset="/img/loading.gif" lazyload alt="23"></p>
-<blockquote>
-<p>员工删除的地方 没有单引号等保护或者过滤<br>直接先来到员工管理页面</p>
-</blockquote>
-<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/24.png" srcset="/img/loading.gif" lazyload alt="24"></p>
-<blockquote>
-<p>因为是本地搭建的原因 有些无法显示 但不影响 我们操作 因为删除 和添加 也只是参数不一样嘛 直接先添加员工 然后抓包</p>
-</blockquote>
-<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/25.png" srcset="/img/loading.gif" lazyload alt="25"></p>
-<blockquote>
-<p>Sav是员工保存的包 我们把它改为sad</p>
-</blockquote>
-<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/26.png" srcset="/img/loading.gif" lazyload alt="26"></p>
-<blockquote>
-<p>然后因为这里没有防护 直接构造</p>
-<p><em>payload：{“act”:”sad”,”uid”:”1”,”sid”:”zC1fEUcZ0CZAHAde”,”ID”:0||sleep(5),”Nm”:”123”,”Np”:”123”,”Nr”:””}</em></p>
-</blockquote>
-<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/27.png" srcset="/img/loading.gif" lazyload alt="27"></p>
-<blockquote>
-<p>放包 但是发现报错了 不要紧 我们全局搜索下这个报错</p>
-</blockquote>
-<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/28.png" srcset="/img/loading.gif" lazyload alt="28"></p>
-<blockquote>
-<p>发现是在json解码的时候报错了 回来在看数据包 发现没有添加引号 所以报错了 我们加上在试试</p>
+<p>直接echo  也没有什么过滤 通过$GET请求 获取$art参数的值 直接用echo输出</p>
 </blockquote>
 <blockquote>
-<p>Payload：{“act”:”sad”,”uid”:”1”,”sid”:”zC1fEUcZ0CZAHAde”,”ID”:”0||sleep(5)”,”Nm”:”123”,”Np”:”123”,”Nr”:””}</p>
+<p>直接构造payload：?art=<script>alert(1)</script></p>
 </blockquote>
-<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/29.png" srcset="/img/loading.gif" lazyload alt="29"></p>
 <blockquote>
-<p>成功延时</p>
+<p>xss测试</p>
 </blockquote>
-<h3 id="第四处"><a href="#第四处" class="headerlink" title="第四处"></a>第四处</h3><blockquote>
-<p>找到一个运费删除的地方  和上面的差不多 都是通过case 判断进入</p>
-</blockquote>
-<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/30.png" srcset="/img/loading.gif" lazyload alt="30"></p>
 <blockquote>
-<p>这里和上面同理 直接改掉act的值为syd<br>然后放包</p>
+<p>访问这个页面并添加payload</p>
 </blockquote>
-<p><img src="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/31.png" srcset="/img/loading.gif" lazyload alt="31"></p>
+<p><img src="/2021/10/26/yccms%E5%AE%A1%E8%AE%A1/5.png" srcset="/img/loading.gif" lazyload alt="5"></p>
 <blockquote>
-<p>延时成功<br>后续还有优惠删除等 删除的操作 都有这个问题 没有给单引号保护以及过滤 都可以延时注入</p>
+<p>Xss成功</p>
 </blockquote>
+<h3 id="第二处任意文件删除"><a href="#第二处任意文件删除" class="headerlink" title="第二处任意文件删除"></a>第二处任意文件删除</h3><blockquote>
+<p>通过自动审计工具 发现了一个任意文件读取或删除</p>
+</blockquote>
+<p><img src="/2021/10/26/yccms%E5%AE%A1%E8%AE%A1/6.png" srcset="/img/loading.gif" lazyload alt="6"></p>
+<p><img src="/2021/10/26/yccms%E5%AE%A1%E8%AE%A1/7.png" srcset="/img/loading.gif" lazyload alt="7"></p>
+<blockquote>
+<p>关键函数在delall函数中 我们往下分析</p>
+</blockquote>
+<blockquote>
+<p>先是判断post请求中是否有send参数 然后才进入if里面</p>
+</blockquote>
+<blockquote>
+<p>为好了跟进函数 换到phpstorm</p>
+</blockquote>
+<blockquote>
+<p>If是通过validate类的<strong>isNullString<strong><strong>函数来判断</strong></strong>post<strong><strong>请求中的</strong></strong>pic****参数的值</strong></p>
+</blockquote>
+<blockquote>
+<p><strong>我们跟进这个<strong><strong>isNullString</strong></strong>函数</strong></p>
+</blockquote>
+<p><img src="/2021/10/26/yccms%E5%AE%A1%E8%AE%A1/8.png" srcset="/img/loading.gif" lazyload alt="8"></p>
+<blockquote>
+<p>在验证类里面  <strong>isNullString<strong><strong>是为了判断</strong></strong>pic****的值是否为空</strong> <strong>空的话就返回<strong><strong>true</strong></strong>否则****false</strong></p>
+</blockquote>
+<p><img src="/2021/10/26/yccms%E5%AE%A1%E8%AE%A1/9.png" srcset="/img/loading.gif" lazyload alt="9"></p>
+<blockquote>
+<p>在根据if的逻辑来看 就是 如果pic的值是空的话 就进入if 然后执行tool类的函数 这个应该就是提示的</p>
+</blockquote>
+<blockquote>
+<p>然后将路径和uploads拼接 ROOT_PATH是定义的根目录</p>
+</blockquote>
+<blockquote>
+<p>打印看看</p>
+</blockquote>
+<p><img src="/2021/10/26/yccms%E5%AE%A1%E8%AE%A1/10.png" srcset="/img/loading.gif" lazyload alt="10"></p>
+<blockquote>
+<p>相当于拼接后 是uploads目录下</p>
+</blockquote>
+<blockquote>
+<p>继续往下看</p>
+</blockquote>
+<p><img src="/2021/10/26/yccms%E5%AE%A1%E8%AE%A1/11.png" srcset="/img/loading.gif" lazyload alt="11"></p>
+<p>然后通过foreach循环 将pic的值赋给 $_value 然后拼接到路径上</p>
+<p>然后将路径放到unlink（）函数中进行删除，返回值为ture或者false然后再执行if-else语句</p>
+<p>unlink() 函数删除文件。</p>
+<p>但是这里没有对路径进行任何的过滤和防护 就可以构造../来跨目录删除其他文件</p>
+<p>构造payload：pid[0]=../2.txt</p>
+<p>文件删除测试</p>
+<p><img src="/2021/10/26/yccms%E5%AE%A1%E8%AE%A1/12.png" srcset="/img/loading.gif" lazyload alt="12"></p>
+<blockquote>
+<p>来到后台 其他功能的地方</p>
+</blockquote>
+<blockquote>
+<p>然后点击删除选择的图片进行抓包</p>
+</blockquote>
+<p><img src="/2021/10/26/yccms%E5%AE%A1%E8%AE%A1/13.png" srcset="/img/loading.gif" lazyload alt="13"></p>
+<blockquote>
+<p>将payload加上  提前在文件夹创建好测试文件</p>
+</blockquote>
+<p><img src="/2021/10/26/yccms%E5%AE%A1%E8%AE%A1/14.png" srcset="/img/loading.gif" lazyload alt="14"></p>
+<blockquote>
+<p>这是在根目录下创建好的 然后点击go</p>
+</blockquote>
+<p><img src="/2021/10/26/yccms%E5%AE%A1%E8%AE%A1/15.png" srcset="/img/loading.gif" lazyload alt="15"></p>
+<blockquote>
+<p>然后查看根目录</p>
+</blockquote>
+<p><img src="/2021/10/26/yccms%E5%AE%A1%E8%AE%A1/16.png" srcset="/img/loading.gif" lazyload alt="16"></p>
+<blockquote>
+<p>发现2.txt已经不见了 成功删除</p>
+</blockquote>
+<h3 id="第三处代码执行"><a href="#第三处代码执行" class="headerlink" title="第三处代码执行"></a>第三处代码执行</h3><blockquote>
+<p>通过审计工具 发现一个可能代码执行的漏洞 </p>
+</blockquote>
+<p><img src="/2021/10/26/yccms%E5%AE%A1%E8%AE%A1/17.png" srcset="/img/loading.gif" lazyload alt="17"></p>
+<p><img src="/2021/10/26/yccms%E5%AE%A1%E8%AE%A1/18.png" srcset="/img/loading.gif" lazyload alt="18"></p>
+<blockquote>
+<p>为了方便操作 还是习惯用phpstorm 切换回来</p>
+</blockquote>
+<p><img src="/2021/10/26/yccms%E5%AE%A1%E8%AE%A1/19.png" srcset="/img/loading.gif" lazyload alt="19"></p>
+<blockquote>
+<p>漏洞存在的点在这个eval函数 </p>
+</blockquote>
+<blockquote>
+<p>先看看整段的逻辑</p>
+</blockquote>
+<p><img src="/2021/10/26/yccms%E5%AE%A1%E8%AE%A1/20.png" srcset="/img/loading.gif" lazyload alt="20"></p>
+<p>在factory类中 的setAction函数里  这个函数先通过getA 获取get请求a的值  </p>
+<p>然后通过if判断a的值 是否为数组里面的 然后判断session是否是admin权限 进行是否跳转到登录 </p>
+<p>但这一步 直接不进入if判断 不久跳过这个session判断了嘛</p>
+<p>往后看</p>
+<p>然后通过file_exits 函数判断文件是否存在  不存在则给$_a赋值login</p>
+<p>file_exists() 函数检查文件或目录是否存在。</p>
+<p>然后进入到eval函数执行self::$_obj = new ‘.ucfirst($_a).’Action();</p>
+<p>ucfirst() 函数把字符串中的首字符转换为大写。</p>
+<p>进入eval函数的内容没有经过任何过滤 又因为$_a 是通过get请求获取的 可控 就导致了 eval函数里面的内容可控 至此 导致代码执行</p>
+<p>先找找那个文件调用了这个类</p>
+<p><img src="/2021/10/26/yccms%E5%AE%A1%E8%AE%A1/21.png" srcset="/img/loading.gif" lazyload alt="21"></p>
+<p>Run.inc.php这个文件实例了这个类并且调用了setAction函数</p>
+<p>然后寻找哪个文件引用了Run.inc.php文件</p>
+<p><img src="/2021/10/26/yccms%E5%AE%A1%E8%AE%A1/22.png" srcset="/img/loading.gif" lazyload alt="22"></p>
+<p>Admin/index.php 和 count.php 都引用了</p>
+<p>构造payload：?a=Factory();phpinfo();//../</p>
+<p>先测试 后面在说说为什么这样构造</p>
+<p><img src="/2021/10/26/yccms%E5%AE%A1%E8%AE%A1/23.png" srcset="/img/loading.gif" lazyload alt="23"></p>
+<p><img src="/2021/10/26/yccms%E5%AE%A1%E8%AE%A1/24.png" srcset="/img/loading.gif" lazyload alt="24"></p>
+<p>两个文件都可以直接命令执行</p>
+<p>说说这样构造我自己的理解 file_exits 函数在判断文件的时候</p>
+<p>他判断的内容是：</p>
+<p>D:/phpstudy_pro/WWW/yccms_v3.4/controller/Factory();phpinfo();//../Action.class.php</p>
+<p>这是controller目录</p>
+<p><img src="/2021/10/26/yccms%E5%AE%A1%E8%AE%A1/25.png" srcset="/img/loading.gif" lazyload alt="25"></p>
+<p>判断的时候 函数将/Factory();phpinfo();/  //里面的内容当成了目录 虽然不存在 但是还是继续往后进行的判断 然后遇到../ 就回到了上一级目录controller目录 目录下又有Action.class.php这个文件 所以file_exits 能返回true 所以没有进入if</p>
+<p>我在cmd测试也能成功切换</p>
+<p><img src="/2021/10/26/yccms%E5%AE%A1%E8%AE%A1/26.png" srcset="/img/loading.gif" lazyload alt="26"></p>
+<p>然后来到eval函数里面 里面相当于执行的内容是self::$_obj = new Factory();phpinfo();//../Action();</p>
+<p><img src="/2021/10/26/yccms%E5%AE%A1%E8%AE%A1/27.png" srcset="/img/loading.gif" lazyload alt="27"></p>
+<p>Factory() 是为了闭合前面的new  后面的// 则相当于把后面的action() 注释掉了 </p>
+<p>所以最后phpinfo() 直接执行了</p>
+<p>把phpinfo() 换成一句话就直接用蚁剑菜刀进行链接就行了 这里我就不做演示了</p>
+<p>这就是我对这个洞的理解  有什么理解不对的地方望师傅们指出</p>
+<h3 id="第四处-任意文件上传"><a href="#第四处-任意文件上传" class="headerlink" title="第四处 任意文件上传"></a>第四处 任意文件上传</h3><p>逛后台的时候发现一个logo上传</p>
+<p><img src="/2021/10/26/yccms%E5%AE%A1%E8%AE%A1/28.png" srcset="/img/loading.gif" lazyload alt="28"></p>
+<p>点击上传 发现打开了另一个窗口</p>
+<p><img src="/2021/10/26/yccms%E5%AE%A1%E8%AE%A1/29.png" srcset="/img/loading.gif" lazyload alt="29"></p>
+<p>复制url到另一个浏览器打开</p>
+<p><img src="/2021/10/26/yccms%E5%AE%A1%E8%AE%A1/30.png" srcset="/img/loading.gif" lazyload alt="30"></p>
+<p>不需要任何权限验证就直接打开了 只要有这个url 就可以上传文件了</p>
+<p>尝试上传</p>
+<p>直接尝试图片马 抓包修改后缀php</p>
+<p><img src="/2021/10/26/yccms%E5%AE%A1%E8%AE%A1/31.png" srcset="/img/loading.gif" lazyload alt="31"></p>
+<p>可以看到 d盘下有个logo.php</p>
+<p>虽然报错了 打开文件夹看看</p>
+<p><img src="/2021/10/26/yccms%E5%AE%A1%E8%AE%A1/32.png" srcset="/img/loading.gif" lazyload alt="32"></p>
+<p>Php成功上传了 尝试打开  这里是可以不需要登录就可以上传的 只需要这个数据包或者上传文件的url</p>
+<p><img src="/2021/10/26/yccms%E5%AE%A1%E8%AE%A1/33.png" srcset="/img/loading.gif" lazyload alt="33"></p>
+<blockquote>
+<p>上传成功</p>
+</blockquote>
+<blockquote>
+<p>通过报错我们找到文件进行代码分析</p>
+</blockquote>
+<p><img src="/2021/10/26/yccms%E5%AE%A1%E8%AE%A1/34.png" srcset="/img/loading.gif" lazyload alt="34"></p>
+<blockquote>
+<p>在public/class/LogoUpload.class.php文件下 我们跟进logoupload类</p>
+</blockquote>
+<p><img src="/2021/10/26/yccms%E5%AE%A1%E8%AE%A1/35.png" srcset="/img/loading.gif" lazyload alt="35"></p>
+<p><img src="/2021/10/26/yccms%E5%AE%A1%E8%AE%A1/36.png" srcset="/img/loading.gif" lazyload alt="36"></p>
+<blockquote>
+<p>可以看出只检验了Content-Type 没有检测后缀什么的  所以 图片马抓包改后缀可以直接绕过</p>
+</blockquote>
+<h3 id="第五处任意文件上传"><a href="#第五处任意文件上传" class="headerlink" title="第五处任意文件上传"></a>第五处任意文件上传</h3><blockquote>
+<p>在后台的添加文章的地方 有个编辑器</p>
+</blockquote>
+<p><img src="/2021/10/26/yccms%E5%AE%A1%E8%AE%A1/37.png" srcset="/img/loading.gif" lazyload alt="37"></p>
+<blockquote>
+<p>测试方法和上面一下 先上传图片马抓包</p>
+</blockquote>
+<p><img src="/2021/10/26/yccms%E5%AE%A1%E8%AE%A1/38.png" srcset="/img/loading.gif" lazyload alt="38"></p>
+<blockquote>
+<p>同样直接上传成功了</p>
+</blockquote>
+<p><img src="/2021/10/26/yccms%E5%AE%A1%E8%AE%A1/39.png" srcset="/img/loading.gif" lazyload alt="39"></p>
+<blockquote>
+<p>分析代码</p>
+</blockquote>
+<p><img src="/2021/10/26/yccms%E5%AE%A1%E8%AE%A1/40.png" srcset="/img/loading.gif" lazyload alt="40"></p>
+<blockquote>
+<p>还是定位到这个文件public/class/LogoUpload.class.php  继续跟进fileupload</p>
+</blockquote>
+<p><img src="/2021/10/26/yccms%E5%AE%A1%E8%AE%A1/41.png" srcset="/img/loading.gif" lazyload alt="41"></p>
+<blockquote>
+<p>也只进行了 type验证</p>
+</blockquote>
+<p><img src="/2021/10/26/yccms%E5%AE%A1%E8%AE%A1/42.png" srcset="/img/loading.gif" lazyload alt="42"></p>
+<blockquote>
+<p>绕过方法和上面的任意上传一样 就不多赘述了</p>
+</blockquote>
+<blockquote>
+<p>删掉cookie等 也是可以上传的</p>
+</blockquote>
+<p><img src="/2021/10/26/yccms%E5%AE%A1%E8%AE%A1/43.png" srcset="/img/loading.gif" lazyload alt="43"></p>
+<h3 id="第六处未授权修改管理员密码"><a href="#第六处未授权修改管理员密码" class="headerlink" title="第六处未授权修改管理员密码"></a>第六处未授权修改管理员密码</h3><blockquote>
+<p>来到后台的修改密码的地方</p>
+</blockquote>
+<p><img src="/2021/10/26/yccms%E5%AE%A1%E8%AE%A1/44.png" srcset="/img/loading.gif" lazyload alt="44"></p>
+<blockquote>
+<p>修改密码进行抓包</p>
+</blockquote>
+<p><img src="/2021/10/26/yccms%E5%AE%A1%E8%AE%A1/45.png" srcset="/img/loading.gif" lazyload alt="45"></p>
+<blockquote>
+<p>然后分析源码</p>
+</blockquote>
+<blockquote>
+<p>在adminaction.class.php中</p>
+</blockquote>
+<p><img src="/2021/10/26/yccms%E5%AE%A1%E8%AE%A1/46.png" srcset="/img/loading.gif" lazyload alt="46"></p>
+<blockquote>
+<p>先判断post请求中的send</p>
+</blockquote>
+<blockquote>
+<p>然后判断用户名和密码是否是空等操作 然后来到editadmin() 进行跟进</p>
+</blockquote>
+<p><img src="/2021/10/26/yccms%E5%AE%A1%E8%AE%A1/47.png" srcset="/img/loading.gif" lazyload alt="47"></p>
+<blockquote>
+<p>直接执行</p>
+</blockquote>
+<blockquote>
+<p>通过代码分析 都没有对是否登录 等权限进行判断 所以删除cookie还是可以直接添加</p>
+</blockquote>
+<blockquote>
+<p>但是当我把cookie删完的时候包用户名为空的错误 我就不理解了</p>
+</blockquote>
+<p><img src="/2021/10/26/yccms%E5%AE%A1%E8%AE%A1/48.png" srcset="/img/loading.gif" lazyload alt="48"></p>
+<p><img src="/2021/10/26/yccms%E5%AE%A1%E8%AE%A1/49.png" srcset="/img/loading.gif" lazyload alt="48"></p>
+<blockquote>
+<p>为什么爆这个错啊 这里就很懵</p>
+</blockquote>
+<blockquote>
+<p>望师傅们指点</p>
+</blockquote>
+<h3 id="第七处-验证码重放"><a href="#第七处-验证码重放" class="headerlink" title="第七处 验证码重放"></a>第七处 验证码重放</h3><p><img src="/2021/10/26/yccms%E5%AE%A1%E8%AE%A1/50.png" srcset="/img/loading.gif" lazyload alt="50"></p>
+<p>后台登录错误验证码不刷新 可导致爆破 这个就不做演示了 师傅们都会</p>
 
             </div>
             <hr>
@@ -434,18 +549,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/09/26/ctf-crypto1/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">ctf-crypto1</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/08/30/windows%E7%BC%96%E7%A8%8B%E9%80%9A%E7%94%A8%E6%8E%A7%E4%BB%B6/">
-                        <span class="hidden-mobile">windows编程通用控件</span>
+                      <a href="/2021/10/19/zzcms%E7%9A%84%E5%86%8D%E4%B8%80%E6%AC%A1%E5%AE%A1%E8%AE%A1/">
+                        <span class="hidden-mobile">zzcms的再一次审计</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

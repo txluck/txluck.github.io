@@ -194,6 +194,83 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2021/10/26/yccms%E5%AE%A1%E8%AE%A1/" target="_self">
+          yccms审计
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/10/26/yccms%E5%AE%A1%E8%AE%A1/" target="_self">
+          
+          
+            
+          
+          ##Yccms审计
+下载源码http://ahdx.down.chinaz.com/202003/yccms_v3.4.rar
+
+目录整体结构
+
+
+
+先打开首页
+
+
+
+很显然 首页没有什么内容
+
+
+然后打开审计工具
+
+第一处xss
+
+在第一行发现了一个xss漏洞 跟进看看
+
+
+
+直接echo  也没有什么过滤 通过$GET请求 获取$art参数的值 直接用echo输出
+
+
+直接构造payload：
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-10-26 13:10" pubdate>
+              2021-10-26
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">代码审计</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/web/">web</a>
+            
+              <a href="/tags/PHP/">PHP</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2021/10/19/zzcms%E7%9A%84%E5%86%8D%E4%B8%80%E6%AC%A1%E5%AE%A1%E8%AE%A1/" target="_self">
           zzcms的再一次审计
         </a>
@@ -359,58 +436,6 @@ include_once() 语句是指在
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/CTF/">CTF</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/09/11/yccms%E5%AE%A1%E8%AE%A1/" target="_self">
-          yccms审计
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/09/11/yccms%E5%AE%A1%E8%AE%A1/" target="_self">
-          
-          
-            
-          
-          
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-09-11 13:52" pubdate>
-              2021-09-11
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">代码审计</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/web/">web</a>
-            
-              <a href="/tags/PHP/">PHP</a>
             
           </div>
         
