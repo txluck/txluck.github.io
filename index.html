@@ -194,6 +194,151 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2021/10/30/%E7%BA%A2%E6%97%A52/" target="_self">
+          红日2
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/10/30/%E7%BA%A2%E6%97%A52/" target="_self">
+          
+          
+            
+          
+          
+概念图
+
+
+靶场环境  win7 是web服务器  2003 是域成员   2008是域控
+
+添加一个网卡
+
+win7是双网卡 一个桥接  一个52网段的网卡 另外两个都是52网段的网卡
+
+实验开始
+
+输入web服务器ip  打开是一个php探针页面
+
+通过这个页面可以 看到绝对路径 服务器信息  搭建的phpstydy版本  以及可以在最下面进行mysql数据库的连接测试
+
+发现是php探针 
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-10-30 13:47" pubdate>
+              2021-10-30
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA/">红日靶场</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E9%9D%B6%E5%9C%BA/">靶场</a>
+            
+              <a href="/tags/%E5%86%85%E7%BD%91/">内网</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/10/30/%E7%AE%80%E5%8D%95%E9%80%86%E5%90%91%E5%88%86%E6%9E%901/" target="_self">
+          简单逆向分析1
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/10/30/%E7%AE%80%E5%8D%95%E9%80%86%E5%90%91%E5%88%86%E6%9E%901/" target="_self">
+          
+          
+            
+          
+          
+程序效果
+
+
+输入一串字符串  然后输出key right或者error
+
+
+
+内部肯定是进行了判断  因为这里打印了 字符 我们可以直接通过这些关键词 来搜寻到 函数的入口
+
+
+在od里面
+
+
+
+
+然后回车进去
+
+
+看到error了  也看到right了  那应该是找对了  然后往上翻 找到函数的入口  F2打上断点  执行到这
+
+
+初步分析   这里定义了5个局部变量
+
+
+然后add esp
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-10-30 12:01" pubdate>
+              2021-10-30
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E9%80%86%E5%90%91/">逆向</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E9%80%86%E5%90%91/">逆向</a>
+            
+              <a href="/tags/%E6%B1%87%E7%BC%96/">汇编</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2021/10/26/yccms%E5%AE%A1%E8%AE%A1/" target="_self">
           yccms审计
         </a>
@@ -730,175 +875,6 @@ DialogBoxW 用这个函数创建对话框
               <a href="/tags/Web/">Web</a>
             
               <a href="/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/">渗透测试</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/08/27/windows%E5%AF%B9%E8%AF%9D%E6%A1%86%E8%B5%84%E6%BA%90/" target="_self">
-          windows对话框资源
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/08/27/windows%E5%AF%B9%E8%AF%9D%E6%A1%86%E8%B5%84%E6%BA%90/" target="_self">
-          
-          
-            
-          
-          
-
-对话框的创建
-
-
-
-模态对话框和非模态对话框的区别就是  非模态对话框  如果被打开了   你还可以继续操作这个对话框后面的其他对话框
-
-
-
-就比如这个属性对话框就是一个非模态对话框  打开它的同时  一样可以操作后面的main.app这些
-
-
-创建非模态对话框
-
-
-
-
-往对话框添加东西 也是很简单的  直接拖
-
-
-
-
-直接点工具箱  想添加什么 拖过去就行了
-
-
-
-然后保存  然后在来运行刚
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-08-27 20:54" pubdate>
-              2021-08-27
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Windows/">Windows</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Windows/">Windows</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/08/26/windwos%E7%BC%96%E7%A8%8B%E8%B5%84%E6%BA%90%E6%93%8D%E4%BD%9C2/" target="_self">
-          windwos编程资源操作2
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/08/26/windwos%E7%BC%96%E7%A8%8B%E8%B5%84%E6%BA%90%E6%93%8D%E4%BD%9C2/" target="_self">
-          
-          
-            
-          
-          
-
-还是和前面的一样 先添加资源
-
-
-
-
-这是顶级菜单   以及 子菜单
-
-
-
-然后保存
-
-
-还是先用前面的部分的代码
-
-
-然后 开始添加菜单
-
-第一种方式
-直接在创建窗口的时候创建菜单
-
-
-
-
-直接运行
-
-
-
-菜单直接出来了
-
-第二种方式:
-通过传到createwindwoW 函数中  因为这个函数接受一个菜单句柄参数
-
-
-
-
-因为涉及到句柄  所以就和前面的资源操作一样  需要先导入菜单
-
-
-
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-08-26 20:26" pubdate>
-              2021-08-26
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Windows/">Windows</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Windows/">Windows</a>
-            
-              <a href="/tags/C/">C++</a>
             
           </div>
         

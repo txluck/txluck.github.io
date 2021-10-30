@@ -1,0 +1,613 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/logo.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="永安寺">
+  <meta name="keywords" content="">
+  
+  <title>简单逆向分析1 - Victory</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.6.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"txluck.github.io","root":"/","version":"1.8.10","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"NnQfFjLx8ctoF1RbDVgWqADt-gzGzoHsz","app_key":"0Lsfi2upctErQTQC8xHAMnIs","server_url":"https://nnqffjlx.lc-cn-n1-shared.com"}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Victory's Note</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="简单逆向分析1">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      永安寺
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-10-30 12:01" pubdate>
+        2021年10月30日 中午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      828 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      9
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">简单逆向分析1</h1>
+            
+            <div class="markdown-body">
+              <blockquote>
+<p>程序效果</p>
+</blockquote>
+<blockquote>
+<p>输入一串字符串  然后输出key right或者error</p>
+</blockquote>
+<p><img src="/2021/10/30/%E7%AE%80%E5%8D%95%E9%80%86%E5%90%91%E5%88%86%E6%9E%901/1.png" srcset="/img/loading.gif" lazyload alt="1"></p>
+<blockquote>
+<p>内部肯定是进行了判断  因为这里打印了 字符 我们可以直接通过这些关键词 来搜寻到 函数的入口</p>
+</blockquote>
+<blockquote>
+<p>在od里面</p>
+</blockquote>
+<p><img src="/2021/10/30/%E7%AE%80%E5%8D%95%E9%80%86%E5%90%91%E5%88%86%E6%9E%901/2.png" srcset="/img/loading.gif" lazyload alt="2"></p>
+<p><img src="/2021/10/30/%E7%AE%80%E5%8D%95%E9%80%86%E5%90%91%E5%88%86%E6%9E%901/3.png" srcset="/img/loading.gif" lazyload alt="3"></p>
+<blockquote>
+<p>然后回车进去</p>
+</blockquote>
+<p><img src="/2021/10/30/%E7%AE%80%E5%8D%95%E9%80%86%E5%90%91%E5%88%86%E6%9E%901/4.png" srcset="/img/loading.gif" lazyload alt="4"></p>
+<p>看到error了  也看到right了  那应该是找对了  然后往上翻 找到函数的入口  F2打上断点  执行到这</p>
+<p><img src="/2021/10/30/%E7%AE%80%E5%8D%95%E9%80%86%E5%90%91%E5%88%86%E6%9E%901/5.png" srcset="/img/loading.gif" lazyload alt="5"></p>
+<blockquote>
+<p>初步分析   这里定义了5个局部变量</p>
+</blockquote>
+<blockquote>
+<p>然后add esp在call后面  这应该就是外平栈   cdecl   push传参</p>
+</blockquote>
+<p><img src="/2021/10/30/%E7%AE%80%E5%8D%95%E9%80%86%E5%90%91%E5%88%86%E6%9E%901/6.png" srcset="/img/loading.gif" lazyload alt="6"></p>
+<blockquote>
+<p>然后看下面这个call    push了2次  然后在call的后面 外平栈 0x8 那应该是 只传了这两个参数</p>
+</blockquote>
+<p><img src="/2021/10/30/%E7%AE%80%E5%8D%95%E9%80%86%E5%90%91%E5%88%86%E6%9E%901/7.png" srcset="/img/loading.gif" lazyload alt="7"></p>
+<blockquote>
+<p>然后继续F8运行  但运行到call  走不动了   然后程序提示输入   那这个函数应该就是获取输入的值</p>
+</blockquote>
+<p><img src="/2021/10/30/%E7%AE%80%E5%8D%95%E9%80%86%E5%90%91%E5%88%86%E6%9E%901/8.png" srcset="/img/loading.gif" lazyload alt="8"></p>
+<blockquote>
+<p>但是通过这里可以发现  是将第一个局部变量的地址传了进去    但前面又是赋值的0 是int型   输入的又是字符串型 对不上啊  前面的5个局部变量又是地址挨着的   那可以猜测 不是5个局部int变量    而是一个char类型的数组   然后将首地址传了进去  这样就对得上了</p>
+</blockquote>
+<blockquote>
+<p>然后在程序框输入123456  然后执行</p>
+</blockquote>
+<p><img src="/2021/10/30/%E7%AE%80%E5%8D%95%E9%80%86%E5%90%91%E5%88%86%E6%9E%901/9.png" srcset="/img/loading.gif" lazyload alt="9"></p>
+<blockquote>
+<p>可以发现 函数执行后  又将数组的第一个地址给了edx   然后push到了 下一个call   因为在call后面是add esp，0x4   那应该就只传了一个参数  就是push的edx</p>
+</blockquote>
+<blockquote>
+<p>后面的这一个函数我们先不跟进  就先直接执行  然后看看寄存器值的变化</p>
+</blockquote>
+<p><img src="/2021/10/30/%E7%AE%80%E5%8D%95%E9%80%86%E5%90%91%E5%88%86%E6%9E%901/10.png" srcset="/img/loading.gif" lazyload alt="10"></p>
+<blockquote>
+<p>发现eax变成了0  因为一般eax是函数的返回值 但也不一定    然后看后面  又用到了eax   那大概率就是返回值了 </p>
+</blockquote>
+<blockquote>
+<p>然后看后面cmp 又和0比较  然后je跳转   直接跳到了error  那如果要返回正确 就要eax返回的值不是0 是其他的或者1</p>
+</blockquote>
+<p><img src="/2021/10/30/%E7%AE%80%E5%8D%95%E9%80%86%E5%90%91%E5%88%86%E6%9E%901/11.png" srcset="/img/loading.gif" lazyload alt="11"></p>
+<blockquote>
+<p>je 主要是根据ZF标志寄存器来判断的只要ZF不为1就行  或者直接将je 用 nop填充 也直接执行right</p>
+</blockquote>
+<p><img src="/2021/10/30/%E7%AE%80%E5%8D%95%E9%80%86%E5%90%91%E5%88%86%E6%9E%901/12.png" srcset="/img/loading.gif" lazyload alt="12"></p>
+<p><img src="/2021/10/30/%E7%AE%80%E5%8D%95%E9%80%86%E5%90%91%E5%88%86%E6%9E%901/13.png" srcset="/img/loading.gif" lazyload alt="13"></p>
+<blockquote>
+<p>但是这样没有拿到 正确的key  为了拿到正确的key  我们跟进那个判断的函数</p>
+</blockquote>
+<p><img src="/2021/10/30/%E7%AE%80%E5%8D%95%E9%80%86%E5%90%91%E5%88%86%E6%9E%901/14.png" srcset="/img/loading.gif" lazyload alt="14"></p>
+<blockquote>
+<p>发现这个函数push了两个值  一个hello51hook 还有一个从地址取出存到eax里面</p>
+</blockquote>
+<blockquote>
+<p>ebp+8  就是我们输入的值   也就是函数传参的第一个参数</p>
+</blockquote>
+<p><img src="/2021/10/30/%E7%AE%80%E5%8D%95%E9%80%86%E5%90%91%E5%88%86%E6%9E%901/15.png" srcset="/img/loading.gif" lazyload alt="15"></p>
+<p><img src="/2021/10/30/%E7%AE%80%E5%8D%95%E9%80%86%E5%90%91%E5%88%86%E6%9E%901/16.png" srcset="/img/loading.gif" lazyload alt="16"></p>
+<blockquote>
+<p>通过add esp 0x8  也可以判断出 这个call  接收了2个参数</p>
+</blockquote>
+<blockquote>
+<p>然后执行完call 发现eax变成的FFFFFFFF  也就是-1</p>
+</blockquote>
+<p><img src="/2021/10/30/%E7%AE%80%E5%8D%95%E9%80%86%E5%90%91%E5%88%86%E6%9E%901/17.png" srcset="/img/loading.gif" lazyload alt="17"></p>
+<blockquote>
+<p>然后看后边 test eax eax 与运算  除了0与0 为0  其他的与本身肯定是不为0的  然后jnz跳转   FFFFFF  肯定运算出来不为0  所以是要跳转的</p>
+</blockquote>
+<blockquote>
+<p>看下面  直接跳转到xor  清空eax  然后就返回0出去了</p>
+</blockquote>
+<blockquote>
+<p>所以这个函数就相当于判断传入的字符串与hello51hook是否相等  相等肯定返回出去的就是1了</p>
+</blockquote>
+<blockquote>
+<p>如果相等的话 ZF就会是1    会给eax  1 然后直接执行jmp跳转到下面就返回出去了</p>
+</blockquote>
+<p><img src="/2021/10/30/%E7%AE%80%E5%8D%95%E9%80%86%E5%90%91%E5%88%86%E6%9E%901/18.png" srcset="/img/loading.gif" lazyload alt="18"></p>
+<blockquote>
+<p>然后现在正确的key也拿到了 就不用分析了后面   </p>
+</blockquote>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E9%80%86%E5%90%91/">逆向</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E9%80%86%E5%90%91/">逆向</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%B1%87%E7%BC%96/">汇编</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/10/30/%E7%BA%A2%E6%97%A52/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">红日2</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/10/26/yccms%E5%AE%A1%E8%AE%A1/">
+                        <span class="hidden-mobile">yccms审计</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.2/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
