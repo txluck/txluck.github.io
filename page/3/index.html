@@ -194,60 +194,6 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2021/08/23/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E7%BB%95%E8%BF%87%E6%80%9D%E8%B7%AF%E6%8B%93%E5%B1%95/" target="_self">
-          文件上传绕过思路拓展
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/08/23/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E7%BB%95%E8%BF%87%E6%80%9D%E8%B7%AF%E6%8B%93%E5%B1%95/" target="_self">
-          
-          
-            
-          
-          案例一一次项目渗透时，通过往png后缀随便加个字符可知该上传点为白名单上传，正常情况下无法绕过
-
-通过观察接口信息，发现接口名字为UploadImg，猜测该接口用于图片上传，按照开发的习惯，保不准会存在temp、test，这类的接口，随后通过fuzz找到存在的上传接口（file），但此时的接口（file）上传文件仍旧存在限制，需要绕过。
-
-由于黑名单限制不够严谨，经过多个伪后缀尝试，发现.cer后
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-08-23 22:34" pubdate>
-              2021-08-23
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/">文件上传</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/web/">web</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
         <a href="/2021/08/21/Windows%E7%BC%96%E7%A8%8B1/" target="_self">
           从控制台到窗口程序
         </a>
