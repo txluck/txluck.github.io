@@ -206,6 +206,18 @@
             
           
           
+拓扑图
+环境配置
+
+DMZ区IP段为192.168.43.1/24  因为我这里是开热点打的  图用的网上的
+
+第二层网络环境IP段为192.168.52.1/24
+
+第三层网络环境IP段为192.168.93.1/24
+
+DMZ区域
+
+Ubuntu（Web 1）配置了两个网卡，一个桥接可以对外提供服务，IP段设为 192.168.43.0/24，一个连接在 VMnet8 上，设为NAT模式，I
         </a>
       </p>
 
@@ -369,57 +381,6 @@ cd
               <a href="/tags/%E5%86%85%E7%BD%91/">内网</a>
             
           </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/10/30/%E7%BA%A2%E6%97%A52/" target="_self">
-          红日2
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/10/30/%E7%BA%A2%E6%97%A52/" target="_self">
-          
-          
-            
-          
-          
-概念图
-
-
-靶场环境  win7 是web服务器  2003 是域成员   2008是域控
-
-添加一个网卡
-
-win7是双网卡 一个桥接  一个52网段的网卡 另外两个都是52网段的网卡
-
-实验开始
-输入web服务器ip  打开是一个php探针页面
-
-通过这个页面可以 看到绝对路径 服务器信息  搭建的phpstydy版本  以及可以在最下面进行mysql数据库的连接测试
-
-发现是php探针  
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-10-30 13:47" pubdate>
-              2021-10-30
-            </time>
-          </div>
-        
-        
         
       </div>
     </article>
@@ -817,6 +778,67 @@ include_once() 语句是指在
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/CTF/">CTF</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" target="_self">
+          某商城代码审计
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" target="_self">
+          
+          
+            
+          
+          审计开始第一处
+先来到admin.php页面 先不登录
+
+
+
+查看源码
+
+
+
+admin.php 页面require()引入了一个common.php页面require()是php的内置函数，作用是引入或者包含外部php文件。工作原理：当本身php文件被执行时，则外部文件的内容就将被包含进该自身php文件中；当包含的外部文件发生错误时，系统将抛出错误提示，并且停止php文件的执行。注意：使用req
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-09-04 08:26" pubdate>
+              2021-09-04
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">代码审计</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/web/">web</a>
+            
+              <a href="/tags/PHP/">PHP</a>
             
           </div>
         

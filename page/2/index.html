@@ -194,67 +194,6 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" target="_self">
-          某商城代码审计
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" target="_self">
-          
-          
-            
-          
-          审计开始第一处
-先来到admin.php页面 先不登录
-
-
-
-查看源码
-
-
-
-admin.php 页面require()引入了一个common.php页面require()是php的内置函数，作用是引入或者包含外部php文件。工作原理：当本身php文件被执行时，则外部文件的内容就将被包含进该自身php文件中；当包含的外部文件发生错误时，系统将抛出错误提示，并且停止php文件的执行。注意：使用req
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-09-04 08:26" pubdate>
-              2021-09-04
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">代码审计</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/web/">web</a>
-            
-              <a href="/tags/PHP/">PHP</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
         <a href="/2021/08/30/windows%E7%BC%96%E7%A8%8B%E9%80%9A%E7%94%A8%E6%8E%A7%E4%BB%B6/" target="_self">
           windows编程通用控件
         </a>
@@ -860,6 +799,76 @@ hInst
 
 
 123456789101112typedef struct tagWNDCLASSW &#123;  UINT      style;  WNDPROC   lpfnWndProc;  int       cbClsExtra;  int       cbWndExtra;  HINSTANCE hInstance;  HICON     hIcon;  HCURSOR   hCursor;
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-08-23 22:50" pubdate>
+              2021-08-23
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Windows/">Windows</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Windows/">Windows</a>
+            
+              <a href="/tags/C/">C++</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/08/23/windows%E7%BC%96%E7%A8%8B%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%A4%84%E7%90%86/" target="_self">
+          windows编程字符串处理
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/08/23/windows%E7%BC%96%E7%A8%8B%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%A4%84%E7%90%86/" target="_self">
+          
+          
+            
+          
+          
+
+
+
+
+
+
+tchar 是14的原因是 因为他是由环境决定   当前环境 默认是Unicode的 WCHAR 型   所以  和WCHAR 型的大小一样  如果 改变环境   tchar的大小也会跟着改变
+
+
+
+改变之后  tchar的大小就变为7了
+
+
+
+然后MessageBox函数如果用tchar类型 就不用管环境是什么了  因为tchar自动根据环境来变化
+
+
+12345678910111
         </a>
       </p>
 
