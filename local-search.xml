@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>失败</title>
+    <link href="/2022/01/25/gitpush%E5%A4%B1%E8%B4%A5/"/>
+    <url>/2022/01/25/gitpush%E5%A4%B1%E8%B4%A5/</url>
+    
+    <content type="html"><![CDATA[<h1 id="Logon-failed-use-ctrl-c-to-cancel-basic-credential-prompt"><a href="#Logon-failed-use-ctrl-c-to-cancel-basic-credential-prompt" class="headerlink" title="Logon failed, use ctrl+c to cancel basic credential prompt."></a><a href="https://www.cnblogs.com/steamed-twisted-roll/p/14155092.html">Logon failed, use ctrl+c to cancel basic credential prompt.</a></h1><p>本地推送代码带Git仓库失败,报错Logon failed, use ctrl+c to cancel basic credential prompt.</p><p>推送的时候弹出githup的登陆框,账号密码正确但是提示不正确</p><p><img src="/2022/01/25/gitpush%E5%A4%B1%E8%B4%A5/.%5Cgitpush%E5%A4%B1%E8%B4%A5%5C1.png"></p><p><img src="/2022/01/25/gitpush%E5%A4%B1%E8%B4%A5/.%5Cgitpush%E5%A4%B1%E8%B4%A5%5C2.png"></p><p>解决方法:在网页上登陆你自己的githup账号,点击右上角头像–&gt; setting –&gt; Developer settings –&gt; Personal access tokens页面</p><p><img src="/2022/01/25/gitpush%E5%A4%B1%E8%B4%A5/.%5Cgitpush%E5%A4%B1%E8%B4%A5%5C3.png"></p><p>点击新建 genrate new token</p><p><img src="/2022/01/25/gitpush%E5%A4%B1%E8%B4%A5/.%5Cgitpush%E5%A4%B1%E8%B4%A5%5C4.png"></p><p><img src="/2022/01/25/gitpush%E5%A4%B1%E8%B4%A5/.%5Cgitpush%E5%A4%B1%E8%B4%A5%5C5.png"></p><p>新建完成,页面已经有一个新的token,这个页面先不要动,或者先复制出来,页面刷新后这个token就看不见了</p><p><img src="/2022/01/25/gitpush%E5%A4%B1%E8%B4%A5/.%5Cgitpush%E5%A4%B1%E8%B4%A5%5C6.png"></p><p><img src="/2022/01/25/gitpush%E5%A4%B1%E8%B4%A5/.%5Cgitpush%E5%A4%B1%E8%B4%A5%5C7.png"></p><p>回到git bash 继续提交,在githup登陆弹出框中输入账号密码,第一次输入的是你githup的账号密码,第二次弹出后输入git账号,密码换成刚刚生成的token.</p><p>如果两次错误,会提示你在git bash中输入账号,之后会弹出一个密码框,这个也是输入token</p><p>总之,账号还是输入你自己的git账号,密码,第二次之后输入token</p><p><img src="/2022/01/25/gitpush%E5%A4%B1%E8%B4%A5/.%5Cgitpush%E5%A4%B1%E8%B4%A5%5C8.png"></p><p>成功后就能推送成功了</p><p>这个方法我这里有用,电脑是Windows系统</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>常见错误</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Git</tag>
+      
+      <tag>常见错误</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>迷糊的提权方式以及利用ssrf到最终提权靶机</title>
     <link href="/2022/01/22/%E8%BF%B7%E7%B3%8A%E7%9A%84%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F%E4%BB%A5%E5%8F%8A%E5%88%A9%E7%94%A8ssrf%E5%88%B0%E6%9C%80%E7%BB%88%E6%8F%90%E6%9D%83%E9%9D%B6%E6%9C%BA-1/"/>
     <url>/2022/01/22/%E8%BF%B7%E7%B3%8A%E7%9A%84%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F%E4%BB%A5%E5%8F%8A%E5%88%A9%E7%94%A8ssrf%E5%88%B0%E6%9C%80%E7%BB%88%E6%8F%90%E6%9D%83%E9%9D%B6%E6%9C%BA-1/</url>
