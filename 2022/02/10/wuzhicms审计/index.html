@@ -1,0 +1,621 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/logo.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="永安寺">
+  <meta name="keywords" content="">
+  
+  <title>wuzhicms审计 - Victory</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.6.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"txluck.github.io","root":"/","version":"1.8.10","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"NnQfFjLx8ctoF1RbDVgWqADt-gzGzoHsz","app_key":"0Lsfi2upctErQTQC8xHAMnIs","server_url":"https://nnqffjlx.lc-cn-n1-shared.com"}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Victory's Note</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="wuzhicms审计">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      永安寺
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-02-10 13:59" pubdate>
+        2022年2月10日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.5k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      27
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">wuzhicms审计</h1>
+            
+            <div class="markdown-body">
+              <p> 文章首发于奇安信社区：<a target="_blank" rel="noopener" href="https://forum.butian.net/share/1126">https://forum.butian.net/share/1126</a></p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在网上漫游发现的一个cms cnvd也是有提交的<br>也是初次审计这种<br>官网：<a target="_blank" rel="noopener" href="https://www.wuzhicms.com/">https://www.wuzhicms.com/</a><br>现在也已经好像没更新了</p>
+<p>也是先看了一会代码 才知道这是MVC的 之前由于也没有了解过MVC 就很懵<br>开始啥都没看懂<br>后来经过百度 和 求助了一波团队的时候 总算是有一点点明白了 能把代码走动<br>MVC全名是Model View Controller，是模型(model)－视图(view)－控制器(controller)的缩写，一种软件设计典范，用一种业务逻辑、数据、界面显示分离的方法组织代码，将业务逻辑聚集到一个部件里面，在改进和个性化定制界面及用户交互的同时，不需要重新编写业务逻辑。MVC被独特的发展起来用于映射传统的输入、处理和输出功能在一个逻辑的图形化用户界面的结构中。(百度的)</p>
+<p>而在之后的路径中会看见m f v这几个参数<br>m就是文件夹 f就是文件 v就是方法<br>就先大概介绍这些<br>下面开始审计<br>sql注入肯定是容易找的 就先找sql注入了</p>
+<h3 id="工具：seay-phpstorm-phpstudy"><a href="#工具：seay-phpstorm-phpstudy" class="headerlink" title="工具：seay phpstorm phpstudy"></a>工具：seay phpstorm phpstudy</h3><h3 id="第一处-sql注入-可惜是后台的"><a href="#第一处-sql注入-可惜是后台的" class="headerlink" title="第一处 sql注入(可惜是后台的)"></a>第一处 sql注入(可惜是后台的)</h3><p>先直接全局搜索select</p>
+<p><img src="/2022/02/10/wuzhicms%E5%AE%A1%E8%AE%A1/1.png" srcset="/img/loading.gif" lazyload alt="1"></p>
+<p>这个函数 展示没有发现有过滤<br>然后找哪里调用了这个函数</p>
+<p><img src="/2022/02/10/wuzhicms%E5%AE%A1%E8%AE%A1/2.png" srcset="/img/loading.gif" lazyload alt="2"></p>
+<p>通过全局搜索 在这个地方 发现调用了这个函数<br>然后查看传递的参数<br>主要传递的是55行这个$where参数 传到了函数<br>然后我们看$where参数的组成 里面有两个变量$siteid $keywords<br>我们是可能可控的<br>先看$keywords 因为这个没调用函数 但是调用了一个$GLOBALS来获取值<br>这里就又要介绍下$GLOBALS 因为刚开始我也没懂这个是怎么用来获取值的 知道我百度一阵之后<br>和代码翻翻之后 在一个文件中发现了</p>
+<p><img src="/2022/02/10/wuzhicms%E5%AE%A1%E8%AE%A1/3.png" srcset="/img/loading.gif" lazyload alt="3"></p>
+<p>这个cms用$GLOBALS来获取全部的变量 直接把GET POST代替了<br>具体怎么代替的就不跟进解释了 一句话 就是$GLOBALS可以取到get post的传的值<br>那么这个keywords 前面又没有定义变量啥的 大概率是 传参的 (后面经过验证 也的确如此)<br>那另一个参数就不用看了 就先控制这个参数才进行注入了<br>有了可控参数 现在就需要找到整个payload了<br>可能熟悉MVC的师傅 就知道该怎么构造payload了 但我没学过MVC 也不了解 就只能用其他方式来找了</p>
+<p><img src="/2022/02/10/wuzhicms%E5%AE%A1%E8%AE%A1/4.png" srcset="/img/loading.gif" lazyload alt="4"></p>
+<p>在这个文件看见了广告管理的注释<br>那我就去后台找这个功能了</p>
+<p><img src="/2022/02/10/wuzhicms%E5%AE%A1%E8%AE%A1/5.png" srcset="/img/loading.gif" lazyload alt="5"></p>
+<p>又因为调用的函数是search嘛 那就是这个搜索框 八九不离十了<br>直接输入1 然后搜索 但是这样看不出来<br>就输入1然后抓包 看看包了</p>
+<p><img src="/2022/02/10/wuzhicms%E5%AE%A1%E8%AE%A1/6.png" srcset="/img/loading.gif" lazyload alt="6"></p>
+<p>好了 这样路径参数什么的也出来了<br>就全部复制到url<br>然后构造</p>
+<blockquote>
+<p>payload ：SELECT COUNT(*) AS num FROM <code>wz_promote_place</code> WHERE <code>siteid</code>=’1’ AND <code>name</code> LIKE ‘%1%’ or extractvalue(1,concat(0x7e,(select database())))%23</p>
+</blockquote>
+<p>闭合%‘%23<br>这里我尝试了下 盲注 和报错都是可以的</p>
+<p><img src="/2022/02/10/wuzhicms%E5%AE%A1%E8%AE%A1/7.png" srcset="/img/loading.gif" lazyload alt="7"></p>
+<p>如果现在到过头来看 就一个简单的搜索框的注入没什么花里胡哨的 过滤也没 但审计来看 还是绕了一大圈子</p>
+<h3 id="第二处-前台sql注入"><a href="#第二处-前台sql注入" class="headerlink" title="第二处 前台sql注入"></a>第二处 前台sql注入</h3><p>还是在搜索select的时候 发现在mysql.class文件下有一个函数里面有select 并且后面的拼接也没有任何的过滤</p>
+<p><img src="/2022/02/10/wuzhicms%E5%AE%A1%E8%AE%A1/8.png" srcset="/img/loading.gif" lazyload alt="8"></p>
+<p>然后我们搜索哪里调用了这个函数<br>首先是在api目录下的sms_check文件中发现调用了get_one函数 并且参数是通过前面的$code拼接</p>
+<p><img src="/2022/02/10/wuzhicms%E5%AE%A1%E8%AE%A1/9.png" srcset="/img/loading.gif" lazyload alt="9"></p>
+<p>我们可以看到code 先是通过$GLOBALS来获取参数param的值 从前面的介绍可以知道 $GLOBALS是可以获取post get的值 这个文件前面没有定义param变量 那么 这个param应该就是post 或者get 就是我们可控的 这也是导致注入的点</p>
+<p><img src="/2022/02/10/wuzhicms%E5%AE%A1%E8%AE%A1/10.png" srcset="/img/loading.gif" lazyload alt="10"></p>
+<p>code还通过strip_tags() 函数 而这个函数的作用是剥去html标签 应该是过滤xss吧大概<br>之后就直接传入了函数 继续更进函数 因为这个文件前面还引入了db类</p>
+<p><img src="/2022/02/10/wuzhicms%E5%AE%A1%E8%AE%A1/11.png" srcset="/img/loading.gif" lazyload alt="11"></p>
+<p>这个函数应该是调用的这个文件里面的<br>来到这个文件</p>
+<p><img src="/2022/02/10/wuzhicms%E5%AE%A1%E8%AE%A1/12.png" srcset="/img/loading.gif" lazyload alt="12"></p>
+<p>可以看到这个get-one函数里面 还调用了一个array2sql函数来处理$where<br>那先来看看这个函数的作用</p>
+<p><img src="/2022/02/10/wuzhicms%E5%AE%A1%E8%AE%A1/13.png" srcset="/img/loading.gif" lazyload alt="13"></p>
+<p>可以看到这个函数是用来过滤的<br>如果是数组 这进入if 把括号 单引号这些过滤掉<br>不是则走else 过滤 %20 %27<br>然后返回参数<br>但也就是这个过滤的地方 没有防护到位<br>我们传的参数不是数组 所以就没有走if<br>而else里面过滤的却是 %20 %27<br>我们传参的时候尽管是经过url编码的 但是web服务器会自动解码一次 所以 我们传到后端代码处的时候是没有进行url编码 相当于<br>但是二次编码的就不一样了 因为web服务器只解码一次<br>如果是二次编码这里的else过滤就起效果</p>
+<p>return 调用的get_one 则是最开始看见的mysql.class文件里面了</p>
+<p>下面就可以开始直接构造payload了 这里通过代码分析可以看到是单引号闭合</p>
+<p><img src="/2022/02/10/wuzhicms%E5%AE%A1%E8%AE%A1/14.png" srcset="/img/loading.gif" lazyload alt="14"></p>
+<p>单引号报错<br>闭合显示正常页面</p>
+<p><img src="/2022/02/10/wuzhicms%E5%AE%A1%E8%AE%A1/15.png" srcset="/img/loading.gif" lazyload alt="15"></p>
+<p>就进行盲注<br>我用的报错</p>
+<blockquote>
+<p>payload：[<a target="_blank" rel="noopener" href="http://192.168.1.7/wuzhicms/api/sms_check.php?param=1%27+or%20extractvalue(1,concat(0x7e,(select%20database())))%23%5D">http://192.168.1.7/wuzhicms/api/sms_check.php?param=1%27+or%20extractvalue(1,concat(0x7e,(select%20database())))%23]</a>(<a target="_blank" rel="noopener" href="http://192.168.1.7/wuzhicms/api/sms_check.php?param=1&#39;+or">http://192.168.1.7/wuzhicms/api/sms_check.php?param=1&#39;+or</a> extractvalue(1,concat(0x7e,(select database())))%23)</p>
+</blockquote>
+<p><img src="/2022/02/10/wuzhicms%E5%AE%A1%E8%AE%A1/16.png" srcset="/img/loading.gif" lazyload alt="16"></p>
+<h3 id="第三处-后台sql注入"><a href="#第三处-后台sql注入" class="headerlink" title="第三处 后台sql注入"></a>第三处 后台sql注入</h3><p>从前面两个分析 我发现的注入的地方就存在两个函数中get_list get_one<br>然后直接全局搜索这两个函数 看看什么地方调用</p>
+<p><img src="/2022/02/10/wuzhicms%E5%AE%A1%E8%AE%A1/17.png" srcset="/img/loading.gif" lazyload alt="17"></p>
+<p>可以看到 在copyfrom.php中listing函数下调用了这个函数<br>然后我们网上分析 看看什么是可控的<br>主要传进去的就一个$where 和 $page</p>
+<p><img src="/2022/02/10/wuzhicms%E5%AE%A1%E8%AE%A1/18.png" srcset="/img/loading.gif" lazyload alt="18"></p>
+<p>可以看到page会被intval()函数 转化为整数 所以我们不考虑它<br>我们看看where 在if内部 想要进入if 就需要通过GLOBALS获取到keywords<br>相当于就要传参嘛<br>然后在看里面 就没有过滤这些 直接拼接<br>这里也可以看出 闭合方式是百分号单引号 %’</p>
+<p><img src="/2022/02/10/wuzhicms%E5%AE%A1%E8%AE%A1/19.png" srcset="/img/loading.gif" lazyload alt="19"></p>
+<p>我们在来到mysql文件中定义的这个函数 也可以看到 是对where没有过滤处理的<br>那么 有了前面的基础 直接来构造</p>
+<blockquote>
+<p>payload：<a target="_blank" rel="noopener" href="http://192.168.1.7/wuzhicms/index.php?m=core&f=copyfrom&v=listing&_su=wuzhicms&keywords=%27">http://192.168.1.7/wuzhicms/index.php?m=core&amp;f=copyfrom&amp;v=listing&amp;_su=wuzhicms&amp;keywords=%27</a></p>
+</blockquote>
+<p><img src="/2022/02/10/wuzhicms%E5%AE%A1%E8%AE%A1/20.png" srcset="/img/loading.gif" lazyload alt="20"></p>
+<p><img src="/2022/02/10/wuzhicms%E5%AE%A1%E8%AE%A1/21.png" srcset="/img/loading.gif" lazyload alt="21"></p>
+<p>报错了 直接插入报错注入的</p>
+<blockquote>
+<p>payload:<a target="_blank" rel="noopener" href="http://192.168.1.7/wuzhicms/index.php?m=core&amp;f=copyfrom&amp;v=listing&amp;_su=wuzhicms&amp;keywords=1%25%2527%20or%20extractvalue(1,concat(0x7e,(select%20database())))%23">http://192.168.1.7/wuzhicms/index.php?m=core&amp;f=copyfrom&amp;v=listing&amp;_su=wuzhicms&amp;keywords=1%%27%20or%20extractvalue(1,concat(0x7e,(select%20database())))%23</a></p>
+</blockquote>
+<p><img src="/2022/02/10/wuzhicms%E5%AE%A1%E8%AE%A1/22.png" srcset="/img/loading.gif" lazyload alt="22"></p>
+<h3 id="第四处-后台任意文件删除"><a href="#第四处-后台任意文件删除" class="headerlink" title="第四处 后台任意文件删除"></a>第四处 后台任意文件删除</h3><p>通过全局搜索unlink函数 来找文件删除</p>
+<p><img src="/2022/02/10/wuzhicms%E5%AE%A1%E8%AE%A1/23.png" srcset="/img/loading.gif" lazyload alt="23"></p>
+<p>在这个文件下找到一个删除文件的函数 然后我们继续找哪里调用了这个函数</p>
+<p><img src="/2022/02/10/wuzhicms%E5%AE%A1%E8%AE%A1/24.png" srcset="/img/loading.gif" lazyload alt="24"></p>
+<p><img src="/2022/02/10/wuzhicms%E5%AE%A1%E8%AE%A1/25.png" srcset="/img/loading.gif" lazyload alt="25"></p>
+<p>还是在这个文件 找到了一个del函数 里面调用了删除文件的函数</p>
+<p><img src="/2022/02/10/wuzhicms%E5%AE%A1%E8%AE%A1/26.png" srcset="/img/loading.gif" lazyload alt="26"></p>
+<p>然后来分析调用的过程 调用删除的时候通过把$path和ATTACHMENT_ROOT 拼接<br>而ATTACHMENT_ROOT是前面定义的一个默认路径</p>
+<p><img src="/2022/02/10/wuzhicms%E5%AE%A1%E8%AE%A1/27.png" srcset="/img/loading.gif" lazyload alt="27"></p>
+<p>path则是前面的$url 来的<br>在看前面的if 如果path有值则进入到if里面 然后经过的数据库的get_one查询操作 应该这里是要查出一个东西<br>但是因为我数据库是空的 则进入的是第一个if里面 哪怕是查出1条 也是可以的<br>这里也没有其他过滤<br>然后网上看url的来源</p>
+<p><img src="/2022/02/10/wuzhicms%E5%AE%A1%E8%AE%A1/28.png" srcset="/img/loading.gif" lazyload alt="28"></p>
+<p>GLOBALS 那就可以直接通过传参的 前面也介绍了 id为空的话 也就进入到了else里面</p>
+<p>到这里也就可以构造payload了<br>先在根目录下创建一个文件</p>
+<p><img src="/2022/02/10/wuzhicms%E5%AE%A1%E8%AE%A1/29.png" srcset="/img/loading.gif" lazyload alt="29"></p>
+<p>然后构造</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="http://192.168.1.7/wuzhicms/index.php?m=attachment&amp;f=index&amp;v=del&amp;_su=wuzhicms&amp;url=../1.txt">http://192.168.1.7/wuzhicms/index.php?m=attachment&amp;f=index&amp;v=del&amp;_su=wuzhicms&amp;url=../1.txt</a></p>
+</blockquote>
+<p><img src="/2022/02/10/wuzhicms%E5%AE%A1%E8%AE%A1/30.png" srcset="/img/loading.gif" lazyload alt="30"></p>
+<p>这里我把最终删除的路径 打印了出来</p>
+<p><img src="/2022/02/10/wuzhicms%E5%AE%A1%E8%AE%A1/31.png" srcset="/img/loading.gif" lazyload alt="31"></p>
+<p>文件也是成功删除</p>
+<h3 id="第五处-后台任意文件上传"><a href="#第五处-后台任意文件上传" class="headerlink" title="第五处 后台任意文件上传"></a>第五处 后台任意文件上传</h3><p>直接搜索file_put_contents函数</p>
+<p><img src="/2022/02/10/wuzhicms%E5%AE%A1%E8%AE%A1/32.png" srcset="/img/loading.gif" lazyload alt="32"></p>
+<p>在set_cache函数下发现写入文件的函数 $data并且没有过滤是直接通过参数传过来的<br>然后全局搜索 在哪里调用了这个函数</p>
+<p><img src="/2022/02/10/wuzhicms%E5%AE%A1%E8%AE%A1/33.png" srcset="/img/loading.gif" lazyload alt="33"></p>
+<p>这个set函数下调用了这个函数<br>并且写入文件的内容是可控的<br>通过打印 知道了 写入的路径 文件名</p>
+<p><img src="/2022/02/10/wuzhicms%E5%AE%A1%E8%AE%A1/34.png" srcset="/img/loading.gif" lazyload alt="34"></p>
+<p>并且这里也没有过滤<br>直接构造payload</p>
+<p><img src="/2022/02/10/wuzhicms%E5%AE%A1%E8%AE%A1/35.png" srcset="/img/loading.gif" lazyload alt="35"></p>
+<p>然后访问文件</p>
+<p><img src="/2022/02/10/wuzhicms%E5%AE%A1%E8%AE%A1/36.png" srcset="/img/loading.gif" lazyload alt="36"></p>
+<p>后面又发现一个函数调用的set_cache</p>
+<p><img src="/2022/02/10/wuzhicms%E5%AE%A1%E8%AE%A1/37.png" srcset="/img/loading.gif" lazyload alt="37"></p>
+<p>过程是一样的 基本上 就没有演示了</p>
+<p>这里还要注意一点 这里是写入的缓存文件 不是一直存在的 我重启之后 写入的内容就还原了<br>应该是还有的 就没有继续找这个了</p>
+<h3 id="第六处-信息泄露"><a href="#第六处-信息泄露" class="headerlink" title="第六处 信息泄露"></a>第六处 信息泄露</h3><p>最后在后台页面发现一出phpinfo</p>
+<p><img src="/2022/02/10/wuzhicms%E5%AE%A1%E8%AE%A1/38.png" srcset="/img/loading.gif" lazyload alt="38"></p>
+<p><img src="/2022/02/10/wuzhicms%E5%AE%A1%E8%AE%A1/39.png" srcset="/img/loading.gif" lazyload alt="39"></p>
+<p>一个垃圾的信息泄露</p>
+<h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p>肯定还有审漏的<br>经过这个cms的审计过后 对MVC这种框架的也有了基本的认识了 以后遇到也不至于这样的无厘头 不知道怎么搞路由 怎么调用的<br>有了一个新的开始<br>如果此文有什么不对点 师傅们指出 学习学习 这也是继前面几篇之后新的一次尝试把 但回过头来看这个cms 也就因为mvc 所以调用的时候不同 其他的点 漏洞的地方还是规规矩矩 大差不差的和以前的比较的话</p>
+<p>联系方式看关于页面</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">代码审计</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/web/">web</a>
+                    
+                      <a class="hover-with-bg" href="/tags/PHP/">PHP</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">zbzcms审计供新手学习</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/02/10/%E6%BA%A2%E5%87%BA%E6%8F%90%E6%9D%83%E4%B8%8A%E7%BA%BF/">
+                        <span class="hidden-mobile">溢出提权上线</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.2/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
