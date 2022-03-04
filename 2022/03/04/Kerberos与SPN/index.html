@@ -1,0 +1,645 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/logo.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="永安寺">
+  <meta name="keywords" content="">
+  
+  <title>Kerberos与SPN - Victory</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.6.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"txluck.github.io","root":"/","version":"1.8.10","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"NnQfFjLx8ctoF1RbDVgWqADt-gzGzoHsz","app_key":"0Lsfi2upctErQTQC8xHAMnIs","server_url":"https://nnqffjlx.lc-cn-n1-shared.com"}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Victory's Note</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Kerberos与SPN">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      永安寺
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-03-04 21:56" pubdate>
+        2022年3月4日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.6k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      30
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Kerberos与SPN</h1>
+            
+            <div class="markdown-body">
+              <h2 id="一、SPN-简介"><a href="#一、SPN-简介" class="headerlink" title="一、SPN 简介"></a>一、SPN 简介</h2><p><strong>SPN</strong>(ServicePrincipal Names)服务主体名称，是服务实例(比如：HTTP、SMB、MySQL等服务)的唯一标识符。</p>
+<p>Kerberos认证过程使用SPN将服务实例与服务登录账户相关联，如果想使用 Kerberos 协议来认证服务，那么必须正确配置SPN。如果在整个林或域中的计算机上安装多个服务实例，则每个实例都必须具有自己的 SPN。如果客户端可能使用多个名称进行身份验证，则给定服务实例可以具有多个SPN。SPN 始终包含运行服务实例的主机的名称，因此服务实例可以为其主机的每个名称或别名注册SPN。一个用户账户下可以有多个SPN，但一个SPN只能注册到一个账户。在内网中，SPN扫描通过查询向域控服务器执行服务发现。这对于红队而言，可以帮助他们识别正在运行重要服务的主机，如终端，交换机等。SPN的识别是kerberoasting攻击的第一步。</p>
+<p><strong>下面通过一个例子来说明SPN的作用：</strong></p>
+<p>当某用户需要访问MySQL服务时，系统会以当前用户的身份向域控查询SPN为MySQL的记录。当找到该SPN记录后，用户会再次与KDC通信，将KDC发放的TGT作为身份凭据发送给KDC，并将需要访问的SPN发送给KDC。KDC中的TGS服务对TGT进行解密。确认无误后，由TGS将一张允许访问该SPN所对应的服务的ST服务票据和该SPN所对应的服务的地址发送给用户，用户使用该票据即可访问MySQL服务。</p>
+<h2 id="二、SPN分为两种类型："><a href="#二、SPN分为两种类型：" class="headerlink" title="二、SPN分为两种类型："></a>二、<strong>SPN分为两种类型：</strong></h2><p>1.一种是注册在活动目录的机器帐户(Computers)下，当一个服务的权限为 Local System 或 Network Service，则SPN注册在机器帐户(Computers)下。域中的每个机器都会有注册两个SPN：HOST/主机名 和 HOST/主机名.xie.com</p>
+<p>2.另一种是注册在活动目录的域用户帐户(Users)下，当一个服务的权限为一个域用户，则SPN注册在域用户帐户(Users)下。</p>
+<p><img src="/2022/03/04/Kerberos%E4%B8%8ESPN/image-20220213004516395.png" srcset="/img/loading.gif" lazyload alt="image-20220213004516395"></p>
+<p><strong>这里以SQLServer服务注册为例：</strong></p>
+<p>SQLServer在每次启动的时候，都会去尝试用自己的启动账号注册SPN。但是在Windows域里，默认普通机器账号有权注册SPN，但是普通域用户账号是没有权注册SPN的。这就会导致这样一个现象，SQL Server如果使用“Local System account”来启动，Kerberos就能够成功，因为SQL Server这时可以在DC上注册SPN。如果用一个域用户来启动，Kerberos就不能成功，因为这时SPN注册不上去。</p>
+<p><strong>解决办法：</strong></p>
+<blockquote>
+<p>可以使用工具SetSPN -S来手动注册SPN。但是这不是一个最好的方法，毕竟手工注册不是长久之计。如果SPN下次丢了，又要再次手动注册。</p>
+<p>所以比较好的方法，是让SQL Server当前启动域账号有注册SPN的权力。要在DC上为域账号赋予 “Read servicePrincipalName” 和 “Write serverPrincipalName” 的权限即可。</p>
+</blockquote>
+<h2 id="三、SPN-格式与配置："><a href="#三、SPN-格式与配置：" class="headerlink" title="三、SPN 格式与配置："></a>三、SPN 格式与配置：</h2><p>微软官方文档：<strong><a target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-cn/windows-server/networking/sdn/security/kerberos-with-spn">https://docs.microsoft.com/zh-cn/windows-server/networking/sdn/security/kerberos-with-spn</a></strong></p>
+<p>在 SPN 的语法中存在四种元素，两个必须元素和两个额外元素，其中 &lt; server class &gt;和 &lt; host &gt;为必须元素：</p>
+<blockquote>
+<p>SPN格式：<service class>/<host>:<port>/<service name> </service></port></host></service></p>
+<p><service class>：标识服务类的字符串，可以理解为服务的名称，常见的有WWW、MySQL、SMTP、MSSQL等；必须元素 </service></p>
+<p><host>：服务所在主机名，host有两种形式，FQDN(win7.xie.com)和NetBIOS(win7)名；必须元素 </host></p>
+<p><port>：服务端口,如果服务运行在默认端口上,则端口号(port)可以省略；额外元素 </port></p>
+<p><service name>：服务名称,可以省略；额外元素 </service></p>
+<p>一些服务的SPN示例： </p>
+<p>#Exchange服务 </p>
+<p>exchangeMDB/ex01.xie.com </p>
+<p>#RDP服务 </p>
+<p>TERMSERV/te01.xie.com </p>
+<p>#WSMan/WinRM/PSRemoting服务 </p>
+<p>WSMAN/ws01.xie.com</p>
+</blockquote>
+<p><img src="/2022/03/04/Kerberos%E4%B8%8ESPN/image-20220213005306335.png" srcset="/img/loading.gif" lazyload alt="image-20220213005306335"></p>
+<h2 id="四、使用SetSPN注册SPN"><a href="#四、使用SetSPN注册SPN" class="headerlink" title="四、使用SetSPN注册SPN"></a>四、<strong>使用SetSPN注册SPN</strong></h2><p>SetSPN是一个本地Windows二进制文件，可用于检索用户帐户和服务之间的映射。该实用程序可以添加，删除或查看SPN注册。</p>
+<blockquote>
+<p>主机：win7.xie.com</p>
+</blockquote>
+<blockquote>
+<p>域控：win2008.xie.com</p>
+</blockquote>
+<blockquote>
+<p>当前用户：xie/test</p>
+</blockquote>
+<p><strong>注：注册SPN需要域管理员权限，普通域成员注册会提示权限不够！</strong></p>
+<p>把主机win7.xie.com的mysql服务注册到spn中</p>
+<p><img src="/2022/03/04/Kerberos%E4%B8%8ESPN/image-20220213010820938.png" srcset="/img/loading.gif" lazyload alt="image-20220213010820938"></p>
+<p>这里有个tips：因为有些文章用的setspn -A 所以 介绍一下两个的区别：<br>根据<a target="_blank" rel="noopener" href="http://technet.microsoft.com/library/cc773257">Setspn概述</a>，不建议使用它<code>Setspn -A</code>来添加SPN记录，建议改为使用它<code>Setspn -S</code>。</p>
+<p>据说<code>Setspn -S</code>在添加新SPN之前先检查SPN是否已经存在。<code>Setspn –A</code>不执行此检查。</p>
+<p>尽管可以使用Setspn -A添加SPN，但应改用Setspn -S，因为-S将验证没有重复的SPN。</p>
+<p>但是，在Windows Server 2012上，我看到了<code>Setspn -S</code>并<code>Setspn -A</code>以相同的方式进行操作：如果存在帐户的SPN记录，则使用<code>-A</code>和<code>-S</code>参数都会失败。</p>
+<p><strong>以test用户的身份进行SPN服务的注册</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">setspn -S SQLServer/win7.xie.com:1433 <span class="hljs-built_in">test</span>    <span class="hljs-comment">#test必须是当前的用户</span><br>或<br>setspn -U -A SQLServer/win7.xie.com:1433 <span class="hljs-built_in">test</span>    <span class="hljs-comment">#test必须是当前的用户</span><br></code></pre></td></tr></table></figure>
+
+<p>-u 是指定test为用户账户   参考：<a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-r2-and-2012/cc731241(v=ws.11)">https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-r2-and-2012/cc731241(v=ws.11)</a></p>
+<p><img src="/2022/03/04/Kerberos%E4%B8%8ESPN/image-20220213011808653.png" srcset="/img/loading.gif" lazyload alt="image-20220213011808653"></p>
+<p><strong>以WIN7主机的身份在DC(win2008.xie.com)上进行SPN服务(SQLServer)的注册</strong></p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">setspn</span> -S SQLServer/win<span class="hljs-number">7</span>.xie.com:<span class="hljs-number">1533</span>/MSSQL win<span class="hljs-number">7</span>    #win<span class="hljs-number">7</span>必须是当前的主机名<br></code></pre></td></tr></table></figure>
+
+<p>这里由于之前用 test 用户注册过，所以会提示重复，我们可以将端口修改为其他端口，则不是重复的SPN了</p>
+<p><img src="/2022/03/04/Kerberos%E4%B8%8ESPN/image-20220213012130079.png" srcset="/img/loading.gif" lazyload alt="image-20220213012130079"></p>
+<h2 id="五、SPN的发现"><a href="#五、SPN的发现" class="headerlink" title="五、SPN的发现"></a>五、<strong>SPN的发现</strong></h2><p>由于每台服务器都需要注册用于Kerberos身份验证服务的SPN，因此这为在不进行大规模端口扫描的情况下收集有关内网域环境的信息提供了一个更加隐蔽的方法。</p>
+<p><strong>使用SetSPN查询：</strong></p>
+<p>windows系统自带的setspn可以查询域内的SPN。</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs gradle">查看当前域内所有的SPN：setspn  -Q  *<span class="hljs-comment">/*</span><br><span class="hljs-comment">查看指定域xie.com注册的SPN：setspn -T xie.com -Q */</span>*      如果指定域不存在，则默认切换到查找本域的SPN<br>查找本域内重复的SPN：setspn -X<br>删除指定SPN：setspn -D MySQL<span class="hljs-regexp">/win7.xie.com:1433/M</span>SSQL hack<br>查找指定用户<span class="hljs-regexp">/主机名注册的SPN：setspn -L username/</span>hostname<br></code></pre></td></tr></table></figure>
+
+<p><img src="/2022/03/04/Kerberos%E4%B8%8ESPN/image-20220213015244379.png" srcset="/img/loading.gif" lazyload alt="image-20220213015244379"></p>
+<p><strong>机器账户：</strong></p>
+<ul>
+<li>CN=DC</li>
+<li>CN=PC2</li>
+</ul>
+<p><strong>域用户账户：</strong></p>
+<ul>
+<li><strong>CN=krbtgt,CN=Users,DC=redteam,DC=com</strong></li>
+</ul>
+<p><strong>注册于域用户下的SPN仅有一个：</strong></p>
+<ul>
+<li><strong>kadmin/changepw</strong></li>
+</ul>
+<p><img src="/2022/03/04/Kerberos%E4%B8%8ESPN/image-20220213015146908.png" srcset="/img/loading.gif" lazyload alt="image-20220213015146908"></p>
+<p><img src="/2022/03/04/Kerberos%E4%B8%8ESPN/image-20220213015306013.png" srcset="/img/loading.gif" lazyload alt="image-20220213015306013"></p>
+<p><img src="/2022/03/04/Kerberos%E4%B8%8ESPN/image-20220213015406626.png" srcset="/img/loading.gif" lazyload alt="image-20220213015406626"></p>
+<p>图是用的我自己虚拟机</p>
+<h2 id="六、扫描工具"><a href="#六、扫描工具" class="headerlink" title="六、扫描工具"></a>六、扫描工具</h2><p><strong>PowerShell-AD-Recon：</strong></p>
+<p>该工具包提供了一些探测指定SPN的脚本，例如Exchange，Microsoft SQLServer，Terminal等</p>
+<p><img src="/2022/03/04/Kerberos%E4%B8%8ESPN/image-20220213020151584.png" srcset="/img/loading.gif" lazyload alt="image-20220213020151584"></p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">#Discover-<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">PSMSSQLServers</span>.</span></span>ps1的使用,扫描MSSQL服务 Import-Module ./Discover-<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">PSMSSQLServers</span>.</span></span>ps1;Discover-PSMSSQLServers #Discover-<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">PSMSExchangeServers</span>.</span></span>ps1的使用，扫描Exchange服务 Import-Module ./Discover-<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">PSMSExchangeServers</span>.</span></span>ps1;Discover-PSMSExchangeServers #扫描域中所有的SPN信息 Import-Module ./Discover-<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">PSInterestingServices</span>.</span></span>ps1;Discover-PSInterestingServices<br></code></pre></td></tr></table></figure>
+
+<p><strong>GetUserSPNs.ps1：</strong></p>
+<p>GetUserSPNs 是 Kerberoast 工具集中的一个 powershell 脚本，用来查询域内用户注册的 SPN。</p>
+<figure class="highlight coq"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs coq"><span class="hljs-keyword">Import</span>-<span class="hljs-keyword">Module</span> ./GetUserSPNs.ps1<br></code></pre></td></tr></table></figure>
+
+<p><img src="/2022/03/04/Kerberos%E4%B8%8ESPN/image-20220213020222523.png" srcset="/img/loading.gif" lazyload alt="image-20220213020222523"></p>
+<p><strong>GetUserSPNs.vbs：</strong></p>
+<p>GetUserSPNs 是 Kerberoast 工具集中的一个 vbs 脚本，用来查询域内用户注册的 SPN。</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">cscript ./<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">GetUserSPNs</span>.</span></span>vbs<br></code></pre></td></tr></table></figure>
+
+<p><img src="/2022/03/04/Kerberos%E4%B8%8ESPN/image-20220213020244356.png" srcset="/img/loading.gif" lazyload alt="image-20220213020244356"></p>
+<p><strong>PowerView.ps1：</strong></p>
+<p>PowerView是 PowerSpolit 中 Recon目录下的一个powershell脚本，PowerView 相对于上面几种是根据不同用户的 objectsid 来返回，返回的信息更加详细。</p>
+<figure class="highlight mathematica"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs mathematica"><span class="hljs-built_in">Import</span><span class="hljs-operator">-</span><span class="hljs-built_in">Module</span> <span class="hljs-operator">./</span><span class="hljs-variable">PowerView</span><span class="hljs-operator">.</span><span class="hljs-variable">ps1</span><br><span class="hljs-built_in">Get</span><span class="hljs-operator">-</span><span class="hljs-variable">NetUser</span> <span class="hljs-operator">-</span><span class="hljs-variable">SPN</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="/2022/03/04/Kerberos%E4%B8%8ESPN/image-20220213020303044.png" srcset="/img/loading.gif" lazyload alt="image-20220213020303044"></p>
+<p><strong>RiskySPN中的Find-PotentiallyCrackableAccounts.ps1：</strong></p>
+<p>该脚本可以帮助我们自动识别弱服务票据，主要作用是对属于用户的可用服务票据执行审计，并根据用户帐户和密码过期时限来查找最容易包含弱密码的票据。</p>
+<figure class="highlight mathematica"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mathematica"><span class="hljs-built_in">Import</span><span class="hljs-operator">-</span><span class="hljs-built_in">Module</span> <span class="hljs-operator">./</span><span class="hljs-built_in">Find</span><span class="hljs-operator">-</span><span class="hljs-variable">PotentiallyCrackableAccounts</span><span class="hljs-operator">.</span><span class="hljs-variable">ps1</span><span class="hljs-operator">;</span><span class="hljs-built_in">Find</span><span class="hljs-operator">-</span><span class="hljs-variable">PotentiallyCrackableAccounts</span> <span class="hljs-operator">-</span><span class="hljs-variable">FullData</span> <span class="hljs-operator">-</span><span class="hljs-built_in">Verbose</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="/2022/03/04/Kerberos%E4%B8%8ESPN/image-20220213020402293.png" srcset="/img/loading.gif" lazyload alt="image-20220213020402293"></p>
+<p>该脚本将提供比klist和Mimikatz更详细的输出，包括组信息，密码有效期和破解窗口。</p>
+<p><img src="/2022/03/04/Kerberos%E4%B8%8ESPN/image-20220213020420487.png" srcset="/img/loading.gif" lazyload alt="image-20220213020420487"></p>
+<p>使用domain参数，将返回所有具有关联服务主体名称的用户帐户，也就是将返回所有SPN注册在域用户下的用户。</p>
+<figure class="highlight mathematica"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mathematica"><span class="hljs-built_in">Import</span><span class="hljs-operator">-</span><span class="hljs-built_in">Module</span> <span class="hljs-operator">./</span><span class="hljs-built_in">Find</span><span class="hljs-operator">-</span><span class="hljs-variable">PotentiallyCrackableAccounts</span><span class="hljs-operator">.</span><span class="hljs-variable">ps1</span><span class="hljs-operator">;</span><span class="hljs-built_in">Find</span><span class="hljs-operator">-</span><span class="hljs-variable">PotentiallyCrackableAccounts</span> <span class="hljs-operator">-</span><span class="hljs-variable">Domain</span> <span class="hljs-string">&quot;xie.com&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="/2022/03/04/Kerberos%E4%B8%8ESPN/image-20220213020435777.png" srcset="/img/loading.gif" lazyload alt="image-20220213020435777"></p>
+<p>更多扫描工具参考：</p>
+<p><a target="_blank" rel="noopener" href="https://www.freebuf.com/articles/web/262953.html">https://www.freebuf.com/articles/web/262953.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.freebuf.com/articles/system/174229.html">https://www.freebuf.com/articles/system/174229.html</a></p>
+<h2 id="原理说明"><a href="#原理说明" class="headerlink" title="原理说明"></a>原理说明</h2><p>​        在 SPN 扫描时我们可以直接通过脚本，或者命令去获悉内网已经注册的 SPN 内容。那 如果想了解这个过程是如何实现的，就需要提到 LDAP 协议。 </p>
+<p>​        LDAP 协议全称是 Lightweight Directory Access Protocol，一般翻译成轻量目录访问协议。 是一种用来查询与更新 Active Directory 的目录服务通信协议。AD 域服务利用 LDAP 命名 路径（LDAP naming path）来表示对象在 AD 内的位置，以便用它来访问 AD 内的对象。</p>
+<p>​        运行在  tcp/ip之上， 一般使用389端口进行数据传输。</p>
+<p>LDAP 数据的组织方式：</p>
+<p><img src="/2022/03/04/Kerberos%E4%B8%8ESPN/image-20220213155139066.png" srcset="/img/loading.gif" lazyload alt="image-20220213155139066"></p>
+<p>更直观的说可以把 LDAP 协议理解为一个关系型数据库，其中存储了域内主机的各种配 置信息。 在域控中默认安装了 ADSI 编辑器，全称 Active Directory Service Interfaces Editor (ADSI Edit)，是一种 LDAP 的编辑器，可以通过在域控中运行 adsiedit.msc 来打开（服务器上都有， 但是只有域控中的有整个域内的配置信息）。</p>
+<p><img src="/2022/03/04/Kerberos%E4%B8%8ESPN/image-20220213155213484.png" srcset="/img/loading.gif" lazyload alt="image-20220213155213484"></p>
+<p>通过 adsiedit.msc 我们可以修改和编辑 LADP，在 SPN 查询时实际上就是查询 LADP 中存 储的内容。 比如在我们是实验环境域 whoami.org 中，存在名为computer的一个CN（Organization Unit，可以理解为一个部门，如开发部、财务部等等），其中包含了PC2 这个主机，从主机 属性中可以看到 PC2注册过的 SPN 内容。</p>
+<p>这里是上面用我虚拟机实验添加的spn</p>
+<p><img src="/2022/03/04/Kerberos%E4%B8%8ESPN/image-20220213155758406.png" srcset="/img/loading.gif" lazyload alt="image-20220213155758406"></p>
+<p>下面是云影 系列的例子：</p>
+<p>比如在我们是实验环境域 YUNYING.LAB 中，存在名为 svcserver 的一个 OU（Organization Unit，可以理解为一个部门，如开发部、财务部等等），其中包含了 tsvc 这个用户，从用户 属性中可以看到 tsvc 注册过的 SPN 内容。</p>
+<p><img src="/2022/03/04/Kerberos%E4%B8%8ESPN/image-20220213155912550.png" srcset="/img/loading.gif" lazyload alt="image-20220213155912550"></p>
+<p>当我们在一台主机执行 setspn -T yunying.lab -q */*命令查询域内 SPN 时，通过抓包可以 看到正是通过 LDAP 协议向域控中安装的 LDAP 服务查询了 SPN 的内容。</p>
+<p><img src="/2022/03/04/Kerberos%E4%B8%8ESPN/image-20220213155930590.png" srcset="/img/loading.gif" lazyload alt="image-20220213155930590"></p>
+<p>所以其实那些Powershell脚本其实主要就是通过查询LDAP的内容并对返回结果做一个过滤， 然后展示出来。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%86%85%E7%BD%91/">内网</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Kerberos/">Kerberos</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/03/04/%E9%BB%84%E9%87%91%E7%A5%A8%E6%8D%AE%E5%92%8C%E7%99%BD%E9%93%B6%E7%A5%A8%E6%8D%AE/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">黄金票据和白银票据</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/03/04/Kerberos/">
+                        <span class="hidden-mobile">Kerberos</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.2/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

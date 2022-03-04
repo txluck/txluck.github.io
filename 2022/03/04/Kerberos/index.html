@@ -1,0 +1,663 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/logo.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="永安寺">
+  <meta name="keywords" content="">
+  
+  <title>Kerberos - Victory</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.6.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"txluck.github.io","root":"/","version":"1.8.10","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"NnQfFjLx8ctoF1RbDVgWqADt-gzGzoHsz","app_key":"0Lsfi2upctErQTQC8xHAMnIs","server_url":"https://nnqffjlx.lc-cn-n1-shared.com"}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Victory's Note</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Kerberos">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      永安寺
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-03-04 21:55" pubdate>
+        2022年3月4日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      4.1k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      48
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Kerberos</h1>
+            
+            <div class="markdown-body">
+              <p><img src="/2022/03/04/Kerberos/image-20220211114025754.png" srcset="/img/loading.gif" lazyload alt="image-20220211114025754"></p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Kerberos 是一种由 MIT（麻省理工大学）提出的一种网络身份验证协议。它旨在通过使 用密钥加密技术为客户端/服务器应用程序提供强身份验证。</p>
+<p>因为Kerberos协议 一般运用在域环境中  所以先结束一下域环境</p>
+<h2 id="域环境"><a href="#域环境" class="headerlink" title="域环境"></a>域环境</h2><p>​        由于 Kerberos 主要是用在域环境下的身份认证协议，所以在说之前先说下域环境的一 些概念。首先域的产生是为了解决企业内部的资源管理问题，比如一个公司就可以在网络中 建立一个域环境，更方便内部的资源管理。在一个域中有域控、域管理员、普通用户、主机 等等各种资源。 </p>
+<p>​        在下图中 YUNYING.LAB 为其他两个域的根域，NEWS.YUNYING.LAB 和 DEV.YUNYING.LAB 均为 YUNYING.LAB 的子域，这三个域组成了一个域树。子域的概念可以理解为一个集团在不 同业务上分公司，他们有业务重合的点并且都属于 YUNYING.LAB 这个根域，但又独立运作。 同样 TEST.COM 也是一个单独的域树，两个域树 YUNYING.LAB 和 TEST.COM 组合起来被称为 一个域林。</p>
+<p><img src="/2022/03/04/Kerberos/image-20220211195403199.png" srcset="/img/loading.gif" lazyload alt="image-20220211195403199"></p>
+<p>​        YUNYING.LAB 的域控是 DC.YUNYING.LAB， 子域 NEWS.YUNYING.LAB 和 DEV.YUNYING.LAB 的域控分别为 NEWSDC.NEWS.YUNYING.LAB 和 DEVDC.DEV.YUNYING.LAB。 </p>
+<p>​        上面说的都是 FQDN(Fully Qualified Domain Name)名称，也就是全限定域名，是同时包含 主机名和域名的名称。 </p>
+<p>​        例：DC.YUNYING.LAB 中 DC 为主机名，域名为 YUNYING.LAB，那他的 FQDN 名称就是 DC.YUNYING.LAB。</p>
+<p><img src="/2022/03/04/Kerberos/image-20220211195519811.png" srcset="/img/loading.gif" lazyload alt="image-20220211195519811"></p>
+<p>如何搭建域环境以及如何建立子域可参考网上的一些说明，这里放两个链接作为参考。 </p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://jingyan.baidu.com/article/19192ad8e1593ae53e5707be.html">https://jingyan.baidu.com/article/19192ad8e1593ae53e5707be.html</a> </p>
+</blockquote>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="http://blog.51cto.com/vbers/2058306">http://blog.51cto.com/vbers/2058306</a></p>
+</blockquote>
+<p>这里是参考的云影Kerberos系列</p>
+<h2 id="kerberos-协议概述"><a href="#kerberos-协议概述" class="headerlink" title="kerberos 协议概述"></a>kerberos 协议概述</h2><p>在Kerberos协议中主要是有三个角色的存在：</p>
+<ul>
+<li><p>访问服务的Client</p>
+</li>
+<li><p>提供服务的Server</p>
+</li>
+<li><p>KDC（Key Distribution Center）密钥分发中心 </p>
+</li>
+<li><p>Client代表用户，用户有自己的密码，Server上运行的服务也有自己的密码，KDC是受信任的三方认证中心，它拥有用户和服务的密码信息。</p>
+</li>
+<li><p>KDC服务默认会安装在域控中，而Client和Server为域内的用户或者是服务，如HTTP服务，SQL服务。在Kerberos中Client是否有权限访问Server端的服务由KDC发放的票据来决定。Client想要访问Server的服务（xxx service），前提是通过KDC认证，再由KDC发放的票据决定Client是否有权限访问Server的服务。</p>
+</li>
+<li><p>KDC 服务框架中包含一个 KRBTGT 账户，它是在创建域时系统自动创建的一个账号，你可以暂时理解为他就是一个无法登陆的账号，在发放票据时会使用到它的密码 HASH 值。</p>
+</li>
+</ul>
+<p><img src="/2022/03/04/Kerberos/image-20220212004526739.png" srcset="/img/loading.gif" lazyload alt="image-20220212004526739"></p>
+<p><strong>名词基本概念：</strong></p>
+<p>​    KDC: Key Distribution Center，密钥分发中心，负责管理票据、认证票据、分票据，但是KDC不是一个独立的服务，它由AS和TGS组成。</p>
+<p>​    AS: Authentication Service，验证服务，为client生成TGT的服务</p>
+<p>​    TGS: Ticket Granting Service，票据授权服务，验证TGT，发放ST。</p>
+<p>​    TGT: Ticket Granting Ticket，票据授权票据，由KDC的AS发放，客户端获取到该票据后，以后申请其他应用的服务票据(ST)时，就不需要向KDC的AS提交身份认证信息(credential)，TGT具有一定的有效期。由 KBRTGT HASH 加密的 sessionkey-as 和 Timestamp 等信息。TGT=KBRTGT HASH（）</p>
+<p>​    ST(Service Ticket)：服务票据，由KDC的TGS发放，是客户端应用程序访问Server某个服务的凭证，Server端验证通过则完成Client与Server端信任关系的建立。</p>
+<p>​    Session key:用来加密client和TGS之间传输的数据。</p>
+<p>​    Server session key:用来加密client和server之间传输的数据、认证</p>
+<p>​    Ticket:票据，是网络中各对象之间互相访问的凭证</p>
+<p>​    AD: Account Database，存储所有client的白名单，只有存在于白名单的client才能顺利申请到TGT。</p>
+<p>​    DC: Domain Controller，域控</p>
+<p>​    KRBTGT: 每个域控制器都有一个krbtgt账户，是KDC的服务账户，用来创建TGS加密的密钥。</p>
+<p>如果把Kerberos中的票据类比为一张火车票，那么Client端就是乘客，Server端就是火车，而KDC就是就是车站的认证系统。如果Client端的票据是合法的（由你本人身份购买并由你本人持有）同时有访问Server端服务的权限（车票对应车次正确）那么你才能上车。当然和火车票不一样的是Kerberos中有存在两张票，而火车票从头到尾只有一张。<br>由上图中可以看到KDC又分为两个部分：</p>
+<p>Authentication Server： AS的作用就是验证Client端的身份（确定你是身份上的本人），验证通过就会给一张TGT（Ticket Granting Ticket）票给Client。<br>Ticket Granting Server： TGS的作用是通过AS发送给Client的票（TGT）换取访问Server端的票（上车的票ST）。ST（Service Ticket）也有资料称为TGS Ticket，为了和TGS区分，在这里就用ST来说明。</p>
+<p><img src="/2022/03/04/Kerberos/image-20220212005207409.png" srcset="/img/loading.gif" lazyload alt="image-20220212005207409"></p>
+<h2 id="Kerberos认证流程"><a href="#Kerberos认证流程" class="headerlink" title="Kerberos认证流程"></a>Kerberos认证流程</h2><h3 id="整体流程"><a href="#整体流程" class="headerlink" title="整体流程"></a>整体流程</h3><p>​        当域内某个用户(client)去请求同域内的某个服务的时候(server)，这个请求首先会被送到KDC进行身份认判断是否是可信赖的，在AD（account database）中查询该client name对应的master key，并对pre-authentication data数据进行解密，如果可以提取出一个合法的时间戳，那就说明该用户是合法的，验证通过(有些这里是说成黑白名单的说法，在AD中对比黑白名单 看看用户是否是可信赖的)，返回AS，然后AS给用户返回一个可重复使用的TGT，后续Client使用这个TGT向TGS请求ST即可。然后用户再拿着<strong>TGT</strong>票据去请求<strong>TGS</strong>，<strong>TGS</strong>验证成功后会返回一个用对应服务账号的密码<strong>hash</strong>加密过的票据<strong>ST</strong>，然后用户就可以拿着ST去访问server上对应的服务了。但是这个Ticket只能用来访问这个Server，如果要访问其他Server需要向KDC重新申请。</p>
+<h3 id="分步"><a href="#分步" class="headerlink" title="分步"></a>分步</h3><p><img src="/2022/03/04/Kerberos/image-20220212012430878.png" srcset="/img/loading.gif" lazyload alt="image-20220212012430878"></p>
+<p>当 Client 想要访问 Server 上的某个服务时，需要先向 AS 证明自己的身份，然后通过 AS 发放的 TGT 向 Server 发起认证请求，这个过程分为三块：</p>
+<ul>
+<li><p>The Authentication Service Exchange（认证服务器）–&gt;</p>
+<p>Client 与 AS 的交互AS_REQ•AS_REP</p>
+</li>
+<li><p>Ticket-Granting Service (TGS) Exchange（票据授予服务器）–&gt;</p>
+<p>Client 与 TGS 的交互 TGS_REQ•TGS_REP</p>
+</li>
+<li><p>The Client/Server Authentication Exchange（pc和要访问的服务）–&gt;</p>
+<p>Client 与 Server 的交互 AP_REQ•AP_REP</p>
+</li>
+</ul>
+<h3 id="第一步：Client-与-AS"><a href="#第一步：Client-与-AS" class="headerlink" title="第一步：Client 与 AS"></a>第一步：Client 与 AS</h3><p><img src="/2022/03/04/Kerberos/image-20220212013650350.png" srcset="/img/loading.gif" lazyload alt="image-20220212013650350"></p>
+<h4 id="AS-REQ（请求）："><a href="#AS-REQ（请求）：" class="headerlink" title="AS_REQ（请求）："></a>AS_REQ（请求）：</h4><p><img src="/2022/03/04/Kerberos/image-20220212013147551.png" srcset="/img/loading.gif" lazyload alt="image-20220212013147551"></p>
+<ul>
+<li>Pre-authentication data:就是用client对应的master key加密了一个timestamp。</li>
+<li>Client info:client用户信息</li>
+<li>Server info:这里并不是Client真正要访问的Server的名称，实际上是KDC的Ticket Granting Service的Server Name。</li>
+</ul>
+<p>第一步 Client 先向 KDC 的 AS 发送 Authenticator1，内容为通过 Client 密码 Hash 加密的 时间戳、Client ID、网络地址、加密类型等内容。KDC端收到该请求后，Authentication service用client info部分信息，在AD（account database）中查询该client name对应的master key，并对pre-authentication data数据进行解密，如果可以提取出一个合法的时间戳，那就说明该用户是合法的，验证通过，并回复KRB_AS_REP给client。</p>
+<h4 id="AS-REP（返回）："><a href="#AS-REP（返回）：" class="headerlink" title="AS_REP（返回）："></a><strong>AS_REP（返回）：</strong></h4><p><img src="/2022/03/04/Kerberos/image-20220212014028121.png" srcset="/img/loading.gif" lazyload alt="image-20220212014028121"></p>
+<ul>
+<li><p>AS 收到用户认证请求后，AS 根据请求中的 用户名 AA 信息，从数据库中查找用户名是否存在。如果 用户名 AA 存在，则从 KDC 中可以获取 用户 AA 的密码，使用单向函数为该密码生成一个 Client 密钥（即NTLM Hash）。AS 生成随机字符串 Client/TGS Session Key，使用 Client 密钥(用户 AA 的密码 NTLM Hash)对 Client/TGS Session Key 加密得到 sessionkey_as； //Sessionkey_as = 用户密码NTLM HASH(Client/TGS Session Keys)</p>
+</li>
+<li><p>再使用 TGS 密钥(krbtgt 用户的 NTLM Hash)对 Client/TGS Session Key 、 Client Info 和 Timestamp 加密,得到 TGT（TGT票据）。</p>
+</li>
+<li><p>//TGT = KRBTGT用户NTLM Hash(Client/TGS Session_key,Client info,Timestamp)</p>
+</li>
+<li><p>将 sessionkey_as 和 TGT 一起返回给 Client。</p>
+</li>
+<li><p>Client 收到 AS 的响应消息后，利用自身的 Client 密钥（AA 的 NTLM Hash）对sessionkey_as 解密，这样就获取到 Client/TGS Session Key。</p>
+</li>
+</ul>
+<p><strong>总体来说</strong>，<strong>KRB_AS_REP</strong>分为两部分：</p>
+<ul>
+<li>用client master key对session key进行加密后的值。Session key是KDC随机生成的UUID，用于client和TGS服务之间的数据加密、认证。</li>
+<li>用KDC master key值对Client/TGS Session Key进行加密。这部分client解不了。由此处也可以看出，TGT包括三个部分，分别是session key、client name、end time。（当响应信息里面有KDC Hash，即可伪造黄金票据） //Master Key = NTLM Hash</li>
+</ul>
+<h3 id="第二步：Client与TGS交互"><a href="#第二步：Client与TGS交互" class="headerlink" title="第二步：Client与TGS交互"></a>第二步：Client与TGS交互</h3><p><img src="/2022/03/04/Kerberos/image-20220212020233719.png" srcset="/img/loading.gif" lazyload alt="image-20220212020233719"></p>
+<p>当client端接收到AS_REP时，client使用client master key对KRB_AS_REP的第一部分信息进行解密，得到session key，并再次拼装出TGS_REQ请求体，向KDC的TGS发出请求</p>
+<p>请求结构如下，TGS_REQ请求体包括：client/TGS Session key(client info+时间戳)、TGT、client info、server info；</p>
+<p>其中，server info就是该client真正要访问的server，步骤一AS_REQ中的不一样</p>
+<h4 id="TGS-REQ（请求）："><a href="#TGS-REQ（请求）：" class="headerlink" title="TGS-REQ（请求）："></a><strong>TGS-REQ（请求）：</strong></h4><p>client像TGS发送client解密出的Session key然后和client info+时间戳加密的新的Session key(client info+时间戳) 以及 TGT，当TGS服务收到到client请求体KRB_TGS_REQ时，因为TGS端并没有session key，只能先利用KDC的master key去解TGT部分内容，得到session key，再去解Session key(client info+时间戳)部分，从而验证该用户是否是AS颁发给该client的。验证通过后，给client回复KRB_TGS_REP给client</p>
+<p><strong>TGS-REP（返回）：</strong></p>
+<p>TGS 收到请求后，检查 KDC 数据库中是否存在所请求的服务(Service ID)。如果存在，TGS 使用 KDC密钥(krbtgt 的 NTLM Hash)解密 TGT，得到 Client/TGS Session Key、timestamp、Client info；同时使用从 TGT 中解密得到的 Client/TGS Session Key去解密 Authenticator2，得到 Client info 和 timestamp。比对 Authenticator2 和TGT 的解密内容以验证通过。</p>
+<p>•TGS 比对 Authenticator2 包含的 Client ID 和 TGT 中的 Client ID•比较时间戳（误差范围在2分钟）</p>
+<p>•通过生命周期字段检查 TGT 是否过期</p>
+<p>•检查 Authenticator2 已经不再 TGS 的缓存中</p>
+<p>•若原始请求中的网络地址不为 NULL，比较 TGT 中的 IP 和请求的 IP验证成功后，随机生成 Client 所请求服务的会话密钥 Client/Server Session Key；</p>
+<p>使用 Server 密钥（即服务器计算机的NTLM Hash）对 Client/Server Session Key、Client Info（包含 Client ID）、TimeStamp 加密得到 Client-To-Server Ticket（也称为 ST 票据）；</p>
+<p>使用 Client/TGS Session Key 对 Client/Server Session Key 加密得到sessionkey_tgs</p>
+<p>//ST=Server NTLM Hash(Client/Server Session Key,Client Info,TimeStamp)</p>
+<p>//Sessionkey_tgs = Client/TGS Session Key(Client/Server Session Key)</p>
+<p>最终将 Client-To-Server Ticket、sessionkey_tgs 返回给 Client。</p>
+<h3 id="第三步：Client与SS交互"><a href="#第三步：Client与SS交互" class="headerlink" title="第三步：Client与SS交互"></a>第三步：Client与SS交互</h3><p><img src="/2022/03/04/Kerberos/image-20220212021542029.png" srcset="/img/loading.gif" lazyload alt="image-20220212021542029"></p>
+<p><strong>Client 向 SS(Service Server)发送服务请求</strong></p>
+<h4 id="AP-REQ（请求）："><a href="#AP-REQ（请求）：" class="headerlink" title="AP-REQ（请求）："></a>AP-REQ（请求）：</h4><p>Client 收到 Client-To-Server Ticket、sessionkey_tgs 之后，使用Client/TGS Session Key 对 sessionkey_tgs 解密得到 Client/Server Session Key,然后使用 Client/Server Session Key 对 Client Info 和 timestamp 加密得到Authenticator3；将 Authenticator3 和 Client-To-Server Ticket 发送给所请求服务的服务器(Service Server)。</p>
+<h4 id="AP-REP（返回）："><a href="#AP-REP（返回）：" class="headerlink" title="AP-REP（返回）："></a>AP-REP（返回）：</h4><p>Service Server 收到客户端的服务访问请求之后，利用 Server 密钥(Server 的 ntlm Hash)对 Client-To-Server Ticket 解密，提取出 Client/Server SessionKey、Client ID 等信息。Service Server 使用 Client/Server SessionKey 对 Authenticator3 解密得到 Client ID 和 TimeStamp。</p>
+<p>Service Server 发送最后的验证消息——用 Client/Server SessionKey 加密的 Timestamp 和 Service ID 数据包给 Client。</p>
+<p>Client 收到之后，使用缓存的 Client/Server SessionKey 解密提取 Timestamp 信息，然后确认该信息与 Client 发送的 Authenticator3 中的 Timestamp 信息是否一致。验证通过后，在定义的通讯周期内，Client 可以使用票据请求 Service。</p>
+<h2 id="PAC"><a href="#PAC" class="headerlink" title="PAC"></a>PAC</h2><p>微软为了访问控制而引进的一个扩展PAC，以及PAC在历史上出现过的一个严重的，允许普通用户提升到域管的漏洞MS14068。</p>
+<h3 id="PAC-介绍"><a href="#PAC-介绍" class="headerlink" title="PAC 介绍"></a>PAC 介绍</h3><p>网上很多版本的kerberos的流程是</p>
+<ol>
+<li><p>1.</p>
+<p>用户向KDC发起AS_REQ,请求凭据是用户hash加密的时间戳，KDC使用用户hash进行解密，如果结果正确返回用krbtgt hash加密的TGT票据</p>
+</li>
+<li><p>2.</p>
+<p>用户凭借TGT票据向KDC发起针对特定服务的TGS_REQ请求，KDC使用krbtgt hash进行解密，如果结果正确，就返回用服务hash 加密的TGS票据</p>
+</li>
+<li><p>3.</p>
+<p>用户拿着TGS票据去请求服务，服务使用自己的hash解密TGS票据。如果解密正确，就允许用户访问。</p>
+</li>
+</ol>
+<p>上面这个流程看起来没错，却忽略一个最重要的因素，那就是用户有没有权限访问该服务，在上面的流程里面，只要用户的hash正确，那么就可以拿到TGT，有了TGT，就可以拿到TGS，有了TGS，就可以访问服务，任何一个用户都可以访问任何服务。也就是说上面的流程解决了”Who am i?”的问题，并没有解决 “What can I do?”的问题。</p>
+<p>为了解决上面的这个问题，微软引进了PAC，引进PAC之后的kerberos流程变成</p>
+<p>​        用户向KDC发起AS_REQ,请求凭据是用户hash加密的时间戳，KDC使用用户hash进行解密，如果结果正确返回用krbtgt hash加密的TGT票据，<strong>TGT里面包含PAC,PAC包含用户的sid，用户所在的组</strong>。</p>
+<p><img src="/2022/03/04/Kerberos/image-20220212235948727.png" srcset="/img/loading.gif" lazyload alt="image-20220212235948727"></p>
+<p>​        1.用户凭借TGT票据向KDC发起针对特定服务的TGS_REQ请求，KDC使用krbtgt hash进行解密，如果结果正确，就返回用服务hash 加密的TGS票据(<strong>这一步不管用户有没有访问服务的权限，只要TGT正确，就返回TGS票据，这也是kerberoating能利用的原因，任何一个用户，只要hash正确，可以请求域内任何一个服务的TGS票据，</strong></p>
+<p>​        2.用户拿着TGS票据去请求服务，服务使用自己的hash解密TGS票据。如果解密正确，<strong>就拿着PAC去KDC那边询问用户有没有访问权限，域控解密PAC。获取用户的sid，以及所在的组，再判断用户是否有访问服务的权限，有访问权限(有些服务并没有验证PAC这一步，这也是白银票据能成功的前提，因为就算拥有用户hash，可以制作TGS，也不能制作PAC，PAC当然也验证不成功，但是有些服务不去验证PAC，这是白银票据成功的前提）</strong>就允许用户访问。</p>
+<p>特别说明的是，PAC对于用户和服务全程都是不可见的。只有KDC能制作和查看PAC。</p>
+<h3 id="相关安全问题"><a href="#相关安全问题" class="headerlink" title="相关安全问题"></a>相关安全问题</h3><h3 id="1-MS14068"><a href="#1-MS14068" class="headerlink" title="1. MS14068"></a>1. MS14068</h3><p>补丁编号是KB3011780，域里面最严重的漏洞之一，它允许任意用户提升到域管权限。下面简要分析下该漏洞。</p>
+<p>该漏洞最本质的地方在于<strong>Microsoft Windows Kerberos KDC无法正确检查Kerberos票证请求随附的特权属性证书（PAC）中的有效签名</strong>，这里面的签名就是上面提到的服务检验和以及KDC校验和。导致用户可以自己构造一张PAC。 签名原本的设计是要用到HMAC系列的checksum算法，也就是必须要有key的参与，我们没有krbtgt的hash以及服务的hash，就没有办法生成有效的签名，但是问题就出在，实现的时候允许所有的checksum算法都可以，包括MD5。那我们只需要把PAC 进行md5，就生成新的校验和。这也就意味着我们可以随意更改PAC的内容，完了之后再用md5 给他生成一个服务检验和以及KDC校验和。在MS14-068修补程序之后，Microsoft添加了一个附加的验证步骤，以确保校验和类型为KRB_CHECKSUM_HMAC_MD5。</p>
+<p>在KERB_VALIDATION_INFO结构里面，我们看到有这两个字段。</p>
+<p><img src="/2022/03/04/Kerberos/image-20220213000156652.png" srcset="/img/loading.gif" lazyload alt="image-20220213000156652"></p>
+<p>其中GroupId是用户所在所在的组，那只要我们把重要组(比如域管组)的sid加进GroupId。那么服务拿这用户的TGS去询问域管用户是否有访问访问改服务的权限的时候，域控会解密PAC，提取里面用户的sid，以及所在的组(GroupId)，我们已经把域管加进去了，是的域控把把这个用户当做域管组里面的成员。从而达到提升为域管的效果。pykek加入的是以下组,</p>
+<ul>
+<li><p>域用户（513）</p>
+</li>
+<li><p>域管理员（512）</p>
+</li>
+<li><p>架构管理员（518）</p>
+</li>
+<li><p>企业管理员（519）</p>
+</li>
+<li><p>组策略创建者所有者（520）</p>
+</li>
+</ul>
+<p>参考：<a target="_blank" rel="noopener" href="https://daiker.gitbook.io/windows-protocol/kerberos/3">https://daiker.gitbook.io/windows-protocol/kerberos/3</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%86%85%E7%BD%91/">内网</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Kerberos/">Kerberos</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/03/04/Kerberos%E4%B8%8ESPN/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Kerberos与SPN</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/">
+                        <span class="hidden-mobile">zbzcms审计供新手学习</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.2/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

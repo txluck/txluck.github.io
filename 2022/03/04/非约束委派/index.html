@@ -1,0 +1,645 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/logo.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="永安寺">
+  <meta name="keywords" content="">
+  
+  <title>非约束委派 - Victory</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.6.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"txluck.github.io","root":"/","version":"1.8.10","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"NnQfFjLx8ctoF1RbDVgWqADt-gzGzoHsz","app_key":"0Lsfi2upctErQTQC8xHAMnIs","server_url":"https://nnqffjlx.lc-cn-n1-shared.com"}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Victory's Note</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="非约束委派">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      永安寺
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-03-04 21:57" pubdate>
+        2022年3月4日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.5k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      28
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">非约束委派</h1>
+            
+            <div class="markdown-body">
+              <h2 id="域委派是什么及其由来"><a href="#域委派是什么及其由来" class="headerlink" title="域委派是什么及其由来"></a>域委派是什么及其由来</h2><p>域委派是指：<strong>将域内用户的权限委派给服务账号，使得服务账号能以用户权限开展域内活动</strong></p>
+<p><strong>懂一个东西的产生，肯定要先知道为什么会产生这个东西？</strong></p>
+<p>在Windows 2000 Server首次发布Active Directory时，Microsoft必须提供一种简单的机制来支持用户通过kerberos向web server进行身份验证并需要代表该用户更新后端数据库服务器上的记录的方案。这通常称为”kerberos双跳问题”，并且要求进行委派，以便web server在修改数据库记录时模拟用户。</p>
+<p><strong>这里说的”以便web server在修改数据库记录时模拟用户” 需要如何理解？</strong></p>
+<p>我自己理解的是就比如数据库中的相关数据需要修改，如果此时如果是让当前的web server的服务账户去进行修改的话，那么也就无法记录到到底是谁去修改了这个数据，此时如果出了问题就不知道该去问谁了，这种业务情况下就可能就是需要委派这种功能来进行解决，那么委派之后的情况就是，让当前的web server的服务账户去操作，但是web server同样带有客户的信息，在修改相关数据的时候，用的是对应客户操作者的记录。</p>
+<p>这里还需要注意的一点就是<strong>接受委派的用户只能是服务账户或者主机账户</strong></p>
+<p>在域内只有主机账号和服务账号才有委派属性主机账号：</p>
+<p>1、机器账户：活动目录中的computers组内的计算机，也被称为机器账号。</p>
+<p><img src="/2022/03/04/%E9%9D%9E%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE/image-20220215003209352.png" srcset="/img/loading.gif" lazyload alt="image-20220215003209352"></p>
+<p>2、服务账号：域内用户的一种类型，是服务器运行服务时所用的账号，将服务运行起来加入域内，比如：SQLServer，MYSQL等，还有就是域用户通过注册SPN也能成为服务账号。</p>
+<p>服务账号（Service Account），域内用户的一种类型，服务器运行服务时所用的账号，将服务运行起来并加入域。就比如 SQL Server在安装时，会在域内自动注册服务账号SqlServiceAccount，这类账号不能用于交互式登录。</p>
+<h2 id="非约束性委派（Unconstrained-Delegation）"><a href="#非约束性委派（Unconstrained-Delegation）" class="headerlink" title="非约束性委派（Unconstrained Delegation）"></a>非约束性委派（Unconstrained Delegation）</h2><p>通俗来讲就是 ：</p>
+<p>​        在域中如果出现A使用Kerberos身份验证访问域中的服务B,而B再利用A的身份去请求域中的服务C，这个过程就可以理解为委派</p>
+<p>一个经典例子：参考Y4er</p>
+<p><img src="/2022/03/04/%E9%9D%9E%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE/image-20220215003017928.png" srcset="/img/loading.gif" lazyload alt="image-20220215003017928"></p>
+<p>jack需要登陆到后台文件服务器，经过Kerberos认证的过程如下：</p>
+<ol>
+<li>jack以Kerberos协议认证登录，将凭证发送给websvc</li>
+<li>websvc使用jack的凭证向KDC发起Kerberos申请TGT。</li>
+<li>KDC检查websvc的委派属性，如果websvc可以委派，则返回可转发的jack的TGT。</li>
+<li>websvc收到可转发TGT之后，使用该TGT向KDC申请可以访问后台文件服务器的TGS票据。</li>
+<li>KDC检查websvc的委派属性，如果可以委派，并且权限允许，那么返回jack访问服务的TGS票据。</li>
+<li>websvc使用jack的服务TGS票据请求后台文件服务器。</li>
+</ol>
+<p>微软的非约束委派的请求流程图如下所示</p>
+<p><img src="/2022/03/04/%E9%9D%9E%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE/image-20220215004244702.png" srcset="/img/loading.gif" lazyload alt="image-20220215004244702"></p>
+<ol>
+<li>用户通过发送KRB_AS_REQ消息请求TGT1  <strong>(TGT1是用户访问service1的票据)</strong></li>
+<li>KDC在KRB_AS_REP消息中返回TGT1</li>
+<li>用户再通过TGT1向KDC请求转发TGT2（这里的TGT2跟TGT1不同，这里的TGT2票据属性中存在<strong>可转发的标记Forwarded</strong>）</li>
+<li>在KRB_TGS_REP消息中返回转发TGT2（<strong>可转发的标记Forwarded</strong>）</li>
+<li>用户使用TGT1向KDC申请访问Service1的ST（服务票据）</li>
+<li>TGS返回给用户一个ST（服务票据）</li>
+</ol>
+<p>到第六步这里，其实大家都看到了就是一个完整的kerberos票据验证流程，唯一有一个不同，那就是在请求了TGT1票据之后还会再去请求另一张TGT2票据，这个TGT2的票据跟TGT1唯一的不同点就是带有”可转发的标记Forwarded</p>
+<p>7.用户发送KRB_AP_REQ请求至Service1，这个请求中包含了TGT1和ST（服务票据）、TGT2、TGT2的Session key</p>
+<p>在第七步的时候可以看到，发送给Service1的时候会发送了相关的TGT1 ST 和 TGT2 TGT2的Session key，需要注意的就是这里的TGT2（可转发的标记） TGT2的Session key会被存储到Service1中用于之后的请求</p>
+<p>8.<strong>Service1使用用户的TGT2（可转发的标记）通过KRB_TGS_REQ发送给KDC，以用户的名义请求能够访问Service2的票据ST2</strong></p>
+<p>9.KDC在KRB_TGS_REP消息中返回Service2到Service1的票据ST2</p>
+<p>10.Service1以客户的名义用ST2发送KRB_AP_REQ请求</p>
+<p>为什么是以客户的名义呢？个人理解就是因为上面我们说的TGT2（可转发的标记）来请求Service2。</p>
+<p>11.Service2响应步骤10中Service1的请求</p>
+<p>12.Service1响应步骤7中用户的请求</p>
+<p>13.<strong>在这个过程中的TGT转发机制，没有限制Service1对TGT2的使用，也就是说Service1可以通过TGT2来请求任意服务</strong></p>
+<p>14.KDC返回步骤13中请求的票据，15和16即为Service1通过模拟用户来访问其他ServiceXXXX</p>
+<p>当user访问service1时，如果service1的服务账号如果开启了Unconstrained Delegation（非约束委派），<strong>则当user访问service1时会将user的TGT（带有可转发标记）发送给service1并保存在内存中以备下次重用</strong>，然后service1 就可以利用这张TGT以user的身份去访问域内的任何服务（<strong>任何服务是指user能访问的服务</strong>）了。</p>
+<p>说在简单点就是：</p>
+<p>比如：service1配置了非约束性委派，用户A需要委派service1来访问service2。这个service1可以是主机账户。</p>
+<p>那么非约束性委派的过程可以大概理解为：</p>
+<p>用户A向KDC申请一张可转发的用户A自己的TGT与访问service1需要的ticket。<br>用户A将第一步得到的ticket与可转发的tgt与tgt中的session key一起发送给了service1.<br>service1使用那张tgt与session key来代表用户A行使后续操作例如访问service2.</p>
+<h2 id="非约束委派的利用"><a href="#非约束委派的利用" class="headerlink" title="非约束委派的利用"></a>非约束委派的利用</h2><p>主机账户的非约束委派利用：</p>
+<p>一台 WIN-BING-PC 机器名称的机器</p>
+<p><img src="/2022/03/04/%E9%9D%9E%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE/image-20220215013337904.png" srcset="/img/loading.gif" lazyload alt="image-20220215013337904"></p>
+<p>通过adFind进行查询，也可以看到此时已经被设置为了非约束委派</p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs armasm"><span class="hljs-symbol">adFind</span> -<span class="hljs-keyword">b</span> dc<span class="hljs-symbol">=hengge</span>,dc<span class="hljs-symbol">=com</span> -f <span class="hljs-string">&quot;(&amp;(objectCategory=computer)(objectClass=computer)(userAccountControl:1.2.840.113556.1.4.803:=524288))&quot;</span> -<span class="hljs-meta">dn</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="/2022/03/04/%E9%9D%9E%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE/image-20220215013410246.png" srcset="/img/loading.gif" lazyload alt="image-20220215013410246"></p>
+<p>然后域控再次访问 WIN-BING-PC 这台机器，通过命令<code>dir //WIN-BING-PC/c$</code>，走是的kerberos的cifs协议</p>
+<p><img src="/2022/03/04/%E9%9D%9E%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE/image-20220215013447343.png" srcset="/img/loading.gif" lazyload alt="image-20220215013447343"></p>
+<p>然后导出 WIN-BING-PC 机器中的票据</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">mimikatz.exe <span class="hljs-string">&quot;privilege::debug&quot;</span> <span class="hljs-string">&quot;sekurlsa::tickets /export&quot;</span> <span class="hljs-keyword">exit</span><br></code></pre></td></tr></table></figure>
+
+<p>结果发现没有相关的administrator的票据kirbi</p>
+<p><img src="/2022/03/04/%E9%9D%9E%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE/image-20220215013516853.png" srcset="/img/loading.gif" lazyload alt="image-20220215013516853"></p>
+<p>接着我用域控通过命令来访问<code>Enter-PSSession -ComputerName WIN-BING-PC</code></p>
+<p><img src="/2022/03/04/%E9%9D%9E%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE/image-20220215013531752.png" srcset="/img/loading.gif" lazyload alt="image-20220215013531752"></p>
+<p>然后导出 WIN-BING-PC 机器中的票据</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">mimikatz.exe <span class="hljs-string">&quot;privilege::debug&quot;</span> <span class="hljs-string">&quot;sekurlsa::tickets /export&quot;</span> <span class="hljs-keyword">exit</span><br></code></pre></td></tr></table></figure>
+
+<p>然后会看到一张基于导出了相关的域控中administrator的高权限票据</p>
+<p><img src="/2022/03/04/%E9%9D%9E%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE/image-20220215013544159.png" srcset="/img/loading.gif" lazyload alt="image-20220215013544159"></p>
+<p>访问域控 dc1.hengge.com ，可以看到当前没有权限访问</p>
+<p><img src="/2022/03/04/%E9%9D%9E%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE/image-20220215013555394.png" srcset="/img/loading.gif" lazyload alt="image-20220215013555394"></p>
+<p>然后这里来进行导入票据访问，可以发现成功进行访问了</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">mimikatz <span class="hljs-string">&quot;kerberos::ptt [0;7f4a8]-2-0-60a10000-Administrator@krbtgt-HENGGE.COM.kirbi&quot;</span> <span class="hljs-keyword">exit</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="/2022/03/04/%E9%9D%9E%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE/image-20220215013617993.png" srcset="/img/loading.gif" lazyload alt="image-20220215013617993"></p>
+<h3 id="服务账号的非约束委派利用"><a href="#服务账号的非约束委派利用" class="headerlink" title="服务账号的非约束委派利用"></a>服务账号的非约束委派利用</h3><p><strong>实验环境：</strong></p>
+<blockquote>
+<p>域：YUNYING.LAB</p>
+<p>域控：WindowsServer 2008 R2 x64(DC)：用户Administrator</p>
+<p>域内主机：WindowsServer 2008 R2 x64(s2)：用户tsvc</p>
+</blockquote>
+<p><strong>所需工具：</strong></p>
+<blockquote>
+<p>Mimikatz</p>
+</blockquote>
+<p><strong>实验流程：</strong></p>
+<p>在域中只有服务账户才能有委派功能，所以先把用户tsvc设置为服务账号。</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">setspn</span> -U -Avariant/golden tsvc<br></code></pre></td></tr></table></figure>
+
+<p>通过setspn -l tsvc查看配置成功。</p>
+<p><img src="/2022/03/04/%E9%9D%9E%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE/image-20220215014121992.png" srcset="/img/loading.gif" lazyload alt="image-20220215014121992"></p>
+<p>然后在“AD用户和计算机”中将tsvc设置为非约束委派模式</p>
+<p><img src="/2022/03/04/%E9%9D%9E%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE/image-20220215014141813.png" srcset="/img/loading.gif" lazyload alt="image-20220215014141813"></p>
+<p>此时在域控上使用Administrator访问tsvc所在主机S2的SMB服务。</p>
+<p><img src="/2022/03/04/%E9%9D%9E%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE/image-20220215014154251.png" srcset="/img/loading.gif" lazyload alt="image-20220215014154251"></p>
+<p>我们在S2上通过mimikatz可以导出Administrator发送过来的TGT内容。这里需要使用管理员权限打开mimikatz，然后通过privilege::debug命令提升权限，如果没有提升权限会报kuhl_m_sekurlsa_acquireLSA错误。再使用sekurlsa::tickets/export命令导出内存中所有的票据。</p>
+<p><img src="/2022/03/04/%E9%9D%9E%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE/image-20220215014206262.png" srcset="/img/loading.gif" lazyload alt="image-20220215014206262"></p>
+<p>可以看到名称为[0;9bec9]<a href="mailto:&#x2d;&#50;&#45;&#x30;&#45;&#x36;&#48;&#97;&#48;&#x30;&#48;&#x30;&#48;&#x2d;&#65;&#x64;&#109;&#105;&#x6e;&#x69;&#x73;&#116;&#114;&#x61;&#x74;&#x6f;&#114;&#64;&#x6b;&#x72;&#x62;&#116;&#x67;&#x74;&#45;&#89;&#x55;&#78;&#89;&#73;&#x4e;&#x47;&#46;&#x4c;&#65;&#x42;&#46;&#107;&#x69;&#114;&#x62;&#x69;">&#x2d;&#50;&#45;&#x30;&#45;&#x36;&#48;&#97;&#48;&#x30;&#48;&#x30;&#48;&#x2d;&#65;&#x64;&#109;&#105;&#x6e;&#x69;&#x73;&#116;&#114;&#x61;&#x74;&#x6f;&#114;&#64;&#x6b;&#x72;&#x62;&#116;&#x67;&#x74;&#45;&#89;&#x55;&#78;&#89;&#73;&#x4e;&#x47;&#46;&#x4c;&#65;&#x42;&#46;&#107;&#x69;&#114;&#x62;&#x69;</a>的这一条即为Administrator发送的TGT。</p>
+<p>此时访问域控被拒绝。</p>
+<p><img src="/2022/03/04/%E9%9D%9E%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE/image-20220215014215791.png" srcset="/img/loading.gif" lazyload alt="image-20220215014215791"></p>
+<p>通过</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">kerberos::ptt <span class="hljs-literal">[<span class="hljs-number">0</span>;<span class="hljs-number">9</span><span class="hljs-identifier">bec9</span>]</span>-<span class="hljs-number">2</span>-<span class="hljs-number">0</span>-<span class="hljs-number">60</span>a00000-Administrator@krbtgt-<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">YUNYING</span>.</span><span class="hljs-module"><span class="hljs-identifier">LAB</span>.</span></span>kirbi<br></code></pre></td></tr></table></figure>
+
+<p>命令将TGT内容导入到当前会话中，其实这也是一次Pass The Ticket攻击（有兴趣的可以了解一下）。</p>
+<p>通过kerberos::list查看当前会话可以看到票据已经导入到当前会话。</p>
+<p><img src="/2022/03/04/%E9%9D%9E%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE/image-20220215014230146.png" srcset="/img/loading.gif" lazyload alt="image-20220215014230146"></p>
+<p>导入之后已经可以访问域控的共享目录。也就是说每当存在用户访问tsvc的服务时，tsvc的服务就会将访问者的TGT保存在内存中，可以通过这个TGT访问这个TGT所属用户的所有服务。</p>
+<h2 id="非约束委派-Spooler打印机服务"><a href="#非约束委派-Spooler打印机服务" class="headerlink" title="非约束委派+Spooler打印机服务"></a>非约束委派+Spooler打印机服务</h2><p>环境：DM可委派，DC是域控。</p>
+<p>利用Windows打印系统远程协议（MS-RPRN）中的一种旧的但是默认启用的方法，在该方法中，域用户可以使用MS-RPRN <code>RpcRemoteFindFirstPrinterChangeNotification(Ex)</code>方法强制任何运行了Spooler服务的计算机以通过Kerberos或NTLM对攻击者选择的目标进行身份验证。</p>
+<p>工具：<a target="_blank" rel="noopener" href="https://github.com/leechristensen/SpoolSample">https://github.com/leechristensen/SpoolSample</a></p>
+<p>议题文章地址：<a target="_blank" rel="noopener" href="https://www.slideshare.net/harmj0y/derbycon-the-unintended-risks-of-trusting-active-directory">https://www.slideshare.net/harmj0y/derbycon-the-unintended-risks-of-trusting-active-directory</a></p>
+<p>需要以域用户运行SpoolSample，需要开启Print Spooler服务，该服务默认自启动。</p>
+<p><img src="/2022/03/04/%E9%9D%9E%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE/image-20220215014745102.png" srcset="/img/loading.gif" lazyload alt="image-20220215014745102"></p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs reasonml"><span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">SpoolSample</span>.</span></span>exe DC DM<br></code></pre></td></tr></table></figure>
+
+<p>使DC强制访问DM认证，同时使用rubeus监听来自DC的4624登录日志</p>
+<figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs smali">Rubeus.exe<span class="hljs-built_in"> monitor </span>/interval:1 /filteruser:dc$<br></code></pre></td></tr></table></figure>
+
+<p><img src="/2022/03/04/%E9%9D%9E%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE/image-20220215014758924.png" srcset="/img/loading.gif" lazyload alt="image-20220215014758924"></p>
+<p>使用Rubues导入base64的ticket</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">.<span class="hljs-regexp">/Rubeus.exe ptt /</span>ticket:base64<br></code></pre></td></tr></table></figure>
+
+<p>此时导出的ticket就有DC的TGT了</p>
+<p><img src="/2022/03/04/%E9%9D%9E%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE/image-20220215014811204.png" srcset="/img/loading.gif" lazyload alt="image-20220215014811204"></p>
+<p>用mimikatz ptt就完事</p>
+<p><img src="/2022/03/04/%E9%9D%9E%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE/image-20220215014822213.png" srcset="/img/loading.gif" lazyload alt="image-20220215014822213"></p>
+<p>参考：<a target="_blank" rel="noopener" href="https://y4er.com/post/kerberos-unconstrained-delegation/">https://y4er.com/post/kerberos-unconstrained-delegation/</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.freebuf.com/articles/neopoints/198381.html">https://www.freebuf.com/articles/neopoints/198381.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/zpchcbd/p/12939246.html">https://www.cnblogs.com/zpchcbd/p/12939246.html</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%86%85%E7%BD%91/">内网</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%86%85%E7%BD%91/">内网</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/03/04/%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">约束委派</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/03/04/MS14068/">
+                        <span class="hidden-mobile">MS14068</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.2/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

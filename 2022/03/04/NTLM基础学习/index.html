@@ -1,0 +1,637 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/logo.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="永安寺">
+  <meta name="keywords" content="">
+  
+  <title>NTLM基础学习 - Victory</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.6.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"txluck.github.io","root":"/","version":"1.8.10","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"NnQfFjLx8ctoF1RbDVgWqADt-gzGzoHsz","app_key":"0Lsfi2upctErQTQC8xHAMnIs","server_url":"https://nnqffjlx.lc-cn-n1-shared.com"}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Victory's Note</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="NTLM基础学习">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      永安寺
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-03-04 21:57" pubdate>
+        2022年3月4日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.8k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      22
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">NTLM基础学习</h1>
+            
+            <div class="markdown-body">
+              <h2 id="Windows-认证"><a href="#Windows-认证" class="headerlink" title="Windows 认证"></a>Windows 认证</h2><h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><ul>
+<li>Windows 系统内部不保存⽤户的明⽂密码，只保存密码的 Hash 值 </li>
+<li>本机⽤户 的密码 Hash 是存放 SAM（ C:/Windows/System32/config/SAM ）⽂件中 </li>
+<li>域内⽤户 的密码 Hash 是存在域控的 NTDS.DIT ⽂件中</li>
+</ul>
+<p>Windows 系统导出密码的格式如下： </p>
+<p>⽤户名:RID:LM-Hash:NTLM-Hash</p>
+<p><img src="/2022/03/04/NTLM%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/image-20220219220317422.png" srcset="/img/loading.gif" lazyload alt="image-20220219220317422"></p>
+<p>当 Windows ⽤户密码 ≤ 14 个字符，SAM ⽂件中是 LM-Hash 值 + NTLM-Hash 值 </p>
+<p>当 Windows ⽤户密码 ＞14 个字符，SAM ⽂件中是 NTLM-Hash 值</p>
+<h2 id="LM-Hash-amp-NTLM-Hash"><a href="#LM-Hash-amp-NTLM-Hash" class="headerlink" title="LM Hash &amp; NTLM Hash"></a>LM Hash &amp; NTLM Hash</h2><h3 id="LM-Hash"><a href="#LM-Hash" class="headerlink" title="LM Hash"></a>LM Hash</h3><p>全称是LAN Manager Hash, windows最早用的加密算法，由IBM设计。</p>
+<p>Windows XP、Windows 2000、Windows 2003 系统默认使⽤ LM Hash 加密 Windows 2008、Windows 7、Windows Vista、Windows 8、Windows 10、Windows 2016 禁⽤了 LM Hash， 默认使⽤ NTLM Hash</p>
+<h3 id="LM-Hash-⽣成步骤"><a href="#LM-Hash-⽣成步骤" class="headerlink" title="LM-Hash ⽣成步骤:"></a>LM-Hash ⽣成步骤:</h3><ul>
+<li>1.⽤户⼝令全部转为⼤写 </li>
+<li>2.⽤户⼝令转为 16 进制之后不⾜ 14 个字符（28 位）⻓度，⽤ 0 补⾜ </li>
+<li>3.把密码的 16 进制字符串分成两个 7 byte 部分 </li>
+<li>4.每部分转换成⽐特流，并且⻓度为 56 bit，⻓度不⾜使⽤ 0 在左边补⻬⻓度 </li>
+<li>5.再分 7 bit 为⼀组末尾加 0，转换为 16 进制，组成新的编码 </li>
+<li>6.分别⽤ key 为“KGS!@#$％”（4B47532140232425）进⾏ DES 加密 </li>
+<li>7.最后将⼆组 DES 加密后的编码拼接，获得 LM-Hash 值</li>
+</ul>
+<p><img src="/2022/03/04/NTLM%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/image-20220219220634249.png" srcset="/img/loading.gif" lazyload alt="image-20220219220634249"></p>
+<h3 id="LM加密算法存在一些固有的漏洞"><a href="#LM加密算法存在一些固有的漏洞" class="headerlink" title="LM加密算法存在一些固有的漏洞"></a>LM加密算法存在一些固有的漏洞</h3><ol>
+<li>首先，密码长度最大只能为14个字符</li>
+<li>密码不区分大小写。在生成哈希值之前，所有密码都将转换为大写</li>
+<li>查看我们的加密过程，就可以看到使用的是分组的DES，如果密码强度是小于7位，那么第二个分组加密后的结果肯定是aad3b435b51404ee，如果我们看到lm hash的结尾是aad3b435b51404ee，就可以很轻易的发现密码强度少于7位</li>
+<li>一个14个字符的密码分成7 + 7个字符，并且分别为这两个半部分计算哈希值。这种计算哈希值的方式使破解难度成倍增加，因为攻击者需要将7个字符（而不是14个字符）强制暴力破解。这使得14个字符的密码的有效强度等于，或者是7个字符的密码的两倍，该密码的复杂度明显低于<a target="_blank" rel="noopener" href="https://p0.ssl.qhimg.com/t01f87ddf44d540f820.png"><img src="https://p0.ssl.qhimg.com/t01f87ddf44d540f820.png" srcset="/img/loading.gif" lazyload alt="img"></a>14个字符的密码的理论强度。</li>
+<li>Des密码强度不高</li>
+</ol>
+<h3 id="NTLM-Hash"><a href="#NTLM-Hash" class="headerlink" title="NTLM Hash"></a>NTLM Hash</h3><ul>
+<li>为了解决 LM 加密和身份验证⽅案中固有的安全弱点，Microsoft 于 1993 年在 Windows NT 3.1 中引⼊了 NTLM 协议 </li>
+<li>通常是指 Windows 系统下 Security Account Manager 中保存的⽤户密码 Hash </li>
+<li>可以直接⽤于 PTH（Pass The Hash），并且通常存在于 LSASS 进程中，便于 SSP（NTLM 安全⽀持提供程 序）使⽤</li>
+</ul>
+<p><img src="/2022/03/04/NTLM%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/image-20220219221338432.png" srcset="/img/loading.gif" lazyload alt="image-20220219221338432"></p>
+<p>也就是说从Windows Vista 和 Windows Server 2008开始，默认情况下只存储NTLM Hash，LM Hash将不再存在。(因此后面我们介绍身份认证的时候只介绍Net-ntlm，不再介绍net-lm)如果空密码或者不储蓄LM Hash的话，我们抓到的LM Hash是AAD3B435B51404EEAAD3B435B51404EE。</p>
+<h3 id="NTLM-Hash-⽣成步骤"><a href="#NTLM-Hash-⽣成步骤" class="headerlink" title="NTLM-Hash ⽣成步骤"></a>NTLM-Hash ⽣成步骤</h3><p><img src="/2022/03/04/NTLM%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/image-20220219221529586.png" srcset="/img/loading.gif" lazyload alt="image-20220219221529586"></p>
+<p>1.先将用户密码转换为十六进制格式。</p>
+<p>2.将十六进制格式的密码进行Unicode编码。</p>
+<p>3.使用MD4摘要算法对Unicode编码数据进行Hash计算</p>
+<h3 id="NTLM-本地认证"><a href="#NTLM-本地认证" class="headerlink" title="NTLM 本地认证"></a>NTLM 本地认证</h3><p><img src="/2022/03/04/NTLM%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/image-20220219221635959.png" srcset="/img/loading.gif" lazyload alt="image-20220219221635959"></p>
+<ol>
+<li><p>Windows 调⽤ winlogon.exe 进程（也就是我们平常⻅到的登录框）接收⽤户的密码，之后将密码传送给 lsass.exe 进程 </p>
+</li>
+<li><p>lsass.exe 进程会先在内存中存储⼀份明⽂密码，然后将明⽂密码加密为 NTLM-Hash 后，与Windows 本地的 SAM 数据库中该⽤户的 NTLM-Hash 对⽐，如果⼀致则通过认证</p>
+</li>
+</ol>
+<h3 id="Net-NTLM-Hash"><a href="#Net-NTLM-Hash" class="headerlink" title="Net-NTLM Hash"></a>Net-NTLM Hash</h3><ul>
+<li>Net-NTLM Hash 指⽹络环境下 NTLM 认证中的 Hash </li>
+<li>Net-NTLM Hash 是 Challenge/Response 认证机制中客户端发往服务端的 Response </li>
+<li>Net-NTLM Hash 不能直接获取，可通过 Responder ⼯具进⾏拦截获取，此 Hash 不能进⾏PTH（Pass The Hash），但可进⾏中继转发</li>
+</ul>
+<h4 id="NTLM-认证机制"><a href="#NTLM-认证机制" class="headerlink" title="NTLM 认证机制"></a>NTLM 认证机制</h4><p>NTLM 是⼀种⽹络认证协议，采⽤ Challenge/Response 机制</p>
+<p><img src="/2022/03/04/NTLM%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/image-20220219222855462.png" srcset="/img/loading.gif" lazyload alt="image-20220219222855462"></p>
+<ul>
+<li>1.⾸先客户端向服务端发送⽤户名以及本机的⼀些信息 </li>
+<li>2.服务端接收到客户端的⽤户名后，先⽣成⼀个随机的 16 位的 Challenge（挑战随机数），本地储存后将 Challenge 返回给客户端 </li>
+<li>3.客户端接收到服务端发来的 Challenge 后，使⽤⽤户输⼊密码的 NTLM Hash 对 Challenge 进⾏加密⽣成 Response（也叫 Net-NTLM Hash），将 Response 发送给服务端 </li>
+<li>PS：经过NTLMHash加密的Challenge称为NetNTLM Hash。</li>
+<li>4.服务端接收到客户端发来的 Response，使⽤数据库中对应⽤户的 NTLM Hash 对之前存储的 Challenge 进⾏ 加密，得到的结果与接收的 Response 进⾏对⽐，如果⼀致则通过认证</li>
+</ul>
+<h4 id="NTLM-认证缺陷"><a href="#NTLM-认证缺陷" class="headerlink" title="NTLM 认证缺陷"></a>NTLM 认证缺陷</h4><ul>
+<li>在认证过程中⽤户的明⽂密码并没有在客户端和服务端之间传输，取⽽代之的是 Net-NTLM Hash </li>
+<li>如果攻击者得到了⽤户的 NTLM Hash，那么便可以冒充该⽤户通过身份验证，即 Hash 传递攻击（Pass The Hash，PTH）</li>
+</ul>
+<h3 id="NTLM-认证协议"><a href="#NTLM-认证协议" class="headerlink" title="NTLM 认证协议"></a>NTLM 认证协议</h3><ul>
+<li>在 NTLM 认证中，分为 Net-NTLM v1、Net-NTLM v2 两种协议 </li>
+<li>不同协议使⽤不同格式的 Challenge 和加密算法 </li>
+<li>所以存在不同协议的 Net-NTLM Hash，即 Net-NTLM v1 Hash、Net-NTLM v2 Hash 两种协议 </li>
+<li>Net-NTLM v1：DES 加密、8 位 Challenge </li>
+<li>Net-NTLM v2：HMAC-MD5 加密、16 位 Challenge</li>
+</ul>
+<h3 id="NTLM-域认证"><a href="#NTLM-域认证" class="headerlink" title="NTLM 域认证"></a>NTLM 域认证</h3><p>域认证默认⾸选是 Kerberos 认证，但是也可以使⽤ NTLM 来进⾏认证 </p>
+<p>NTLM 在域环境中区别主要是最终在域控（DC）中完成验证</p>
+<p><img src="/2022/03/04/NTLM%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/image-20220219223830895.png" srcset="/img/loading.gif" lazyload alt="image-20220219223830895"></p>
+<ul>
+<li>1.客户端向服务端发送⽤户名等信息 </li>
+<li>2.服务端返回随机 16 位 Challenge </li>
+<li>3.客户端⽤本地 NTLM Hash 加密⽣成 Response，并将 Response 发送给服务端 </li>
+<li>4.服务端向域控（DC）发送⽤户名、之前返回给客户端的 Challenge、客户端发来的 Response </li>
+<li>5.域控（DC）⽤本地数据库（NTDT.DIT）⾥的 NTLM Hash 加密 Challenge，将结果与 Response 对⽐，然后 将验证结果返回给服务端 </li>
+<li>6.服务端再将结果消息返回给客户端</li>
+</ul>
+<h3 id="Net-NTLM-Hash-获取"><a href="#Net-NTLM-Hash-获取" class="headerlink" title="Net-NTLM Hash 获取"></a>Net-NTLM Hash 获取</h3><p>利⽤ Responder ⼯具，配合⼀些中间⼈或者其他技巧，它可以通过设置多个模拟的恶意进程（如 SQL 服务器、 FTP、HTTP 和 SMB 服务器等）来直接模拟凭据或模拟 Challenge/Response 验证的过程，并捕获客户端发送的 Net-NTLM Hash</p>
+<p>项⽬地址：<a target="_blank" rel="noopener" href="https://github.com/SpiderLabs/Responder">https://github.com/SpiderLabs/Responder</a></p>
+<h2 id="SSP-amp-SSPI"><a href="#SSP-amp-SSPI" class="headerlink" title="SSP &amp; SSPI"></a>SSP &amp; SSPI</h2><p><img src="/2022/03/04/NTLM%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/image-20220219225838549.png" srcset="/img/loading.gif" lazyload alt="image-20220219225838549"></p>
+<ul>
+<li>SSPI(Security Support Provider Interface)</li>
+</ul>
+<p>这是 Windows 定义的一套接口，此接口定义了与安全有关的功能函数， 用来获得验证、信息完整性、信息隐私等安全功能，就是定义了一套接口函数用来身份验证，签名等，但是没有具体的实现。</p>
+<ul>
+<li>SSP(Security Support Provider)</li>
+</ul>
+<p> SSPI 的实现者，对SSPI相关功能函数的具体实现。微软自己实现了如下的 SSP，用于提供安全功能：</p>
+<ol>
+<li><p>1.</p>
+<p>NTLM SSP</p>
+</li>
+<li><p>2.</p>
+<p>Kerberos</p>
+</li>
+<li><p>3.</p>
+<p>Cred SSP</p>
+</li>
+<li><p>4.</p>
+<p>Digest SSP</p>
+</li>
+<li><p>5.</p>
+<p>Negotiate SSP</p>
+</li>
+<li><p>6.</p>
+<p>Schannel SSP</p>
+</li>
+<li><p>7.</p>
+<p>Negotiate Extensions SSP</p>
+</li>
+<li><p>8.</p>
+<p>PKU2U SSP</p>
+</li>
+</ol>
+<p>在系统层面，SSP就是一个dll，来实现身份验证等安全功能，实现的身份验证机制是不一样的。比如 NTLM SSP 实现的就是一种 Challenge/Response 验证机制。而 Kerberos 实现的就是基于 ticket 的身份验证机制。我们可以编写自己的 SSP，然后注册到操作系统中，让操作系统支持更多的自定义的身份验证方法。</p>
+<p>这个地方可以用于留作后门。</p>
+<p>参考：<a target="_blank" rel="noopener" href="https://www.anquanke.com/post/id/193149#h2-9">https://www.anquanke.com/post/id/193149#h2-9</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/NTLM/">NTLM</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/NTLM/">NTLM</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/03/04/Kerberoasting/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Kerberoasting</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/03/04/%E5%9F%BA%E4%BA%8E%E8%B5%84%E6%BA%90%E7%9A%84%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE/">
+                        <span class="hidden-mobile">基于资源的约束委派</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.2/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

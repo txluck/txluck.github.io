@@ -194,6 +194,497 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2022/03/04/Kerberoasting/" target="_self">
+          Kerberoasting
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/03/04/Kerberoasting/" target="_self">
+          
+          
+            
+          
+          第一种利用一、 Kerberos认证过程
+ Kerberoasting 当域内某个用户去请求同域内的某个服务实例时，请求会首先被 送达至KDS 的 AS 中进行身份认证。
+ 通过后 AS 会返回一个由用户密码hash加密而成的TGT票据给用户，然后用户再拿着TGT票据去请求TGS，TGS验证成功后会返回一个用对应服务账号的密码hash加密过**(RC4_HMAC_MD5)的票据TGS**
+ 用户拿
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-03-04 22:17" pubdate>
+              2022-03-04
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%86%85%E7%BD%91/">内网</a>
+            
+              <a href="/categories/%E5%86%85%E7%BD%91/Kerberos/">Kerberos</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Kerberos/">Kerberos</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/03/04/NTLM%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/" target="_self">
+          NTLM基础学习
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/03/04/NTLM%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/" target="_self">
+          
+          
+            
+          
+          Windows 认证介绍
+Windows 系统内部不保存⽤户的明⽂密码，只保存密码的 Hash 值 
+本机⽤户 的密码 Hash 是存放 SAM（ C:/Windows/System32/config/SAM ）⽂件中 
+域内⽤户 的密码 Hash 是存在域控的 NTDS.DIT ⽂件中
+
+Windows 系统导出密码的格式如下： 
+⽤户名:RID:LM-Hash:NTLM-Hash
+
+当 Win
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-03-04 21:57" pubdate>
+              2022-03-04
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/NTLM/">NTLM</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/NTLM/">NTLM</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/03/04/%E5%9F%BA%E4%BA%8E%E8%B5%84%E6%BA%90%E7%9A%84%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE/" target="_self">
+          基于资源的约束委派
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/03/04/%E5%9F%BA%E4%BA%8E%E8%B5%84%E6%BA%90%E7%9A%84%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE/" target="_self">
+          
+          
+            
+          
+          什么是基于资源的约束委派为了使用户/资源更加独立，Windows Server 2012中引入了基于资源的约束委派。基于资源的约束委派允许资源配置受信任的帐户委派给他们。基于资源的约束委派将委派的控制权交给拥有被访问资源的管理员。
+上面”基于资源的约束委派将委派的控制权交给拥有被访问资源的管理员”，这就导致了正常只要是域用户都有权限进行委派操作。
+与约束委派最大的不同点，就是”基于资源”这四个字，
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-03-04 21:57" pubdate>
+              2022-03-04
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%86%85%E7%BD%91/">内网</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%86%85%E7%BD%91/">内网</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/03/04/%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE/" target="_self">
+          约束委派
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/03/04/%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE/" target="_self">
+          
+          
+            
+          
+          由于非约束委派的不安全性，微软在windows2003中发布了约束委派的功能，如下所示
+在约束委派中的kerberos中，用户同样还是会将TGT发送给相关受委派的服务，但是由于S4U2proxy的影响，对发送给受委派的服务去访问其他服务做了限制，不允许受委派的服务代表用户使用这个TGT去访问任意服务，而是只能访问指定的服务。
+这里就引入了两个新的概念
+S4U2Self和S4U2ProxyS4U2s
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-03-04 21:57" pubdate>
+              2022-03-04
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%86%85%E7%BD%91/">内网</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%86%85%E7%BD%91/">内网</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/03/04/%E9%9D%9E%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE/" target="_self">
+          非约束委派
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/03/04/%E9%9D%9E%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE/" target="_self">
+          
+          
+            
+          
+          域委派是什么及其由来域委派是指：将域内用户的权限委派给服务账号，使得服务账号能以用户权限开展域内活动
+懂一个东西的产生，肯定要先知道为什么会产生这个东西？
+在Windows 2000 Server首次发布Active Directory时，Microsoft必须提供一种简单的机制来支持用户通过kerberos向web server进行身份验证并需要代表该用户更新后端数据库服务器上的记录的方案。这通
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-03-04 21:57" pubdate>
+              2022-03-04
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%86%85%E7%BD%91/">内网</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%86%85%E7%BD%91/">内网</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/03/04/MS14068/" target="_self">
+          MS14068
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/03/04/MS14068/" target="_self">
+          
+          
+            
+          
+          MS14068 是一个能够使普通用户提权到域控权限的权限提升漏洞。攻击者可以通过构 造特定的请求包来达到提升权限的目的。首先我们来说一下利用方式。
+1、利用方式实验环境：
+域：YUNYING.LAB
+
+域控：WindowsServer 2008 R2 x64(DC)
+域内主机：Windows7 x64(s1):域帐户ts1
+
+所需工具：
+
+Pykek
+mimikatz
+
+攻击流程：
+实验之前需要在
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-03-04 21:56" pubdate>
+              2022-03-04
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%86%85%E7%BD%91/">内网</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/">漏洞复现</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/03/04/%E9%BB%84%E9%87%91%E7%A5%A8%E6%8D%AE%E5%92%8C%E7%99%BD%E9%93%B6%E7%A5%A8%E6%8D%AE/" target="_self">
+          黄金票据和白银票据
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/03/04/%E9%BB%84%E9%87%91%E7%A5%A8%E6%8D%AE%E5%92%8C%E7%99%BD%E9%93%B6%E7%A5%A8%E6%8D%AE/" target="_self">
+          
+          
+            
+          
+          黄金票据（Golden Ticket）Kerberos的认证流程就不多介绍了
+原理：在AS_REQ &amp; AS_REP中，用户使用自身hash加密时间戳发送给KDC，KDC验证成功后返回用krbtgt hash加密的TGT票据。如果我们有krbtgt的hash，就可以自己给自己签发任意用户的tgt票据。
+利用前提：
+拿到域控(没错就是拿到域控QAQ),适合做权限维持
+有krbtgt用户的ha
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-03-04 21:56" pubdate>
+              2022-03-04
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%86%85%E7%BD%91/">内网</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%86%85%E7%BD%91/">内网</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/03/04/Kerberos%E4%B8%8ESPN/" target="_self">
+          Kerberos与SPN
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/03/04/Kerberos%E4%B8%8ESPN/" target="_self">
+          
+          
+            
+          
+          一、SPN 简介SPN(ServicePrincipal Names)服务主体名称，是服务实例(比如：HTTP、SMB、MySQL等服务)的唯一标识符。
+Kerberos认证过程使用SPN将服务实例与服务登录账户相关联，如果想使用 Kerberos 协议来认证服务，那么必须正确配置SPN。如果在整个林或域中的计算机上安装多个服务实例，则每个实例都必须具有自己的 SPN。如果客户端可能使用多个名称进
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-03-04 21:56" pubdate>
+              2022-03-04
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%86%85%E7%BD%91/">内网</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Kerberos/">Kerberos</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/03/04/Kerberos/" target="_self">
+          Kerberos
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/03/04/Kerberos/" target="_self">
+          
+          
+            
+          
+          
+前言Kerberos 是一种由 MIT（麻省理工大学）提出的一种网络身份验证协议。它旨在通过使 用密钥加密技术为客户端/服务器应用程序提供强身份验证。
+因为Kerberos协议 一般运用在域环境中  所以先结束一下域环境
+域环境​        由于 Kerberos 主要是用在域环境下的身份认证协议，所以在说之前先说下域环境的一 些概念。首先域的产生是为了解决企业内部的资源管理问题，比如一个公
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-03-04 21:55" pubdate>
+              2022-03-04
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%86%85%E7%BD%91/">内网</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Kerberos/">Kerberos</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/" target="_self">
           zbzcms审计供新手学习
         </a>
@@ -237,544 +728,6 @@
               <a href="/tags/web/">web</a>
             
               <a href="/tags/PHP/">PHP</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/02/10/wuzhicms%E5%AE%A1%E8%AE%A1/" target="_self">
-          wuzhicms审计
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2022/02/10/wuzhicms%E5%AE%A1%E8%AE%A1/" target="_self">
-          
-          
-            
-          
-           文章首发于奇安信社区：https://forum.butian.net/share/1126
-前言在网上漫游发现的一个cms cnvd也是有提交的也是初次审计这种官网：https://www.wuzhicms.com/现在也已经好像没更新了
-也是先看了一会代码 才知道这是MVC的 之前由于也没有了解过MVC 就很懵开始啥都没看懂后来经过百度 和 求助了一波团队的时候 总算是有一点点明白了 能把代
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-02-10 13:59" pubdate>
-              2022-02-10
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">代码审计</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/web/">web</a>
-            
-              <a href="/tags/PHP/">PHP</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/02/10/%E6%BA%A2%E5%87%BA%E6%8F%90%E6%9D%83%E4%B8%8A%E7%BA%BF/" target="_self">
-          溢出提权上线
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2022/02/10/%E6%BA%A2%E5%87%BA%E6%8F%90%E6%9D%83%E4%B8%8A%E7%BA%BF/" target="_self">
-          
-          
-            
-          
-          文章首发于火线：https://zone.huoxian.cn/d/858
-初次尝试出 也算是溢出的一次学习 望师傅们指点
-开始测试程序server.exe这个程序启动的时候会监听31337端口连接这个端口后 可以输入内容 然后会输出hello xxx！
-
-用kali先生成测试字符
-
-/usr/share/metasploit-framework/tools/exploit/pattern_cre
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-02-10 13:48" pubdate>
-              2022-02-10
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E9%80%86%E5%90%91/">逆向</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E6%B1%87%E7%BC%96/">汇编</a>
-            
-              <a href="/tags/%E9%80%86%E5%90%91/">逆向</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/02/05/MSF%E6%B8%97%E9%80%8F%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C%E6%8C%87%E5%8D%97/" target="_self">
-          MSF渗透常用操作指南
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2022/02/05/MSF%E6%B8%97%E9%80%8F%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C%E6%8C%87%E5%8D%97/" target="_self">
-          
-          
-            
-          
-          
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-02-05 12:59" pubdate>
-              2022-02-05
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/01/25/gitpush%E5%A4%B1%E8%B4%A5/" target="_self">
-          gitpush失败
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2022/01/25/gitpush%E5%A4%B1%E8%B4%A5/" target="_self">
-          
-          
-            
-          
-          Logon failed, use ctrl+c to cancel basic credential prompt.本地推送代码带Git仓库失败,报错Logon failed, use ctrl+c to cancel basic credential prompt.
-推送的时候弹出githup的登陆框,账号密码正确但是提示不正确
-
-
-解决方法:在网页上登陆你自己的githup账号,点击右上角头
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-01-25 11:03" pubdate>
-              2022-01-25
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/">常见错误</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Git/">Git</a>
-            
-              <a href="/tags/%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/">常见错误</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/01/22/%E8%BF%B7%E7%B3%8A%E7%9A%84%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F%E4%BB%A5%E5%8F%8A%E5%88%A9%E7%94%A8ssrf%E5%88%B0%E6%9C%80%E7%BB%88%E6%8F%90%E6%9D%83%E9%9D%B6%E6%9C%BA/" target="_self">
-          迷糊的提权方式以及利用ssrf到最终提权靶机
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2022/01/22/%E8%BF%B7%E7%B3%8A%E7%9A%84%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F%E4%BB%A5%E5%8F%8A%E5%88%A9%E7%94%A8ssrf%E5%88%B0%E6%9C%80%E7%BB%88%E6%8F%90%E6%9D%83%E9%9D%B6%E6%9C%BA/" target="_self">
-          
-          
-            
-          
-          文章首发于先知社区：https://xz.aliyun.com/t/10811
-目标是国外靶场
-打过才知道 学的知识太少了师傅们看看就行 大家都会 要是描述得不对的地方 求指点
-本地环境： kali
-首先是通过ssrf拿下的靶机第一台因为是连了vpn的所以可以直接扫目标ip:10.10.11.111拿到目标 只有ip 那就先扫端口nmap -v -sSV -Pn 10.10.11.111 -T4 
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-01-22 22:14" pubdate>
-              2022-01-22
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/HTB%E9%9D%B6%E5%9C%BA/">HTB靶场</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E9%9D%B6%E5%9C%BA/">靶场</a>
-            
-              <a href="/tags/%E5%86%85%E7%BD%91/">内网</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/10/30/%E7%BA%A2%E6%97%A57/" target="_self">
-          红日7
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/10/30/%E7%BA%A2%E6%97%A57/" target="_self">
-          
-          
-            
-          
-          
-拓扑图
-环境配置
-
-DMZ区IP段为192.168.43.1/24  因为我这里是开热点打的  图用的网上的
-
-第二层网络环境IP段为192.168.52.1/24
-
-第三层网络环境IP段为192.168.93.1/24
-
-DMZ区域
-
-Ubuntu（Web 1）配置了两个网卡，一个桥接可以对外提供服务，IP段设为 192.168.43.0/24，一个连接在 VMnet8 上，设为NAT模式，I
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-10-30 14:25" pubdate>
-              2021-10-30
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA/">红日靶场</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E9%9D%B6%E5%9C%BA/">靶场</a>
-            
-              <a href="/tags/%E5%86%85%E7%BD%91/">内网</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/10/30/%E7%BA%A2%E6%97%A54/" target="_self">
-          红日4
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/10/30/%E7%BA%A2%E6%97%A54/" target="_self">
-          
-          
-            
-          
-          
-概念图
-直接开干
-
-先进入ubuntu启动web
-
-先开启3个环境
-
-命令：
-
-cd /home/ubuntu/Desktop/vulhub/struts2/s2-045
-
-sudo docker-compose up -d
-
-cd /home/ubuntu/Desktop/vulhub/tomcat/CVE-2017-12615/
-
-sudo docker-compose up -d
-
-cd 
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-10-30 14:21" pubdate>
-              2021-10-30
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA/">红日靶场</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E9%9D%B6%E5%9C%BA/">靶场</a>
-            
-              <a href="/tags/%E5%86%85%E7%BD%91/">内网</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/10/30/%E7%BA%A2%E6%97%A51/" target="_self">
-          红日1
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/10/30/%E7%BA%A2%E6%97%A51/" target="_self">
-          
-          
-            
-          
-          
-概念图
-
-
-靶场环境  win7 是web服务器  2003 是域成员   2008是域控
-
-添加一个网卡
-
-win7是双网卡 一个桥接  一个52网段的网卡 另外两个都是52网段的网卡
-
-实验开始
-输入web服务器ip  打开是一个php探针页面
-
-通过这个页面可以 看到绝对路径 服务器信息  搭建的phpstydy版本  以及可以在最下面进行mysql数据库的连接测试
-
-发现是php探针  
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-10-30 13:47" pubdate>
-              2021-10-30
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA/">红日靶场</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E9%9D%B6%E5%9C%BA/">靶场</a>
-            
-              <a href="/tags/%E5%86%85%E7%BD%91/">内网</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/10/30/%E7%AE%80%E5%8D%95%E9%80%86%E5%90%91%E5%88%86%E6%9E%901/" target="_self">
-          简单逆向分析1
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/10/30/%E7%AE%80%E5%8D%95%E9%80%86%E5%90%91%E5%88%86%E6%9E%901/" target="_self">
-          
-          
-            
-          
-          
-程序效果
-
-
-输入一串字符串  然后输出key right或者error
-
-
-
-内部肯定是进行了判断  因为这里打印了 字符 我们可以直接通过这些关键词 来搜寻到 函数的入口
-
-
-在od里面
-
-
-
-
-然后回车进去
-
-
-看到error了  也看到right了  那应该是找对了  然后往上翻 找到函数的入口  F2打上断点  执行到这
-
-
-初步分析   这里定义了5个局部变量
-
-
-然后add esp
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-10-30 12:01" pubdate>
-              2021-10-30
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E9%80%86%E5%90%91/">逆向</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E6%B1%87%E7%BC%96/">汇编</a>
-            
-              <a href="/tags/%E9%80%86%E5%90%91/">逆向</a>
             
           </div>
         

