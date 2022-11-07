@@ -194,6 +194,111 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2022/03/04/%E5%9F%BA%E4%BA%8E%E8%B5%84%E6%BA%90%E7%9A%84%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE/" target="_self">
+          基于资源的约束委派
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/03/04/%E5%9F%BA%E4%BA%8E%E8%B5%84%E6%BA%90%E7%9A%84%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE/" target="_self">
+          
+          
+            
+          
+          什么是基于资源的约束委派为了使用户/资源更加独立，Windows Server 2012中引入了基于资源的约束委派。基于资源的约束委派允许资源配置受信任的帐户委派给他们。基于资源的约束委派将委派的控制权交给拥有被访问资源的管理员。
+上面”基于资源的约束委派将委派的控制权交给拥有被访问资源的管理员”，这就导致了正常只要是域用户都有权限进行委派操作。
+与约束委派最大的不同点，就是”基于资源”这四个字，
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-03-04 21:57" pubdate>
+              2022-03-04
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%86%85%E7%BD%91/">内网</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%86%85%E7%BD%91/">内网</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/03/04/%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE/" target="_self">
+          约束委派
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/03/04/%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE/" target="_self">
+          
+          
+            
+          
+          由于非约束委派的不安全性，微软在windows2003中发布了约束委派的功能，如下所示
+在约束委派中的kerberos中，用户同样还是会将TGT发送给相关受委派的服务，但是由于S4U2proxy的影响，对发送给受委派的服务去访问其他服务做了限制，不允许受委派的服务代表用户使用这个TGT去访问任意服务，而是只能访问指定的服务。
+这里就引入了两个新的概念
+S4U2Self和S4U2ProxyS4U2s
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-03-04 21:57" pubdate>
+              2022-03-04
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%86%85%E7%BD%91/">内网</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%86%85%E7%BD%91/">内网</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2022/03/04/%E9%9D%9E%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE/" target="_self">
           非约束委派
         </a>
@@ -622,117 +727,6 @@ Kerberos认证过程使用SPN将服务实例与服务登录账户相关联，如
               <a href="/tags/%E6%B1%87%E7%BC%96/">汇编</a>
             
               <a href="/tags/%E9%80%86%E5%90%91/">逆向</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/02/05/MSF%E6%B8%97%E9%80%8F%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C%E6%8C%87%E5%8D%97/" target="_self">
-          MSF渗透常用操作指南
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2022/02/05/MSF%E6%B8%97%E9%80%8F%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C%E6%8C%87%E5%8D%97/" target="_self">
-          
-          
-            
-          
-          MSF渗透常用操作指南一、msf安装与更新在服务器或者虚拟机执行(linux)
-
-curl https://raw.githubusercontent.com/rapid7/metasploitomnibus/master/config/templates/metasploit-frameworkwrappers/msfupdate.erb &gt; msfinstall 
-
-
-chmod 755
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-02-05 12:59" pubdate>
-              2022-02-05
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/MSF/">MSF</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/MSF/">MSF</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/01/25/gitpush%E5%A4%B1%E8%B4%A5/" target="_self">
-          gitpush失败
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2022/01/25/gitpush%E5%A4%B1%E8%B4%A5/" target="_self">
-          
-          
-            
-          
-          Logon failed, use ctrl+c to cancel basic credential prompt.本地推送代码带Git仓库失败,报错Logon failed, use ctrl+c to cancel basic credential prompt.
-推送的时候弹出githup的登陆框,账号密码正确但是提示不正确
-
-
-解决方法:在网页上登陆你自己的githup账号,点击右上角头
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-01-25 11:03" pubdate>
-              2022-01-25
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/">常见错误</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Git/">Git</a>
-            
-              <a href="/tags/%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/">常见错误</a>
             
           </div>
         

